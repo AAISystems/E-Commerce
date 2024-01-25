@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "boostrap": "^2.0.0",
+    "sass": "^1.70.0"
+  }
+}

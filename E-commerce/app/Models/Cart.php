@@ -18,4 +18,10 @@ class Cart extends Model
 
     ];
 
+    // Funcion tabla pivote con productos
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)->withPivot('quantity');
+    }
+
 }

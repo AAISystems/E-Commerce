@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('whislist_has_products', function (Blueprint $table) {
             $table->id();
-            $table->foreign('whislist_id')->references('id')->on('users');
-            $table->foreign('products_idProducts')->references('id')->on('products');
+            $table->unsignedBigInteger('products_id');
+            $table->unsignedBigInteger('whishlist_id');
+
+            $table->foreign('whishlist_id')->references('id')->on('whishlist');
+            $table->foreign('products_id')->references('id')->on('products');
             $table->timestamps();
         });
     }

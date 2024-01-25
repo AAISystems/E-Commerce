@@ -16,7 +16,10 @@ return new class extends Migration
             $table->id();
             $table->integer("amount");
             $table->integer("total_products");
-             $table->foreign('users_idusers')->references('id')->on('users');
+            $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('products_id');
+            $table->unsignedBigInteger('carts_orders_id');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

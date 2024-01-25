@@ -18,7 +18,8 @@ return new class extends Migration
             $table->integer("price");
             $table->integer("offer");
             $table->integer("stock");
-            $table->foreign('categories_idCategories')->references('id')->on('categories');
+            $table->unsignedBigInteger('categories_id');
+
             $table->timestamps();
         });
     }

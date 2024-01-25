@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('whishlist', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->date("birth_date");
-            $table->integer('telefono')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->unsignedBigInteger('roles_id');
-            $table->rememberToken();
+            $table->foreign('roles_id')->references('id')->on('roles');
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->timestamps();
+
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('whislist');
     }
 };

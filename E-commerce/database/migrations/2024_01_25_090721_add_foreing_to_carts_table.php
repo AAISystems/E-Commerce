@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('carts', function (Blueprint $table) {
-            $table->foreign('products_id')->references('id')->on('products');
+            // $table->foreign('products_id')->references('id')->on('products');
             $table->foreign('carts_orders_id')->references('id')->on('orders');
 
         });

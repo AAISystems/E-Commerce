@@ -40,6 +40,10 @@
 
                 </button>
             </form>
+            <div class="container mt-3">
+    <a href="{{ route('login') }}" class="btn btn-primary me-3">Login</a>
+    <a href="{{ route('register') }}" class="btn btn-success">Register</a>
+</div>
         </div>
     </div>
 </nav>

@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="container mt-3">
+    <h1>Creación del producto:</h1>
     <form action="{{ route('product.update') }}" method="POST">
         @csrf
 

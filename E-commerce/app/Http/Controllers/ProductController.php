@@ -28,7 +28,7 @@ class ProductController extends Controller
     //Método  para listar los productos
     public function list()
     {
-      $products=Product::all();
+      $products=Product::paginate(3);
       return view('Products.list_product',compact('products'));
 
     }

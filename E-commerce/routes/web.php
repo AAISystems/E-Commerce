@@ -18,7 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Cargamos las rutas con los métodos que vamos a utilizar para guardar la información en cada vista correspondiente. 
+
 Route::get('createProduct', [ ProductController::class, 'create' ]) -> name('product.create'); 
+
+// Aquí ya tenemos el producto creado, por  lo que accedemos a él a través del id con el método editar guardando en el alias product.edit.
 
 Route::get('edit_product/{id}', [ ProductController::class, 'edit' ]) -> name('product.edit'); 
 

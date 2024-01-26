@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string("name");
             $table->string("description");
             $table->integer("price");
-            $table->integer("offer");
+            $table->integer("offer")->nullable();
             $table->integer("stock");
-            $table->unsignedBigInteger('categories_id');
+            $table->unsignedBigInteger('categories_id')->nullable();
 
             $table->timestamps();
         });

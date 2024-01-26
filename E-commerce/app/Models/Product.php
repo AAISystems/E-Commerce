@@ -9,10 +9,14 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id','name', 'description', 'price', 'stock',
+    ]; 
 
     // Tabla pivote con carros
     public function carts()
     {
         return $this->belongsToMany(Cart::class)->withPivot('quantity');
     }
+
 }

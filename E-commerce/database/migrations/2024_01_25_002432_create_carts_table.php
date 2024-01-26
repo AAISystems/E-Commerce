@@ -14,11 +14,11 @@ return new class extends Migration
         //Esta incompleta 
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->integer("amount");
-            $table->integer("total_products");
-            $table->unsignedBigInteger('users_id');
-            $table->unsignedBigInteger('products_id');
-            $table->unsignedBigInteger('carts_orders_id');
+            $table->integer("amount")->nullable();
+            $table->integer("total_products")->nullable();
+            $table->unsignedBigInteger('users_id')->nullable();
+            // $table->unsignedBigInteger('products_id')->nullable();
+            $table->unsignedBigInteger('carts_orders_id')->nullable();
             $table->foreign('users_id')->references('id')->on('users');
             $table->timestamps();
         });

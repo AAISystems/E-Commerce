@@ -13,7 +13,7 @@ class ProductController extends Controller
         return view('Products.createProduct');
     }
     //Lo que hacemos es actualizar con la petición del usuario el producto que se ha creado
-    public function update(Request $request)
+    public function add(Request $request)
     {
        $product=new Product();
        $product->name=$request->name;
@@ -21,6 +21,16 @@ class ProductController extends Controller
        $product->price=$request->price;
        $product->stock=$request->stock;
 
+        $product->save();
+        return redirect()->route('product.list')->with('success','');
+    }
+
+    public function update(Request $request){
+        $product=Product::find($request->id);
+        // dd($product);
+        $product->name=$request->name;
+        $product->description=$request->description;
+      
         $product->save();
         return redirect()->route('product.list')->with('success','');
     }
@@ -33,6 +43,11 @@ class ProductController extends Controller
 
     }
 
+    public function edit($id)
+    {
 
+        $product=Product::find($id);
+        return view('Products.edit_product',compact('product'));
+    }
 }
 

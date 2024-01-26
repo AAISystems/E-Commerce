@@ -4,11 +4,39 @@
     @include('template.navbar')
 @endsection
 
-@section('title','AAISystems')
+@section('title', 'AAISystems')
 
 @section('content')
-    <div class="container">
-        
+    <div class="container mt-5">
+
+
+
+
+
+        @foreach ($products as $product)
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <!-- Imagen del producto -->
+                    <img src="{{ $product->imagen_url }}" class="card-img-top" alt="{{ $product->name }}">
+
+                    <div class="card-body">
+                        <!-- Nombre del producto -->
+                        <h5 class="card-title">{{ $product->name }}</h5>
+
+                        <!-- Descripción del producto -->
+                        <p class="card-text">{{ $product->description }}</p>
+                        <form action="{{ route('addCart') }}">
+                            @csrf
+                            <input type="text" name="idProduct" value={{ $product->id }} hidden>
+                            <button class="btn btn-success" type="submit">Añadir al carrito</button>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        @endforeach
+        {{ $products->links() }}
+
     </div>
 @endsection
 

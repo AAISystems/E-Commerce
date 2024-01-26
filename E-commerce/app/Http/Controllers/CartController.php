@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -26,16 +27,18 @@ class CartController extends Controller
     public function add(Request $request)
     {
         // Recogemos el usuario que este autenticado
-        $user = $request->user();
-
+        $user = Auth::user();
+     
         // Buscamos su carrito asociado y el producto seleccionado
-        $userCart = Cart::where('users_id', $user->id);
-        $productToAdd = Product::find($request->product_id);
+
+        $userCart = Cart::where('users_id', $user->id)->first();
+
+        $productToAdd = Product::find($request->idProduct);
 
         // Añadimos el producto a la tabla pivote junto con la cantidad
-        $userCart->products()->attach($productToAdd->id, $request->inputQuantity);
+        $userCart->products()->attach($productToAdd->id, ['quantity'=>1]);
 
-        return redirect()->route('/');
+        return redirect('/');
     }
 
     public function remove(Request $request)
@@ -44,7 +47,7 @@ class CartController extends Controller
         $user = $request->user();
 
         // Buscamos su carrito asociado y el producto seleccionado
-        $userCart = Cart::where('users_id', $user->id);
+        $userCart = Cart::where('users_id', $user->id)->first();
         $productToRemove = Product::find($request->product_id);
 
         // Retiramos el producto de la tabla pivote 

@@ -32,3 +32,4 @@ Route::post('product_update', [ ProductController::class, 'add' ]) -> name('prod
 Route::get('list_product', [ ProductController::class, 'list' ]) -> name('product.list'); 
 
 Route::post('saveProduct/{id}', [ ProductController::class, 'update' ]) -> name('product.save'); 
+Route::get('deleteProduct/{id}', [ ProductController::class, 'delete' ]) -> name('product.delete'); 

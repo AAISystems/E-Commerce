@@ -48,13 +48,13 @@
 
             </form>
             @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
+                <button class="nav-item btn btn-primary me-2">
+                    <a class="nav-link " href="{{ route('login') }}">{{ __('Login') }}</a>
+                </button>
                 @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
+                    <button class="nav-item btn btn-primary me-2">
+                        <a class="nav-link  " href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </button>
                 @endif
             @else
                 {{-- @if (Auth::user()->email_verified_at) --}}

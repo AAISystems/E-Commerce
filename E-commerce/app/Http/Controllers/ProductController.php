@@ -38,7 +38,13 @@ class ProductController extends Controller
     public function delete($id){
 
         $product=Product::find($id);
-        $product->delete();
+        if($product->show){
+        $product->show=false;
+        }else{
+            $product->show=true;
+        }
+        
+        $product->save();
         return redirect()->route('product.list')->with('success','');
 
     }

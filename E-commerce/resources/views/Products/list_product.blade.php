@@ -25,7 +25,7 @@
                             {{-- Creo boton para poder editar productos, esto lo que hace es pasarle como enlace la vista donde se editan los productosy con la barra coge el producto seleccionado el cual coge su id --}}
                           <a href="{{ route('product.edit', ['id' => $product->id]) }}">  <button>Editar Producto    </button></a>
                         
-                           <a href="{{ route('product.delete', ['id' => $product->id]) }}"> <button>Eliminar Producto</button></a>
+                           <a href="{{ route('product.delete', ['id' => $product->id]) }}"> <button>Ocultar Producto</button></a>
                             
                         </div>
                     </div>

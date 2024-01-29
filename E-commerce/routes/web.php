@@ -31,3 +31,5 @@ Route::get('list_product', [ ProductController::class, 'list' ]) -> name('produc
 
 
 Route::get('addToCart',[ CartController::class, 'add' ]) -> name('addCart'); 
+
+Route::get('removeFromCart',[ CartController::class, 'remove' ]) -> name('removeFromCart');

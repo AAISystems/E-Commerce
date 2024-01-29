@@ -28,31 +28,36 @@ class CartController extends Controller
     {
         // Recogemos el usuario que este autenticado
         $user = Auth::user();
-     
+
         // Buscamos su carrito asociado y el producto seleccionado
 
         $userCart = Cart::where('users_id', $user->id)->first();
 
         $productToAdd = Product::find($request->idProduct);
 
-        // Añadimos el producto a la tabla pivote junto con la cantidad
-        $userCart->products()->attach($productToAdd->id, ['quantity'=>1]);
-
+        if ($userCart->products->contains('id', $productToAdd->id)) {
+            // Cogemos el producto del carrito y accedemos al atributo cantidad de la tabla pivote.
+            $currentQuantity = $userCart->products->find($productToAdd->id)->pivot->quantity;
+            // Aumentamos su valor
+            $currentQuantity += 1;
+        } else {
+            // Añadimos el producto a la tabla pivote junto con la cantidad
+            $userCart->products()->attach($productToAdd->id, ['quantity' => 1]);
+        }
         return redirect('/');
     }
 
     public function remove(Request $request)
     {
         // Recogemos el usuario que este autenticado
-        $user = $request->user();
-
+        $user = Auth::user();
         // Buscamos su carrito asociado y el producto seleccionado
         $userCart = Cart::where('users_id', $user->id)->first();
-        $productToRemove = Product::find($request->product_id);
+        $productToRemove = Product::find($request->idProduct);
 
         // Retiramos el producto de la tabla pivote 
         $userCart->products()->detach($productToRemove->id);
 
-        return redirect()->route('/');
+        return redirect('/');
     }
 }

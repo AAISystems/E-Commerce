@@ -38,6 +38,7 @@
                             alt="logoContact" />
                     </a>
                 </li>
+                @include('template.cart')
             </ul>
             <form class="d-flex my-2 my-lg-0">
                 <input class="form-control me-sm-2 shadow-sm rounded-5" type="text" placeholder="Buscar..." />

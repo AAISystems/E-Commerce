@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,7 @@ Route::get('edit_product/{id}', [ ProductController::class, 'edit' ]) -> name('p
 Route::post('edit_product', [ ProductController::class, 'update' ]) -> name('product.update'); 
 
 Route::get('list_product', [ ProductController::class, 'list' ]) -> name('product.list'); 
+
+Route::get('/admin', [AdminController::class, 'mostrarAdmin'])->name('admin');
+
+Route::get('/admin/products', [ AdminController::class, 'list' ]) -> name('admin.listp'); 

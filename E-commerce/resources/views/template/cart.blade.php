@@ -6,7 +6,7 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <div class="container">
-            @if (!$productsInCart->isEmpty())
+            @if (isset($productsInCart))
                 @foreach ($productsInCart as $product)
                     <div class="row justify-content-center align-items-center g-2">
                         <div class="col-6">

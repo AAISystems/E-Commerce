@@ -7,7 +7,7 @@
 @section('title', 'AAISystems')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5 min-vh-100">
         
         @foreach ($products as $product)
             <div class="col-md-4 mb-4">
@@ -21,7 +21,7 @@
 
                         <!-- Descripción del producto -->
                         <p class="card-text">{{ $product->description }}</p>
-                        <form action="{{ route('addCart') }}">
+                        <form action="@if(Auth::user()) {{route('addCart')}}@else {{route('login')}}@endif">
                             @csrf
                             <input type="text" name="idProduct" value={{ $product->id }} hidden>
                             <button class="btn btn-success" type="submit">Añadir al carrito</button>

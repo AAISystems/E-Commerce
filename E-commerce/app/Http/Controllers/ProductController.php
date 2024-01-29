@@ -41,16 +41,20 @@ class ProductController extends Controller
 
         $products = Product::paginate(3);
 
+
         // Cogemos al usuario autenticado
         $user = Auth::user();
+        if ($user) {
+            // Buscamos su carrito asociado
+            $userCart = Cart::where('users_id', $user->id)->first();
 
-        // Buscamos su carrito asociado
-        $userCart = Cart::where('users_id', $user->id)->first();
-
-        // Cogemos los productos asociados al carrito
-        $productsInCart=$userCart->products;
+            // Cogemos los productos asociados al carrito
+            $productsInCart = $userCart->products;
 
 
-        return view('welcome', compact('products','productsInCart'));
+            return view('welcome', compact('products', 'productsInCart'));
+        }else{
+            return view('welcome', compact('products'));
+        }
     }
 }

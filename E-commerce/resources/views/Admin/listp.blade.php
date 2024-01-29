@@ -54,8 +54,9 @@
             <p class="card-text">{{ $product->description }}</p>
 
             <!-- Botones -->
-            <button class="btn btn-danger float-start">Ocultar</button>
-            <button class="btn btn-primary ms-2 float-end">Editar</button>
+            <a href="{{ route('product.edit', ['id' => $product->id]) }}">  <button class="btn m-4 p-2 btn-primary float-start">Editar Producto    </button></a>
+                        
+            <a href="{{ route('product.delete', ['id' => $product->id]) }}"> <button class="btn m-4 p-2 btn-danger float-start">Ocultar Producto</button></a>
         </div>
     </div>
 </div>

@@ -8,11 +8,7 @@
 
 @section('content')
     <div class="container mt-5">
-
-
-
-
-
+        
         @foreach ($products as $product)
             <div class="col-md-4 mb-4">
                 <div class="card">
@@ -31,7 +27,7 @@
                             <button class="btn btn-success" type="submit">Añadir al carrito</button>
                         </form>
                     </div>
-                    
+
                 </div>
             </div>
         @endforeach

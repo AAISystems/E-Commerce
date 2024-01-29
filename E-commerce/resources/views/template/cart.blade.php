@@ -1,5 +1,4 @@
-<li class="nav-item">
-    </a>
+
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
@@ -9,7 +8,22 @@
         <div class="container">
             @if (!$productsInCart->isEmpty())
                 @foreach ($productsInCart as $product)
-                    <p>{{ $product->name }}</p>
+                    <div class="row justify-content-center align-items-center g-2">
+                        <div class="col-6">
+                            <img src="" class="img-fluid rounded-top" alt="imgProduct" />
+                        </div>
+                        <div class="col-6">
+                            <p>{{ $product->name }}</p>
+                            <p>Cantidad: {{ $product->pivot->quantity }}</p>
+
+                        </div>
+                        <div class="col">
+
+                        </div>
+
+                    </div>
+
+
                     <form action="{{ route('removeFromCart') }}">
                         @csrf
 
@@ -23,4 +37,4 @@
         </div>
     </div>
 </li>
-</li>
+

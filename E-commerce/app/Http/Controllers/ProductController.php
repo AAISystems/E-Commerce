@@ -22,7 +22,7 @@ class ProductController extends Controller
        $product->stock=$request->stock;
 
         $product->save();
-        return redirect()->route('product.list')->with('success','');
+        return redirect()->route('admin.listp')->with('success','');
     }
 
     //Método  para listar los productos

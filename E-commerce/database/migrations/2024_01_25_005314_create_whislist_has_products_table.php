@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('products_id');
             $table->unsignedBigInteger('whishlist_id');
 
-            $table->foreign('whishlist_id')->references('id')->on('whishlist');
+            $table->foreign('whishlist_id')->references('id')->on('wishlist');
             $table->foreign('products_id')->references('id')->on('products');
             $table->timestamps();
         });

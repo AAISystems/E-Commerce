@@ -7,6 +7,9 @@
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <div class="container">
             @if (isset($productsInCart))
+            @if($productsInCart->isEmpty())
+                <p class="text-muted">El carrito está vacío</p>
+            @endif
                 @foreach ($productsInCart as $product)
                     <div class="row justify-content-center align-items-center g-2">
                         <div class="col-6">
@@ -17,18 +20,17 @@
                             <p>Cantidad: {{ $product->pivot->quantity }}</p>
 
                         </div>
-                        <div class="col">
+                        <div class="col-6">
 
                         </div>
 
                     </div>
 
-
                     <form action="{{ route('removeFromCart') }}">
                         @csrf
 
                         <input type="text" name="idProduct" value={{ $product->id }} hidden>
-                        <button class="btn btn-success" type="submit">Eliminar del carrito</button>
+                        <button class="btn btn-danger" type="submit">Eliminar del carrito</button>
                     </form>
                 @endforeach
             @else

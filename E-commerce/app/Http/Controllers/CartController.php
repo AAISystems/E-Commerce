@@ -37,15 +37,15 @@ class CartController extends Controller
 
         if ($userCart->products->contains('id', $productToAdd->id)) {
             // Cogemos el producto del carrito y accedemos al atributo cantidad de la tabla pivote.
-            // Aumentamos su valor
-           
-            $newQuantity=$userCart->products->find($productToAdd->id)->pivot->quantity+=1;
+            // Aumentamos su valor en funcion de la cantidad seleccionada
 
-            $userCart->products()->updateExistingPivot($productToAdd->id, ['quantity' => $newQuantity]);
+            $newQuantity = $userCart->products->find($productToAdd->id)->pivot->quantity += $request->inputQuantity;
            
+            $userCart->products()->updateExistingPivot($productToAdd->id, ['quantity' => $newQuantity]);
         } else {
+            $newQuantity = $request->inputQuantity;
             // Añadimos el producto a la tabla pivote junto con la cantidad
-            $userCart->products()->attach($productToAdd->id, ['quantity' => 1]);
+            $userCart->products()->attach($productToAdd->id, ['quantity' => $newQuantity]);
         }
         return redirect('/');
     }

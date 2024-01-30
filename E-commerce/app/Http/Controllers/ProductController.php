@@ -33,6 +33,8 @@ class ProductController extends Controller
         // dd($product);
         $product->name=$request->name;
         $product->description=$request->description;
+        $product->price=$request->price;
+        $product->stock=$request->stock;
       
         $product->save();
         return redirect()->route('admin.listp')->with('success','');
@@ -56,29 +58,9 @@ class ProductController extends Controller
         return redirect()->route('admin.listp')->with('success','');
     }
 
-    public function update(Request $request){
-        $product=Product::find($request->id);
-        // dd($product);
-        $product->name=$request->name;
-        $product->description=$request->description;
-      
-        $product->save();
-        return redirect()->route('admin.listp')->with('success','');
-    }
 
-    public function delete($id){
 
-        $product=Product::find($id);
-        if($product->show){
-        $product->show=false;
-        }else{
-            $product->show=true;
-        }
-        
-        $product->save();
-        return redirect()->route('admin.listp')->with('success','');
 
-    }
 
 
     //Método  para listar los productos

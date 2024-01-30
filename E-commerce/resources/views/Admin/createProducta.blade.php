@@ -1,7 +1,7 @@
 @extends('template.template')
 
 @section('navbar')
-    @include('template.navbar')
+    @include('template.adminNavbar')
 @endsection
 
 @section('title','Producto')
@@ -30,11 +30,6 @@
         <div class="mb-3">
             <label for="stock" class="form-label">Stock</label>
             <input type="number" class="form-control" id="stock" name="stock" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="images" class="form-label">Imágenes del Producto</label>
-            <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
         </div>
 
         <button type="submit" class="btn btn-primary">Crear Producto</button>

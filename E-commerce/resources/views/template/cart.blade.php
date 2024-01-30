@@ -34,7 +34,7 @@
                 <div class="row justify-content-center align-items-center mt-3 g-2">
                     <a name="" id="" class="btn btn-warning col-6" href="{{ route('dumpCart') }}"
                     role="button">Vaciar carrito</a>
-                    <a name="" id="" class="btn btn-success col-6" href="{{ route('dumpCart') }}"
+                    <a name="" id="" class="btn btn-success col-6" href="{{ route('checkout') }}"
                     role="button">Comprar</a>
                 </div>
 

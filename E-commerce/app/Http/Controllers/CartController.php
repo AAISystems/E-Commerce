@@ -33,7 +33,11 @@ class CartController extends Controller
 
         $userCart = Cart::where('users_id', $user->id)->first();
 
+
         $productToAdd = Product::find($request->idProduct);
+
+        //Añadimos el precio de los productos al total del carrito
+        $userCart->amount+=$productToAdd->price*$request->quantity;
 
         // $productToAdd->stock -= $request->inputQuantity;
         $productToAdd->save();
@@ -60,6 +64,10 @@ class CartController extends Controller
         // Buscamos su carrito asociado y el producto seleccionado
         $userCart = Cart::where('users_id', $user->id)->first();
         $productToRemove = Product::find($request->idProduct);
+
+
+         //Eliminamos el precio de los productos al total del carrito
+         $userCart->amount-=$productToRemove->price*$userCart->products()->find($productToRemove->id)->pivot->quantity;
 
         // Devolvemos la cantidad al stock del producto
         // $quantity = $userCart->products()->find($productToRemove->id)->pivot->quantity;

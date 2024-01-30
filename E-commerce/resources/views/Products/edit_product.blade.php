@@ -10,8 +10,8 @@
     @if (session('mensaje'))
         <div class="alert alert-success">{{ session('mensaje') }}</div>
     @endif
-    <form action="{{ route('product.update', $product->id) }}" method="POST">
-        @method('PUT') {{-- Necesitamos cambiar al método PUT para editar --}}
+    <form action="{{ route('product.save', $product->id) }}" method="POST">
+        
         @csrf
         {{-- Cláusula para obtener un token de formulario al enviarlo --}}
         @error('name')
@@ -24,6 +24,7 @@
             placeholder="Nombre del Producto" autofocus>
         <input type="text" name="description" placeholder="Descripción del Producto" class="form-control mb-2"
             value="{{ $product->text }}">
+            <input type="number" name="id" value="{{$product->id}}" hidden>
         <button class="btn btn-primary btn-block" type="submit">Guardar cambios</button>
     </form>
 </body>

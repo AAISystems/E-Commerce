@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ ProductController::class, 'listMain' ]);
-
 //Cargamos las rutas con los métodos que vamos a utilizar para guardar la información en cada vista correspondiente. 
 
 Route::get('createProduct', [ ProductController::class, 'create' ]) -> name('product.create'); 
@@ -29,6 +29,18 @@ Route::post('edit_product', [ ProductController::class, 'update' ]) -> name('pro
 
 Route::get('list_product', [ ProductController::class, 'list' ]) -> name('product.list'); 
 
+Route::post('product_update', [ ProductController::class, 'add' ]) -> name('product.update'); 
+
+Route::get('list_product', [ ProductController::class, 'list' ]) -> name('product.list'); 
+
+Route::get('/admin', [AdminController::class, 'mostrarAdmin'])->name('admin');
+
+Route::get('/admin/products', [ AdminController::class, 'list' ]) -> name('admin.listp'); 
+
+
+
+Route::post('saveProduct/{id}', [ ProductController::class, 'update' ]) -> name('product.save'); 
+Route::get('deleteProduct/{id}', [ ProductController::class, 'delete' ]) -> name('product.delete'); 
 
 Route::get('addToCart',[ CartController::class, 'add' ]) -> name('addCart'); 
 

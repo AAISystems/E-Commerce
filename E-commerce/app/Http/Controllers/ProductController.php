@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 // Vamos a necesitar estos 3 primeros métodos, para trabajar con los productos, en este caso se realizan el método crear primero para añadir un nuevo producto
 // creado por el administrador, para posteriormente usar el método update para actualizar el producto, y poder listarlo, por ello hemos utilizado estos 3 métodos.
 class ProductController extends Controller
@@ -64,5 +67,27 @@ class ProductController extends Controller
         $product=Product::find($id);
         return view('Products.edit_product',compact('product'));
     }
+     //Metodo para mostrar los productos en la pagina principal
+     public function listMain()
+     {
+ 
+         $products = Product::paginate(3);
+ 
+ 
+         // Cogemos al usuario autenticado
+         $user = Auth::user();
+         if ($user) {
+             // Buscamos su carrito asociado
+             $userCart = Cart::where('users_id', $user->id)->first();
+ 
+             // Cogemos los productos asociados al carrito
+             $productsInCart = $userCart->products;
+ 
+ 
+             return view('welcome', compact('products', 'productsInCart'));
+         }else{
+             return view('welcome', compact('products'));
+         }
+     }
 }
 

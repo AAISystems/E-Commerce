@@ -14,7 +14,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <!-- Imagen del producto -->
-                        <img src="{{ $product->imagen_url }}" class="card-img-top" alt="{{ $product->name }}">
+                        <img src="{{ asset('/app/public/img/'+$product->id +'_1') }}" class="card-img-top" alt="{{ $product->name }}">
 
                         <div class="card-body">
                             <!-- Nombre del producto -->

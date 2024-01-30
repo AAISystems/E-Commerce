@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 // Vamos a necesitar estos 3 primeros métodos, para trabajar con los productos, en este caso se realizan el método crear primero para añadir un nuevo producto
@@ -15,13 +16,28 @@ class ProductController extends Controller
     //Lo que hacemos es actualizar con la petición del usuario el producto que se ha creado
     public function add(Request $request)
     {
+        //Validar form
+
+
        $product=new Product();
        $product->name=$request->name;
        $product->description=$request->description;
        $product->price=$request->price;
        $product->stock=$request->stock;
 
+
         $product->save();
+       
+ // Procesar imágenes
+ if ($request->hasFile('images')) {
+    foreach ($request->file('images') as $file) {
+        Image::create([
+            'url' => 'storage/' . str_replace('public/', '', $file->store('public/img')),
+            'product_id' => $product->id
+        ]);
+    }
+}
+
         return redirect()->route('admin.listp')->with('success','');
     }
 

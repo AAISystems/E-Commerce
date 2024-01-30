@@ -35,12 +35,15 @@ class CartController extends Controller
 
         $productToAdd = Product::find($request->idProduct);
 
+        // $productToAdd->stock -= $request->inputQuantity;
+        $productToAdd->save();
+
         if ($userCart->products->contains('id', $productToAdd->id)) {
             // Cogemos el producto del carrito y accedemos al atributo cantidad de la tabla pivote.
             // Aumentamos su valor en funcion de la cantidad seleccionada
 
             $newQuantity = $userCart->products->find($productToAdd->id)->pivot->quantity += $request->inputQuantity;
-           
+
             $userCart->products()->updateExistingPivot($productToAdd->id, ['quantity' => $newQuantity]);
         } else {
             $newQuantity = $request->inputQuantity;
@@ -58,8 +61,22 @@ class CartController extends Controller
         $userCart = Cart::where('users_id', $user->id)->first();
         $productToRemove = Product::find($request->idProduct);
 
+        // Devolvemos la cantidad al stock del producto
+        // $quantity = $userCart->products()->find($productToRemove->id)->pivot->quantity;
+        // $productToRemove->stock += $quantity;
+        $productToRemove->save();
         // Retiramos el producto de la tabla pivote 
         $userCart->products()->detach($productToRemove->id);
+
+        return redirect('/');
+    }
+
+    public function dump()
+    {
+        $user = Auth::user();
+
+        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart->products()->detach();
 
         return redirect('/');
     }

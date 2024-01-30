@@ -24,6 +24,11 @@
 
                             <!-- Descripción del producto -->
                             <p class="card-text">{{ $product->description }}</p>
+
+                            <!-- Stock del producto -->
+                            <small class="help">Stock: {{$product->stock}} </small>
+
+                            {{-- Formulario para añadir al carrito --}}
                             <form
                                 action="@if (Auth::user()) {{ route('addCart') }}@else {{ route('login') }} @endif">
                                 @csrf

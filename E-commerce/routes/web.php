@@ -31,8 +31,6 @@ Route::get('list_product', [ ProductController::class, 'list' ]) -> name('produc
 
 Route::post('product_update', [ ProductController::class, 'add' ]) -> name('product.update'); 
 
-Route::get('list_product', [ ProductController::class, 'list' ]) -> name('product.list'); 
-
 Route::get('/admin', [AdminController::class, 'mostrarAdmin'])->name('admin');
 
 Route::get('/admin/products', [ AdminController::class, 'list' ]) -> name('admin.listp'); 

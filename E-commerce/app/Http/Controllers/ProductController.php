@@ -35,7 +35,7 @@ class ProductController extends Controller
         $product->description=$request->description;
       
         $product->save();
-        return redirect()->route('product.list')->with('success','');
+        return redirect()->route('admin.listp')->with('success','');
     }
 
     public function delete($id){
@@ -48,7 +48,7 @@ class ProductController extends Controller
         }
         
         $product->save();
-        return redirect()->route('product.list')->with('success','');
+        return redirect()->route('admin.listp')->with('success','');
 
     }
 

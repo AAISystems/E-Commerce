@@ -2,8 +2,9 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
+        "dev": "vite --port 3000",
         "build": "vite build"
+
     },
     "devDependencies": {
         "axios": "^1.6.4",

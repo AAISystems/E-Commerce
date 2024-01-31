@@ -43,3 +43,5 @@ Route::get('deleteProduct/{id}', [ ProductController::class, 'delete' ]) -> name
 Route::get('addToCart',[ CartController::class, 'add' ]) -> name('addCart'); 
 
 Route::get('removeFromCart',[ CartController::class, 'remove' ]) -> name('removeFromCart');
+
+Route::get('product/{id}', [ProductController::class,'showProduct' ])->name('product.show');

@@ -105,5 +105,15 @@ class ProductController extends Controller
              return view('welcome', compact('products'));
          }
      }
+
+     public function  showProduct($id){
+        $product=Product::find($id);
+
+        return view('Products.product',compact('product'));
+     }
+
+
+
+
 }
 

@@ -36,6 +36,11 @@
             <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
         </div>
 
+        <div class="mb-3">
+            <label for="images" class="form-label">Imágenes del Producto</label>
+            <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
+        </div>
+
         <button type="submit" class="btn btn-primary">Crear Producto</button>
     </form>
 </div>

@@ -16,10 +16,10 @@ return new class extends Migration
             $table->id();
             $table->integer("amount")->nullable();
             $table->integer("total_products")->nullable();
-            $table->unsignedBigInteger('users_id')->nullable();
+            // $table->unsignedBigInteger('users_id')->nullable();
             // $table->unsignedBigInteger('products_id')->nullable();
             $table->unsignedBigInteger('carts_orders_id')->nullable();
-            $table->foreign('users_id')->references('id')->on('users');
+            $table->foreignId('users_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

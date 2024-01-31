@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Hacer route group para no tener 80 líneas
+
 Route::get('/', [ ProductController::class, 'listMain' ]);
 //Cargamos las rutas con los métodos que vamos a utilizar para guardar la información en cada vista correspondiente. 
 
@@ -45,3 +47,4 @@ Route::get('addToCart',[ CartController::class, 'add' ]) -> name('addCart')->mid
 
 Route::get('removeFromCart',[ CartController::class, 'remove' ]) -> name('removeFromCart')->middleware('auth');
 
+Route::get('product/{id}', [ProductController::class,'showProduct' ])->name('product.show');

@@ -24,24 +24,24 @@ Route::get('createProduct', [ ProductController::class, 'create' ]) -> name('pro
 // Aquí ya tenemos el producto creado, por  lo que accedemos a él a través del id con el método editar guardando en el alias product.edit.
 
 //En la ruta "edit_product", pongo id para acceder a un producto en concreto no a todos 
-Route::get('edit_product/{id}', [ ProductController::class, 'edit' ]) -> name('product.edit'); 
+Route::get('edit_product/{id}', [ ProductController::class, 'edit' ]) -> name('product.edit')->middleware('admin'); 
 
-Route::post('product_update', [ ProductController::class, 'add' ]) -> name('product.update'); 
+Route::post('product_update', [ ProductController::class, 'add' ]) -> name('product.update')->middleware('admin'); 
 
-Route::get('list_product', [ ProductController::class, 'list' ]) -> name('product.list'); 
-
-Route::post('product_update', [ ProductController::class, 'add' ]) -> name('product.update'); 
-
-Route::get('/admin', [AdminController::class, 'mostrarAdmin'])->name('admin');
-
-Route::get('/admin/products', [ AdminController::class, 'list' ]) -> name('admin.listp'); 
+Route::get('list_product', [ ProductController::class, 'list' ]) -> name('product.list')->middleware('admin'); 
 
 
 
-Route::post('saveProduct/{id}', [ ProductController::class, 'update' ]) -> name('product.save'); 
-Route::get('deleteProduct/{id}', [ ProductController::class, 'delete' ]) -> name('product.delete'); 
+Route::get('/admin', [AdminController::class, 'mostrarAdmin'])->name('admin')->middleware('admin');
 
-Route::get('addToCart',[ CartController::class, 'add' ]) -> name('addCart'); 
+Route::get('/admin/products', [ AdminController::class, 'list' ]) -> name('admin.listp')->middleware('admin'); 
 
-Route::get('removeFromCart',[ CartController::class, 'remove' ]) -> name('removeFromCart');
+
+
+Route::post('saveProduct/{id}', [ ProductController::class, 'update' ]) -> name('product.save')->middleware('admin'); 
+Route::get('deleteProduct/{id}', [ ProductController::class, 'delete' ]) -> name('product.delete')->middleware('admin'); 
+
+Route::get('addToCart',[ CartController::class, 'add' ]) -> name('addCart')->middleware('auth'); 
+
+Route::get('removeFromCart',[ CartController::class, 'remove' ]) -> name('removeFromCart')->middleware('auth');
 

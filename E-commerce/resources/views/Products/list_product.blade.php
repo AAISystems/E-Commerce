@@ -9,7 +9,6 @@
 @section('content')
     <div class="container mt-5">
         <div class="row">
-            {{-- Obtenemo el producto creado y con el for vamos generando cards para que se guarden los productos guardados en el obejto producto --}}
             @foreach ($products as $product)
                 <div class="col-md-4 mb-4">
                     <div class="card">

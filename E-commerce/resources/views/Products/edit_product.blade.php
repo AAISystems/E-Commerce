@@ -33,18 +33,6 @@
                 <input type="text" name="description" class="form-control mb-2" value="{{ $product->title }}"
                 placeholder='{{ $product->description }}' autofocus>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Precio</label>
-                <input type="text" name="price" class="form-control mb-2" value="{{ $product->title }}"
-                placeholder='{{ $product->price }}' autofocus>
-                
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Stock</label>
-                <input type="text" name="stock" class="form-control mb-2" value="{{ $product->title }}"
-                placeholder='{{ $product->stock }}' autofocus>
-                
-            </div>
             <input type="number" name="id" value="{{ $product->id }}" hidden>
             <button class="btn btn-primary btn-block" type="submit">Guardar cambios</button>
         </form>

@@ -54,6 +54,14 @@
                                 <p class="card-text">{{ $product->description }}</p>
                                 <!-- Estado del producto -->
                                 <p class="text-muted">Este producto esta @if($product->show)visible. @else oculto. @endif</p>
+                                <!-- Descripción del producto -->
+                                <p class="card-text">{{ $product->description }}</p>
+                                {{-- Precio del producto --}}
+                                <p class="card-text">{{ $product->price }}</p>
+                                {{--Stock del producto  --}}
+                                <p class="card-text">{{ $product->stock }}</p>
+                                <!-- Estado del producto -->
+                                <p class="text-muted">Este producto esta @if($product->show)visible. @else oculto. @endif</p>
 
                                 <!-- Botones -->
                                 <a href="{{ route('product.edit', ['id' => $product->id]) }}"> <button

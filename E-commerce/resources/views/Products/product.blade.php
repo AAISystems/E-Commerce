@@ -1,7 +1,7 @@
 @extends('template.template')
 
 @section('navbar')
-    @include('template.navbar')
+    @include('template.adminNavbar')
 @endsection
 
 @section('title','Producto')

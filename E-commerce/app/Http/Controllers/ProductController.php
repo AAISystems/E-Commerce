@@ -24,7 +24,20 @@ class ProductController extends Controller
        $product->price=$request->price;
        $product->stock=$request->stock;
 
-        $product->save();
+      $product->save();
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = $image->getClientOriginalName();
+                $image->storeAs('public/images', $imageName);
+                
+                $product->images()->create([
+                    'route' => 'images/' . $imageName,
+                    'product_id'=> $product->id
+                ]);
+            }
+        } 
+         
         return redirect()->route('admin.listp')->with('success','');
     }
 

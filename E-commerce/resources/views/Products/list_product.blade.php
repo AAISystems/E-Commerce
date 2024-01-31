@@ -1,7 +1,7 @@
 @extends('template.template')
 
 @section('navbar')
-    @include('template.navbar')
+    @include('template.adminNavbar')
 @endsection
 
 @section('title', 'Lista de Productos')
@@ -22,6 +22,7 @@
 
                             <!-- Descripción del producto -->
                             <p class="card-text">{{ $product->description }}</p>
+                           
                             {{-- Creo boton para poder editar productos, esto lo que hace es pasarle como enlace la vista donde se editan los productosy con la barra coge el producto seleccionado el cual coge su id --}}
                           <a href="{{ route('product.edit', ['id' => $product->id]) }}">  <button>Editar Producto    </button></a>
                         

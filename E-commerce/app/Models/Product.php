@@ -19,5 +19,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Cart::class)->withPivot('quantity');
     }
+    public function images()
+    {
+        return $this->hasMany(Images::class);
+    }
 
 }

@@ -9,6 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
+   
     //Hacemos referencia a los datos que tenemos que pedir al admin para crear producto, con nuestro producto de la BBDD.
     protected $fillable = [
         'id','name', 'description', 'price', 'stock',
@@ -19,10 +20,19 @@ class Product extends Model
     {
         return $this->belongsToMany(Cart::class)->withPivot('quantity');
     }
-
+    public function images()
+    {
+        return $this->hasMany(Images::class);
+    }
     public function orders()
     {
         return $this->belongsToMany(Order::class);
     }
+
+   
+
+
+
+
 
 }

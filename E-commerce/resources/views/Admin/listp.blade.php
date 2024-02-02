@@ -12,7 +12,7 @@
     <div class="container mt-5">
 
         <h1>Creación del producto:</h1>
-        <form action="{{ route('product.update') }}" method="POST">
+        <form action="{{ route('product.update') }}" method="POST"  enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -34,6 +34,10 @@
                 <label for="stock" class="form-label">Stock</label>
                 <input type="number" class="form-control" id="stock" name="stock" required>
             </div>
+            <div class="mb-3">
+                <label for="images" class="form-label">Imágenes del Producto</label>
+                <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
+            </div>
 
             <button type="submit" class="btn btn-primary">Crear Producto</button>
         </form>
@@ -44,7 +48,7 @@
                     <div class="col-md-4 mb-4">
                         <div class="card">
                             <!-- Imagen del producto -->
-                            <img src="{{ $product->imagen_url }}" class="card-img-top" alt="{{ $product->name }}">
+                            <img src="{{ asset("storage/".$product->images()->first()->route) }}" class="card-img-top" alt="{{ $product->name }}">
 
                             <div class="card-body">
                                 <!-- Nombre del producto -->
@@ -52,6 +56,8 @@
 
                                 <!-- Descripción del producto -->
                                 <p class="card-text">{{ $product->description }}</p>
+                                <p class="card-text">{{ $product->price }}</p>
+                                <p class="card-text">{{ $product->stock }}</p>
                                 <!-- Estado del producto -->
                                 <p class="text-muted">Este producto esta @if($product->show)visible. @else oculto. @endif</p>
 

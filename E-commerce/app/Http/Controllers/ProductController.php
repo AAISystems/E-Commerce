@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,13 +19,30 @@ class ProductController extends Controller
     //Lo que hacemos es actualizar con la petición del usuario el producto que se ha creado
     public function add(Request $request)
     {
+        //Validar form
+
+
        $product=new Product();
        $product->name=$request->name;
        $product->description=$request->description;
        $product->price=$request->price;
        $product->stock=$request->stock;
 
-        $product->save();
+
+      $product->save();
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = $image->getClientOriginalName();
+                $image->storeAs('public/images', $imageName);
+                
+                $product->images()->create([
+                    'route' => 'images/' . $imageName,
+                    'product_id'=> $product->id
+                ]);
+            }
+        } 
+         
         return redirect()->route('admin.listp')->with('success','');
     }
 
@@ -33,10 +51,17 @@ class ProductController extends Controller
         // dd($product);
         $product->name=$request->name;
         $product->description=$request->description;
+        $product->price=$request->price;
+        $product->stock=$request->stock;
       
         $product->save();
         return redirect()->route('admin.listp')->with('success','');
     }
+
+   
+
+  
+
 
     public function delete($id){
 
@@ -49,8 +74,11 @@ class ProductController extends Controller
         
         $product->save();
         return redirect()->route('admin.listp')->with('success','');
-
     }
+
+
+
+
 
 
     //Método  para listar los productos
@@ -89,5 +117,15 @@ class ProductController extends Controller
              return view('welcome', compact('products'));
          }
      }
+
+     public function  showProduct($id){
+        $product=Product::find($id);
+
+        return view('Products.product',compact('product'));
+     }
+
+
+
+
 }
 

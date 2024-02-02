@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-4">
                         <div class="row justify-content-center align-items-center g-2 mb-2">
-                            <input type="text" name="idProduct" value={{ $product->id }} hidden>
+                            <input type="text" name="idProduct_{{$product->id}}" value={{ $product->id }} hidden>
                             <div class="row justify-content-center align-items-center g-2">
                                 <button type="button" onclick="substract({{ $product->id }})"
                                     class="col-4 btn btn-secondary">
@@ -35,7 +35,7 @@
                                 </button>
 
                                 <div class="col-4">
-                                    <input type="text" class="form-control" name="inputQuantity"
+                                    <input type="text" class="form-control" name="quantity_{{ $product->id }}"
                                         id="quantity_{{ $product->id }}" aria-describedby="helpId"
                                         placeholder=" {{ $quantityOfProduct[$product->id] }}"
                                         value=" {{ $quantityOfProduct[$product->id] }}" readonly />

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderPlaced;
 use App\Models\Cart;
 use App\Models\Invoice;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -41,16 +44,27 @@ class OrderController extends Controller
             case 'buy':
                 $newOrder = new Order();
 
-                $newOrder->users_id=$user->id;
-                $newOrder->products()->attach($request->idProduct);
-
-                $newOrder->total=$userCart->amount;
-
-                $newInvoice=new Invoice();
-                $newOrder->invoices()->attach($newInvoice);
+                $newOrder->users_id = $user->id;
+                $newOrder->total = $userCart->amount;
 
                 $newOrder->save();
 
+                foreach ($request->except('_token') as $key => $value) {
+
+                    if (Str::startsWith($key, 'idProduct_')) {
+
+                        $newOrder->products()->attach($value);
+                    }
+                }
+
+
+                $newOrder->save();
+
+
+                // Enviar el correo electrónico
+                Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
+
+                return redirect('/');
                 break;
             case 'default':
 

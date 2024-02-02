@@ -20,10 +20,15 @@
 
                         <div class="card-body">
                             <!-- Nombre del producto -->
-                            <a href="{{ route('product.show',$product->id) }}"><h5 class="card-title">{{ $product->name }}</h5></a>
+                            <h5 class="card-title">{{ $product->name }}</h5>
 
                             <!-- Descripción del producto -->
                             <p class="card-text">{{ $product->description }}</p>
+
+                            <!-- Stock del producto -->
+                            <small class="help">Stock: {{$product->stock}} </small>
+
+                            {{-- Formulario para añadir al carrito --}}
                             <form
                                 action="@if (Auth::user()) {{ route('addCart') }}@else {{ route('login') }} @endif">
                                 @csrf

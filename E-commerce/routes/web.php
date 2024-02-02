@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,13 +33,9 @@ Route::post('product_update', [ ProductController::class, 'add' ]) -> name('prod
 
 Route::get('list_product', [ ProductController::class, 'list' ]) -> name('product.list')->middleware('admin'); 
 
-
-
 Route::get('/admin', [AdminController::class, 'mostrarAdmin'])->name('admin')->middleware('admin');
 
 Route::get('/admin/products', [ AdminController::class, 'list' ]) -> name('admin.listp')->middleware('admin'); 
-
-
 
 Route::post('saveProduct/{id}', [ ProductController::class, 'update' ]) -> name('product.save')->middleware('admin'); 
 Route::get('deleteProduct/{id}', [ ProductController::class, 'delete' ]) -> name('product.delete')->middleware('admin'); 
@@ -48,3 +45,8 @@ Route::get('addToCart',[ CartController::class, 'add' ]) -> name('addCart')->mid
 Route::get('removeFromCart',[ CartController::class, 'remove' ]) -> name('removeFromCart')->middleware('auth');
 
 Route::get('product/{id}', [ProductController::class,'showProduct' ])->name('product.show');
+
+Route::get('dumpCart', [ CartController::class, 'dump' ]) -> name('dumpCart'); 
+
+Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('checkout'); 
+Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 

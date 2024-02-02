@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class Order extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'total',
+        'users_id',
+        'invoices_id'
+    ];
+
+
+     // Funcion tabla pivote con productos
+     public function products()
+     {
+         return $this->belongsToMany(Product::class);
+     }
+
+     public function invoice()
+    {
+        return $this->belongsTo(Invoice::class, 'invoices_id');
+    }
+}

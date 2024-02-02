@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders_has_products', function (Blueprint $table) {
+        Schema::create('order_product', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('orders_id');
-            $table->unsignedBigInteger('products_id');
-            $table->unsignedBigInteger('invoices_id');
-            $table->foreign('orders_id')->references('id')->on('orders');
-            $table->foreign('products_id')->references('id')->on('products');
-            $table->foreign('invoices_id')->references('id')->on('users');
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('invoice_id')->nullable();
+            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('invoice_id')->references('id')->on('invoices');
             $table->timestamps();
         });
     }

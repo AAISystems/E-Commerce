@@ -37,8 +37,9 @@ class CartController extends Controller
         $productToAdd = Product::find($request->idProduct);
 
         //Añadimos el precio de los productos al total del carrito
-        $userCart->amount+=$productToAdd->price*$request->quantity;
 
+        $userCart->amount += $productToAdd->price * $request->inputQuantity;
+        
         // $productToAdd->stock -= $request->inputQuantity;
         $productToAdd->save();
 
@@ -54,6 +55,8 @@ class CartController extends Controller
             // Añadimos el producto a la tabla pivote junto con la cantidad
             $userCart->products()->attach($productToAdd->id, ['quantity' => $newQuantity]);
         }
+
+        $userCart->save();
         return redirect('/');
     }
 
@@ -66,8 +69,8 @@ class CartController extends Controller
         $productToRemove = Product::find($request->idProduct);
 
 
-         //Eliminamos el precio de los productos al total del carrito
-         $userCart->amount-=$productToRemove->price*$userCart->products()->find($productToRemove->id)->pivot->quantity;
+        //Eliminamos el precio de los productos al total del carrito
+        $userCart->amount -= $productToRemove->price * $userCart->products()->find($productToRemove->id)->pivot->quantity;
 
         // Devolvemos la cantidad al stock del producto
         // $quantity = $userCart->products()->find($productToRemove->id)->pivot->quantity;

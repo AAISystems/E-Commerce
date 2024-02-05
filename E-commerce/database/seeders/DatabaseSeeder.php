@@ -25,27 +25,35 @@ class DatabaseSeeder extends Seeder
             'roles_id' => '1',
         ]);
 
+        \App\Models\Cart::factory()->create([
+            'amount' => 0,
+            'total_products' => 0,
+            'users_id' => 1,
+
+
+        ]);
+
         \App\Models\Product::factory()->create([
             'name' => 'Ps5',
-            'description' => 'Una play 5 guapisima bro',
+            'description' => 'Videoconsola',
             'price' => '600',
             'stock' => '50',
         ]);
         \App\Models\Product::factory()->create([
-            'name' => 'Ventanas 11 pro',
-            'description' => 'Un SO guapisimo',
+            'name' => 'Windows 11 pro',
+            'description' => 'Sistema operativo',
             'price' => '111',
             'stock' => '1500',
         ]);
         \App\Models\Product::factory()->create([
-            'name' => 'MicroSuave Oficina',
-            'description' => 'Pa que escribas',
+            'name' => 'Microsoft Office',
+            'description' => 'Editor de texto',
             'price' => '150',
             'stock' => '100',
         ]);
         \App\Models\Product::factory()->create([
-            'name' => 'Ventanas XP',
-            'description' => 'El viejete',
+            'name' => 'Windows XP',
+            'description' => 'Sistema operativo',
             'price' => '15',
             'stock' => '2500',
         ]);

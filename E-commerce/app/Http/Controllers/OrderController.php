@@ -53,7 +53,10 @@ class OrderController extends Controller
 
                     if (Str::startsWith($key, 'idProduct_')) {
 
-                        $newOrder->products()->attach($value);
+                        // Se inserta en la tabla pivote de los pedidos el producto y la cantidad asociada.
+                        // Como sabemos que esta recogiendo el id de algun producto, lo concatenamos con el prefijo quantity_ del formulario
+                        // para obtener la cantidad asociada al producto
+                        $newOrder->products()->attach($value, ['quantity' => $request['quantity_' . $request[$key]]]);
                     }
                 }
 

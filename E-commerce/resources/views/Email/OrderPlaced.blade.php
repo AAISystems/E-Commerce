@@ -7,7 +7,7 @@
         <div class="row justify-content-center align-items-center border rounded g-2 p-3 mb-2">
 
             <p class="col-4">Producto: {{ $key->name }}</p>
-            <p class="col-4">Cantidad: {{ $key->quantity }}</p>
+            <p class="col-4">Cantidad: {{ $key->pivot->quantity }}</p>
             <p class="col-4">Precio: {{ $key->price }}</p>
 
         </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Image;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -128,4 +128,32 @@ class ProductController extends Controller
 
         return view('Products.product', compact('product'));
     }
-}
+
+
+    public function showFromCategory($id)
+    {
+         // Encuentra la categoría por su ID
+         $category = Category::find($id);
+
+         // Si la categoría existe
+         if ($category) {
+             // Recupera todos los productos asociados a esa categoría
+             $products = $category->products()->where('show', true)->paginate(3);
+             
+             // Aquí puedes agregar lógica adicional si lo necesitas, como mostrar productos en el carrito, etc.
+ 
+             // Retorna la vista con los productos de la categoría
+             return view('Products.category_products', compact('products', 'category'));
+         } else {
+             // Si la categoría no existe, redirige o muestra un mensaje de error
+             return redirect()->back()->with('error', 'La categoría no existe.');
+         }
+     }
+ }
+
+
+
+
+
+
+

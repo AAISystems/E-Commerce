@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
@@ -53,3 +54,4 @@ Route::get('dumpCart', [ CartController::class, 'dump' ]) -> name('dumpCart');
 Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('checkout'); 
 Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 
 
+Route::get('admin/categories', [CategoryController::class,'list'])->name('category.show');

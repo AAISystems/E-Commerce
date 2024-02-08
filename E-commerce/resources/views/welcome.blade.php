@@ -29,7 +29,7 @@
 
                         <div class="card-body">
                             <!-- Nombre del producto -->
-                            <a href="{{route ('product.show', $product->id)}}"><h5 class="card-title">{{ $product->name }}</h5></a>
+                            <h5 class="card-title">{{ $product->name }}</h5>
 
                             <!-- Descripción del producto -->
                             <p class="card-text">{{ $product->description }}</p>

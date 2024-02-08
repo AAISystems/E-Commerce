@@ -31,10 +31,6 @@ class Product extends Model
 
    
 
-
-
-
-
     
 
 

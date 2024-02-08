@@ -42,11 +42,6 @@
                     </div>
                 </li>
                 @include('template.cart')
-                <li class="nav-item">
-                    <a class="nav-link active" href="#"><img src="" class="img-fluid rounded-top"
-                            alt="logoContact" />
-                    </a>
-                </li>
             </ul>
             <form class="d-flex my-2 my-lg-0">
                 <input class="form-control me-sm-2 shadow-sm rounded-5" type="text" placeholder="Buscar..." />

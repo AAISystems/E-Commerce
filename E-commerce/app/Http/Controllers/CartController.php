@@ -33,20 +33,30 @@ class CartController extends Controller
 
         $userCart = Cart::where('users_id', $user->id)->first();
 
+
         $productToAdd = Product::find($request->idProduct);
+
+        //Añadimos el precio de los productos al total del carrito
+
+        $userCart->amount += $productToAdd->price * $request->inputQuantity;
+        
+        // $productToAdd->stock -= $request->inputQuantity;
+        $productToAdd->save();
 
         if ($userCart->products->contains('id', $productToAdd->id)) {
             // Cogemos el producto del carrito y accedemos al atributo cantidad de la tabla pivote.
             // Aumentamos su valor en funcion de la cantidad seleccionada
 
             $newQuantity = $userCart->products->find($productToAdd->id)->pivot->quantity += $request->inputQuantity;
-           
+
             $userCart->products()->updateExistingPivot($productToAdd->id, ['quantity' => $newQuantity]);
         } else {
             $newQuantity = $request->inputQuantity;
             // Añadimos el producto a la tabla pivote junto con la cantidad
             $userCart->products()->attach($productToAdd->id, ['quantity' => $newQuantity]);
         }
+
+        $userCart->save();
         return redirect('/');
     }
 
@@ -58,8 +68,26 @@ class CartController extends Controller
         $userCart = Cart::where('users_id', $user->id)->first();
         $productToRemove = Product::find($request->idProduct);
 
+
+        //Eliminamos el precio de los productos al total del carrito
+        $userCart->amount -= $productToRemove->price * $userCart->products()->find($productToRemove->id)->pivot->quantity;
+
+        // Devolvemos la cantidad al stock del producto
+        // $quantity = $userCart->products()->find($productToRemove->id)->pivot->quantity;
+        // $productToRemove->stock += $quantity;
+        $productToRemove->save();
         // Retiramos el producto de la tabla pivote 
         $userCart->products()->detach($productToRemove->id);
+
+        return redirect('/');
+    }
+
+    public function dump()
+    {
+        $user = Auth::user();
+
+        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart->products()->detach();
 
         return redirect('/');
     }

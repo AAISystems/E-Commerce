@@ -52,3 +52,4 @@ Route::get('dumpCart', [ CartController::class, 'dump' ]) -> name('dumpCart');
 
 Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('checkout'); 
 Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 
+

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
@@ -49,8 +50,12 @@ Route::get('removeFromCart',[ CartController::class, 'remove' ]) -> name('remove
 
 Route::get('product/{id}', [ProductController::class,'showProduct' ])->name('product.show');
 
-Route::get('dumpCart', [ CartController::class, 'dump' ]) -> name('dumpCart'); 
+Route::get('dumpCart', [ CartController::class, 'dump' ])->middleware('auth') -> name('dumpCart'); 
 
-Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('checkout'); 
-Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 
+Route::get('checkout', [ OrderController::class, 'prepareOrder' ])->middleware('auth') -> name('checkout'); 
+Route::get('buy', [ OrderController::class, 'buy' ]) ->middleware('auth')-> name('buy'); 
 
+Route::get('user/addresses', [AddressController::class,'show'])->middleware('auth')->name('user.address');
+Route::view('user/addresses/create', 'userSettings.createAddress')->middleware('auth')->name('user.address.create');
+
+Route::post('user/address/save',[AddressController::class,'create'])->middleware('auth')->name('user.address.save');

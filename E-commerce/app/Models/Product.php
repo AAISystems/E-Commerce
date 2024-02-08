@@ -13,6 +13,7 @@ class Product extends Model
     //Hacemos referencia a los datos que tenemos que pedir al admin para crear producto, con nuestro producto de la BBDD.
     protected $fillable = [
         'id','name', 'description', 'price', 'stock','show'
+       
     ]; 
 
     // Tabla pivote con carros

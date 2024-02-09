@@ -21,16 +21,14 @@ class CategoryController extends Controller
 
         $category = new Category();
         $category->name = $request->name;
-        $category->description = $request->description;
-        $category->price = $request->price;
-        $category->stock = $request->stock;
+       
 
 
         $category->save();
 
        
 
-        return redirect()->route('')->with('success', '');
+        return redirect()->back()->with('success', '');
     }
 
     public function update(Request $request)

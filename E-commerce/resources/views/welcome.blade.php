@@ -1,6 +1,6 @@
 @extends('template.template')
 
-@section('navbar')
+@section('navbar')             
     @include('template.navbar')
 @endsection
 

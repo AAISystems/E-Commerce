@@ -73,7 +73,8 @@ class ProductController extends Controller
         } else {
             $product->show = true;
         }
-
+            
+        
         $product->save();
         return redirect()->route('admin.listp')->with('success', '');
     }

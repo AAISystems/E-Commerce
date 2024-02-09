@@ -59,3 +59,5 @@ Route::get('user/addresses', [AddressController::class,'show'])->middleware('aut
 Route::view('user/addresses/create', 'userSettings.createAddress')->middleware('auth')->name('user.address.create');
 
 Route::post('user/address/save',[AddressController::class,'create'])->middleware('auth')->name('user.address.save');
+Route::get('user/address/delete/{id}',[AddressController::class,'delete'])->middleware('auth')->name('user.address.delete');
+Route::get('user/address/favourite/{id}',[AddressController::class,'favourite'])->middleware('auth')->name('user.address.favourite');

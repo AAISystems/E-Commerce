@@ -32,16 +32,55 @@ class AddressController extends Controller
 
         $completeAddress = '';
 
-        foreach ($data as $key) {
-            $completeAddress = $completeAddress.' '.$key;
+
+        foreach ($data as $key => $value) {
+            $completeAddress = $completeAddress . ' ' . $value;
+            $newAddress->$key = $value;
         }
 
-        $newAddress->address = $completeAddress;
+
+        $newAddress->dataAddress = $completeAddress;
         $newAddress->user_id = $user->id;
         $newAddress->save();
 
-        $user->addresses()->save($newAddress);
+
 
         return redirect()->route('user.address')->with('success', 'Dirección añadida correctamente.');
+    }
+
+    public function delete($id)
+    {
+
+        $address = Address::find($id);
+        if (!$address) {
+            return redirect()->back()->with('error', 'La dirección no existe');
+        }
+        $address->delete();
+
+        return redirect()->back()->with('success', 'Direccion eliminada correctamete');
+    }
+
+    public function favourite($id)
+    {
+
+        $user = Auth::user();
+
+        $address = Address::find($id);
+        if (!$address) {
+            return redirect()->back()->with('error', 'La dirección no existe');
+        }
+
+        foreach ($user->addresses as $userAddress) {
+            if($userAddress->favourite==1){
+                $userAddress->favourite=0;
+                $userAddress->save();
+            }
+        }
+
+        $address->favourite = 1;
+
+        $address->save();
+
+        return redirect()->back()->with('success', 'Direccion marcada correctamete');
     }
 }

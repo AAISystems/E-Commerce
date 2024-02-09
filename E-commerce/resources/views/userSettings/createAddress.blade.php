@@ -15,49 +15,49 @@
             <div class="mb-3 row">
                 <label for="inputCountry" class="col-4 col-form-label">País</label>
                 <div class="col-8">
-                    <input type="text" class="form-control" name="inputCountry" id="inputCountry" placeholder="País" />
+                    <input type="text" class="form-control" name="country" id="inputCountry" placeholder="País" />
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputProvince" class="col-4 col-form-label">Provincia</label>
                 <div class="col-8">
-                    <input type="text" class="form-control" name="inputProvince" id="inputProvince" placeholder="Provincia" />
+                    <input type="text" class="form-control" name="province" id="inputProvince" placeholder="Provincia" />
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputCity" class="col-4 col-form-label">Ciudad</label>
                 <div class="col-8">
-                    <input type="text" class="form-control" name="inputCity" id="inputCity" placeholder="Ciudad" />
+                    <input type="text" class="form-control" name="city" id="inputCity" placeholder="Ciudad" />
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputCP" class="col-4 col-form-label">Código postal</label>
                 <div class="col-8">
-                    <input type="number" class="form-control" name="inputCP" id="inputCP" placeholder="CP" />
+                    <input type="number" class="form-control" name="pc" id="inputCP" placeholder="CP" />
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputStreet" class="col-4 col-form-label">Calle</label>
                 <div class="col-8">
-                    <input type="text" class="form-control" name="inputStreet" id="inputStreet" placeholder="Calle" />
+                    <input type="text" class="form-control" name="street" id="inputStreet" placeholder="Calle" />
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputNumber" class="col-4 col-form-label">Número</label>
                 <div class="col-8">
-                    <input type="number" class="form-control" name="inputNumber" id="inputNumber" placeholder="Nº" />
+                    <input type="number" class="form-control" name="number" id="inputNumber" placeholder="Nº" />
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputFloor" class="col-4 col-form-label">Piso</label>
                 <div class="col-8">
-                    <input type="number" class="form-control" name="inputFloor" id="inputFloor" placeholder="Nº de piso" />
+                    <input type="number" class="form-control" name="floor" id="inputFloor" placeholder="Nº de piso" />
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputDoor" class="col-4 col-form-label">Puerta</label>
                 <div class="col-8">
-                    <input type="text" class="form-control" name="inputDoor" id="inputDoor" placeholder="Puerta" />
+                    <input type="text" class="form-control" name="door" id="inputDoor" placeholder="Puerta" />
                 </div>
             </div>
             <div class="mb-3 row">

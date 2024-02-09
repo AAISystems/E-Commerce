@@ -57,3 +57,5 @@ Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy');
 Route::get('admin/categories', [CategoryController::class,'list'])->name('category.show');
 
 Route::post('category_update', [CategoryController::class, 'add' ]) -> name('categories.update')->middleware('admin'); 
+
+Route::get('/category/{category}', [CategoryController::class, 'showProducts'])->name('category.products');

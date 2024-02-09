@@ -32,7 +32,7 @@
 
                 <div class="card-body">
                     <!-- Nombre del producto -->
-                    <h5 class="card-title">{{ $category->name }}</h5>
+                    <h5 class="card-title"><a href="{{ route('category.products', $category->id) }}">{{ $category->name }}</a></h5>
 
                     <!-- Descripción del producto -->
                    

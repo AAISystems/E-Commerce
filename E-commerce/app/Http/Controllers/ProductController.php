@@ -49,11 +49,12 @@ class ProductController extends Controller
     public function update(Request $request)
     {
         $product = Product::find($request->id);
-        // dd($product);
+        // dd($request);
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->stock = $request->stock;
+        $product->categories()->attach($request->category);
 
         $product->save();
         return redirect()->route('admin.listp')->with('success', '');
@@ -94,7 +95,10 @@ class ProductController extends Controller
     {
 
         $product = Product::find($id);
-        return view('Products.edit_product', compact('product'));
+        $categories = Category::all();
+
+        return view('Products.edit_product', compact('product','categories'));
+
     }
     //Metodo para mostrar los productos en la pagina principal
     public function listMain()

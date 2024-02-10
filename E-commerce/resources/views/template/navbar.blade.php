@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-purple shadow">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{route('home')}}">
             <img src="" class="img-fluid w-25 p-3" alt="logoAAISystems" />
             AAISystems</a>
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"

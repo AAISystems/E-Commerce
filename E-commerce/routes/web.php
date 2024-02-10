@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 //Hacer route group para no tener 80 líneas
 
-Route::get('/', [ ProductController::class, 'listMain' ]);
+Route::get('/', [ ProductController::class, 'listMain' ])->name('home');
 //Cargamos las rutas con los métodos que vamos a utilizar para guardar la información en cada vista correspondiente. 
 
 Route::get('createProduct', [ ProductController::class, 'create' ]) -> name('product.create')->middleware('admin'); 

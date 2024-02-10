@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="btn-group" role="group" aria-label="Button group name">
-                            <a href=""><button type="button" class="btn btn-primary rounded-0 rounded-start-2">
+                            <a href="{{route('user.address.edit',$address->id)}}"><button type="button" class="btn btn-primary rounded-0 rounded-start-2">
                                     Editar
                                 </button></a>
                             <a href="{{route('user.address.delete',$address->id)}}"><button type="button" class="btn btn-danger rounded-0">

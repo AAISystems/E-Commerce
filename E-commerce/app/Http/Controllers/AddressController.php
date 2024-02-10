@@ -83,4 +83,50 @@ class AddressController extends Controller
 
         return redirect()->back()->with('success', 'Direccion marcada correctamete');
     }
+
+    public function edit($id){
+        $user = Auth::user();
+
+        $address = Address::find($id);
+        if (!$address) {
+            return redirect()->back()->with('error', 'La dirección no existe');
+        }
+
+
+        return view('userSettings.edit',compact('address'));
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+
+        $address = Address::find($request->id);
+        if (!$address) {
+            return redirect()->back()->with('error', 'La dirección no existe');
+        }
+
+       //Recojo los datos de la direccion
+       $data = $request->all();
+       //Elimino el _token porque no forma parte de la direccion
+       unset($data['_token'],$data['id']);
+
+       $completeAddress = '';
+
+
+       foreach ($data as $key => $value) {
+           $completeAddress = $completeAddress . ' ' . $value;
+           $address->$key = $value;
+       }
+
+
+       $address->dataAddress = $completeAddress;
+       $address->user_id = $user->id;
+       $address->save();
+
+        $address->favourite = 1;
+
+        $address->save();
+
+        return redirect()->route('user.address')->with('success', 'Direccion actualizada correctamete');
+    }
 }

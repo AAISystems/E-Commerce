@@ -45,7 +45,7 @@ class AddressController extends Controller
 
 
 
-        return redirect()->route('user.address')->with('success', 'Dirección añadida correctamente.');
+        return redirect()->back()->with('success', 'Dirección añadida correctamente.');
     }
 
     public function delete($id)

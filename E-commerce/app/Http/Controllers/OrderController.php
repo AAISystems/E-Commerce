@@ -26,7 +26,9 @@ class OrderController extends Controller
             $quantityOfProduct[$product->id] = $userCart->products->find($product->id)->pivot->quantity;
         }
 
-        return view('prepareOrder', compact('productsInCart', 'quantityOfProduct'));
+        $userAddresses=$user->addresses;
+
+        return view('prepareOrder', compact('productsInCart', 'quantityOfProduct','userAddresses'));
     }
 
     public function buy(Request $request)
@@ -41,11 +43,15 @@ class OrderController extends Controller
 
                 return redirect()->back()->with('success', 'Producto eliminado correctamente.');
                 break;
+
+
             case 'buy':
+
                 $newOrder = new Order();
 
                 $newOrder->users_id = $user->id;
                 $newOrder->total = $userCart->amount;
+                $newOrder->dataUser=$user->name;
 
                 $newOrder->save();
 

@@ -10,11 +10,12 @@
 @section('content')
     <div class="container mt-5">
         <h2 class="fw-light mb-5">Mi pedido</h2>
-        @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        <h3 class="fw-light mb-3">Productos</h3>
         <form action="@if (Auth::user()) {{ route('buy') }}@else {{ route('login') }} @endif">
             @csrf
             @foreach ($productsInCart as $product)
@@ -27,7 +28,7 @@
                     </div>
                     <div class="col-4">
                         <div class="row justify-content-center align-items-center g-2 mb-2">
-                            <input type="text" name="idProduct_{{$product->id}}" value={{ $product->id }} hidden>
+                            <input type="text" name="idProduct_{{ $product->id }}" value={{ $product->id }} hidden>
                             <div class="row justify-content-center align-items-center g-2">
                                 <button type="button" onclick="substract({{ $product->id }})"
                                     class="col-4 btn btn-secondary">
@@ -50,19 +51,116 @@
 
                         <div class="row justify-content-center align-items-center g-2">
                             <div class="col-12">
-                                
-                                <button class="btn btn-danger col-12" name="action" type="submit" value="removeFromCart">Eliminar del carrito</button>
+
+                                <button class="btn btn-danger col-12" name="action" type="submit"
+                                    value="removeFromCart">Eliminar del carrito</button>
                             </div>
                         </div>
 
 
-                    
+
                     </div>
                 </div>
             @endforeach
-            
+
+            <h3 class="fw-light mb-3">Envío</h3>
+            @if ($userAddresses->isNotEmpty())
+                <h4 class="fw-light">Direcciones registradas</h4>
+                @foreach ($userAddresses as $address)
+                    <div class="form-check">
+                        <input class="form-check-input p-2" type="radio" name="inputAddress" id="inputAddress"
+                            value="{{ $address->dataAddress }}" />
+                        <label class="form-check-label" for=""> {{ $address->dataAddress }} </label>
+                    </div>
+                @endforeach
+            @endif
+            <h4 class="fw-light">Enviar a otra dirección</h4>
+            <div class="container">
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 row">
+                            <label for="inputCountry" class="col-4 col-form-label">País</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" name="country" id="inputCountry"
+                                    placeholder="País" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 row">
+                            <label for="inputProvince" class="col-4 col-form-label">Provincia</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" name="province" id="inputProvince"
+                                    placeholder="Provincia" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 row">
+                            <label for="inputCity" class="col-4 col-form-label">Ciudad</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" name="city" id="inputCity"
+                                    placeholder="Ciudad" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 row">
+                            <label for="inputCP" class="col-4 col-form-label">Código postal</label>
+                            <div class="col-8">
+                                <input type="number" class="form-control" name="pc" id="inputCP" placeholder="CP" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 row">
+                            <label for="inputStreet" class="col-4 col-form-label">Calle</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" name="street" id="inputStreet"
+                                    placeholder="Calle" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 row">
+                            <label for="inputNumber" class="col-4 col-form-label">Número</label>
+                            <div class="col-8">
+                                <input type="number" class="form-control" name="number" id="inputNumber"
+                                    placeholder="Nº" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3 row">
+                            <label for="inputFloor" class="col-4 col-form-label">Piso</label>
+                            <div class="col-8">
+                                <input type="number" class="form-control" name="floor" id="inputFloor"
+                                    placeholder="Nº de piso" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3 row">
+                            <label for="inputDoor" class="col-4 col-form-label">Puerta</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" name="door" id="inputDoor"
+                                    placeholder="Puerta" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
             <div class="row justify-content-center align-items-center g-2">
-                <button class="btn btn-success mt-3 col-12" name="action" value="buy" type="submit">Comprar</button>
+                <button class="btn btn-success mt-3 col-12" name="action" value="buy"
+                    type="submit">Comprar</button>
             </div>
 
 
@@ -70,4 +168,8 @@
 
     </div>
 
+@endsection
+
+@section('footer')
+    @include('template.footer')
 @endsection

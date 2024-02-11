@@ -26,9 +26,9 @@ class OrderController extends Controller
             $quantityOfProduct[$product->id] = $userCart->products->find($product->id)->pivot->quantity;
         }
 
-        $userAddresses=$user->addresses;
+        $userAddresses = $user->addresses;
 
-        return view('prepareOrder', compact('productsInCart', 'quantityOfProduct','userAddresses'));
+        return view('prepareOrder', compact('productsInCart', 'quantityOfProduct', 'userAddresses'));
     }
 
     public function buy(Request $request)
@@ -46,35 +46,69 @@ class OrderController extends Controller
 
 
             case 'buy':
+               
+                if ($request->inputAddress) {
+                    $newOrder = new Order();
 
-                $newOrder = new Order();
+                    $newOrder->users_id = $user->id;
+                    $newOrder->total = $userCart->amount;
+                    $newOrder->dataUser = $user->name;
+                    $newOrder->dataAddress = $request->inputAddress;
 
-                $newOrder->users_id = $user->id;
-                $newOrder->total = $userCart->amount;
-                $newOrder->dataUser=$user->name;
+                    $newOrder->save();
 
-                $newOrder->save();
+                    foreach ($request->except('_token') as $key => $value) {
 
-                foreach ($request->except('_token') as $key => $value) {
+                        if (Str::startsWith($key, 'idProduct_')) {
 
-                    if (Str::startsWith($key, 'idProduct_')) {
-
-                        // Se inserta en la tabla pivote de los pedidos el producto y la cantidad asociada.
-                        // Como sabemos que esta recogiendo el id de algun producto, lo concatenamos con el prefijo quantity_ del formulario
-                        // para obtener la cantidad asociada al producto
-                        $newOrder->products()->attach($value, ['quantity' => $request['quantity_' . $request[$key]]]);
+                            // Se inserta en la tabla pivote de los pedidos el producto y la cantidad asociada.
+                            // Como sabemos que esta recogiendo el id de algun producto, lo concatenamos con el prefijo quantity_ del formulario
+                            // para obtener la cantidad asociada al producto
+                            $newOrder->products()->attach($value, ['quantity' => $request['quantity_' . $request[$key]]]);
+                        }
                     }
+
+
+                    $newOrder->save();
+
+
+                    // Enviar el correo electrónico
+                    Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
+
+                    return redirect('/');
+                    break;
+                }else{
+                    $newOrder = new Order();
+
+                    $newOrder->users_id = $user->id;
+                    $newOrder->total = $userCart->amount;
+                    $newOrder->dataUser = $user->name;
+                    $newOrder->dataAddress = $request->country.' '.$request->province.' '.$request->city.' '.$request->pc.$request->street.' '.$request->number.' '.$request->floor.' '.$request->door;
+
+                    $newOrder->save();
+
+                    foreach ($request->except('_token') as $key => $value) {
+
+                        if (Str::startsWith($key, 'idProduct_')) {
+
+                            // Se inserta en la tabla pivote de los pedidos el producto y la cantidad asociada.
+                            // Como sabemos que esta recogiendo el id de algun producto, lo concatenamos con el prefijo quantity_ del formulario
+                            // para obtener la cantidad asociada al producto
+                            $newOrder->products()->attach($value, ['quantity' => $request['quantity_' . $request[$key]]]);
+                        }
+                    }
+
+
+                    $newOrder->save();
+
+
+                    // Enviar el correo electrónico
+                    Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
+
+                    return redirect('/');
+                    break;
                 }
 
-
-                $newOrder->save();
-
-
-                // Enviar el correo electrónico
-                Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
-
-                return redirect('/');
-                break;
             case 'default':
 
                 return redirect()->back();

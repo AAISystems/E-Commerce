@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -28,4 +29,25 @@ class UserController extends Controller
 
         return $newUser;
     }
+
+
+    public function edit(Request $request){
+        $user = Auth::user();
+        if($user){
+
+        
+        $user = user::find($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->telefono = $request->telefono;
+    
+        $user->save();
+        return redirect()->route('/')->with('success', '');
+    }else{
+        return redirect()->route('login')->with('success', '');
+    }
+    }
+    
+
+
 }

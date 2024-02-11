@@ -8,36 +8,42 @@
 
 
 @section('content')
-<div class="container mt-3">
-    <h1>Edita tus datos</h1>
-    <form action="{{ route('product.update') }}" method="POST">
-        @csrf
-
-        <div class="mb-3">
-            <label for="name" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="name" name="name" >
-        </div>
-
-        <div class="mb-3">
-            <label for="description" class="form-label">Email</label>
-            <input class="form-control" type="mail" id="email" name="email" >
-        </div>
-
-        <div class="mb-3">
-            <label for="price" class="form-label">Fecha nacimiento</label>
-            <input type="date" class="form-control" id="fechaNac" name="fechaNac" >
-        </div>
-
-        <div class="mb-3">
-            <label for="stock" class="form-label">Teléfono</label>
-            <input type="number" class="form-control" id="telefono" name="telefono">
-        </div>
-     
+<div class="container mt-5">
+        <h2 class="fw-light mb-5">Editando perfil de: {{ $user->name }}</h2>
         
+        <form action="{{ route('user.update', $user->id) }}" method="POST">
 
-        <button type="submit" class="btn btn-primary">Modificar datos</button>
-    </form>
-</div>
+            @csrf
+            {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+            @error('name')
+                <div class="alert alert-danger"> El nombre es obligatorio </div>
+            @enderror
+            @error('description')
+                <div class="alert alert-danger"> La descripción es obligatoria </div>
+            @enderror
+
+            <div class="mb-3">
+                <label for="" class="form-label">Nombre</label>
+                <input type="text" name="name" class="form-control mb-2" 
+                placeholder='{{ $user->name }}' autofocus>
+                
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Email</label>
+                <input type="text" name="email" class="form-control mb-2" 
+                placeholder='{{ $user->email }}' autofocus>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Telefono</label>
+                <input type="number" name="phone" class="form-control mb-2"
+                placeholder='{{ $user->telefono }}' autofocus>
+                
+            </div>
+          
+            <input type="number" name="id" value="{{ $user->id }}" hidden>
+            <button class="btn btn-primary btn-block" type="submit">Guardar cambios</button>
+        </form>
+    </div>
 @endsection
 
 

@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,4 +52,4 @@ Route::get('dumpCart', [ CartController::class, 'dump' ]) -> name('dumpCart');
 
 Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('checkout'); 
 Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 
-Route::get('edi', function () {return view('Users/UsersData');});
+

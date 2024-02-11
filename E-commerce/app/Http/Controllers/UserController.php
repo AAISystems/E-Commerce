@@ -36,7 +36,7 @@ class UserController extends Controller
         if($user){
 
         
-        $user = user::find($request->id);
+        $user = User::find($request->id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->telefono = $request->telefono;

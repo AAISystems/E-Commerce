@@ -52,4 +52,5 @@ Route::get('dumpCart', [ CartController::class, 'dump' ]) -> name('dumpCart');
 Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('checkout'); 
 Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 
 
-Route::post('profile_update', [ UserController::class, 'edit' ]) -> name('user.update'); 
+Route::post('profile_update', [ UserController::class, 'update' ]) -> name('user.update'); 
+Route::get('user/profile', [ UserController::class, 'edit' ]) -> name('user.edit'); 

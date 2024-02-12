@@ -24,18 +24,18 @@
 
             <div class="mb-3">
                 <label for="" class="form-label">Nombre</label>
-                <input type="text" name="name" class="form-control mb-2" 
+                <input type="text" name="name" class="form-control mb-2" value="{{ $user->name }}"
                 placeholder='{{ $user->name }}' autofocus>
                 
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Email</label>
-                <input type="text" name="email" class="form-control mb-2" 
+                <input type="text" name="email" class="form-control mb-2" value="{{ $user->email }}"
                 placeholder='{{ $user->email }}' autofocus>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Telefono</label>
-                <input type="number" name="phone" class="form-control mb-2"
+                <input type="number" name="phone" class="form-control mb-2" value="@if($user->phone){{ $user->phone }}@endif"
                 placeholder='{{ $user->telefono }}' autofocus>
                 
             </div>

@@ -31,7 +31,7 @@ class UserController extends Controller
     }
 
 
-    public function edit(Request $request){
+    public function update(Request $request){
         $user = Auth::user();
         if($user){
 
@@ -42,12 +42,15 @@ class UserController extends Controller
         $user->telefono = $request->telefono;
     
         $user->save();
-        return redirect()->route('/')->with('success', '');
+        return redirect('/')->with('success', '');
     }else{
         return redirect()->route('login')->with('success', '');
     }
     }
     
-
+    public function edit(){
+        $user = Auth::user();
+        return view("Users.UsersData", compact("user"));
+    }
 
 }

@@ -71,10 +71,17 @@
                         <li><a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                         </li>
+                         <li><a class="dropdown-item" href="{{ route('user.edit') }}"
+                                onclick="event.preventDefault(); document.getElementById('UsersData').submit();">{{ __('Perfil') }}</a>
+                        </li>
                     </ul>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
+                     <form id="UsersData" action="{{ route('user.edit') }}" method="GET" class="d-none">
+                        @csrf
+                    </form>
+                    
                     {{-- @endif --}}
                 </div>
             @endguest

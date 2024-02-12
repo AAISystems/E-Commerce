@@ -59,3 +59,8 @@ Route::get('admin/categories', [CategoryController::class,'list'])->name('catego
 Route::post('category_update', [CategoryController::class, 'add' ]) -> name('categories.update')->middleware('admin'); 
 
 Route::get('/category/{category}', [CategoryController::class, 'showProducts'])->name('category.products');
+
+Route::get('edit_categories/{id}', [ CategoryController::class, 'edit' ]) -> name('category.edit')->middleware('admin'); 
+
+
+Route::post('saveCategory/{id}', [ CategoryController::class, 'update' ]) -> name('category.save')->middleware('admin'); 

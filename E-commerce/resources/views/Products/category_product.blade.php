@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@extends('template.template')
+
+@section('navbar')
+    @include('template.AdminNavbar')
+@endsection
+
 @section('content')
     <div class="container">
         <h1>Productos de la categoría {{ $category->name }}</h1>

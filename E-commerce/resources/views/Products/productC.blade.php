@@ -1,5 +1,9 @@
 @extends('template.template')
 
+@section('navbar')
+    @include('template.AdminNavbar')
+@endsection
+
 @section('title', 'Productos de ' . $category->name)
 
 @section('content')

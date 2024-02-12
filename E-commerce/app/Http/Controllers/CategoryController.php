@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,7 +40,7 @@ class CategoryController extends Controller
        
 
         $category->save();
-        return redirect()->route('')->with('success', '');
+        return redirect()->route('category.show')->with('success', '');
     }
 
 
@@ -59,6 +60,9 @@ class CategoryController extends Controller
 
         $category->save();
         return redirect()->route('')->with('success', '');
+
+
+       
     }
 
 
@@ -77,7 +81,10 @@ class CategoryController extends Controller
     {
 
         $category = Category::find($id);
-        return view('', compact('product'));
+        $product = Product::all();
+
+        return view('Products.edit_categories', compact('category','product'));
+
     }
     //Metodo para mostrar los productos en la pagina principal
     public function listMain()
@@ -99,5 +106,10 @@ class CategoryController extends Controller
         $products = $category->products()->paginate(10); // Ajusta la paginación según tus necesidades
         return view('Products.productC', compact('products', 'category'));
     }
+
+   
+
+
+
 }
 

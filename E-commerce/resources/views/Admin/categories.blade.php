@@ -17,35 +17,31 @@
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
 
-      
-
-        <button type="submit" class="btn btn-primary">Crear Producto</button>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Crear Categoría</button>
+        </div>
     </form>
 </div> 
 
 <div class="row">
-    {{-- Obtenemo el producto creado y con el for vamos generando cards para que se guarden los productos guardados en el obejto producto --}}
-    @foreach ($categories as $category)
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <!-- Imagen del producto -->
-
-                <div class="card-body">
-                    <!-- Nombre del producto -->
-                    <h5 class="card-title"><a href="{{ route('category.products', $category->id) }}">{{ $category->name }}</a></h5>
-
-                    <!-- Descripción del producto -->
-                   
-                    {{-- Creo boton para poder editar productos, esto lo que hace es pasarle como enlace la vista donde se editan los productosy con la barra coge el producto seleccionado el cual coge su id --}}
-                  {{-- <a href="{{ route('product.edit', ['id' => $product->id]) }}">  <button>Editar Producto    </button></a>
-                
-                   <a href="{{ route('product.delete', ['id' => $product->id]) }}"> <button>Ocultar Producto</button></a>
-                     --}}
+    {{-- Obtenemos la categoría creada y con el foreach vamos generando tarjetas para mostrar las categorías --}}
+    <div class="col-md-12"> <!-- Utilizando toda la anchura de la fila -->
+        <div class="ms-md-auto"> <!-- Margen izquierdo automático para mover las tarjetas hacia la izquierda -->
+            @foreach ($categories as $category)
+                <div class="col-md-4 mb-4 d-inline-block"> <!-- d-inline-block para que se muestren en línea -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{{ route('category.products', $category->id) }}">{{ $category->name }}</a></h5>
+                            <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn btn-sm btn-primary">Editar Categoría</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
-        @endforeach
-        {{$categories->links()}}
+    </div>
+    <div class="col-md-12">
+        {{ $categories->links() }}
+    </div>
 </div>
 
 @endsection

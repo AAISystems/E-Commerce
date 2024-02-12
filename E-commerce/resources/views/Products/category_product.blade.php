@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
-@extends('template.template')
-
-@section('navbar')
-    @include('template.AdminNavbar')
-@endsection
-
 @section('content')
-    <div class="container">
-        <h1>Productos de la categoría {{ $category->name }}</h1>
+    <div class="container mt-3">
+        <h1 class="text-center mb-4">Productos de la categoría {{ $category->name }}</h1>
         
-        <div class="row">
+        <div class="row justify-content-center">
             @foreach($products as $product)
                 <div class="col-md-4 mb-4">
                     <div class="card">
@@ -26,6 +20,8 @@
             @endforeach
         </div>
         
-        {{ $products->links() }}
+        <div class="row justify-content-center">
+            {{ $products->links() }}
+        </div>
     </div>
 @endsection

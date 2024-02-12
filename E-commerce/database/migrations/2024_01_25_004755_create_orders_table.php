@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->float("total");
             $table->unsignedBigInteger('users_id');
-            $table->unsignedBigInteger('invoices_id');
+            $table->unsignedBigInteger('invoices_id')->nullable();
             $table->foreign('users_id')->references('id')->on('users');
             $table->timestamps();
         });

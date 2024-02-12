@@ -12,7 +12,7 @@ class Product extends Model
    
     //Hacemos referencia a los datos que tenemos que pedir al admin para crear producto, con nuestro producto de la BBDD.
     protected $fillable = [
-        'id','name', 'description', 'price', 'stock',
+        'id','name', 'description', 'price', 'stock','show'
     ]; 
 
     // Tabla pivote con carros
@@ -20,12 +20,22 @@ class Product extends Model
     {
         return $this->belongsToMany(Cart::class)->withPivot('quantity');
     }
-
-    public function images(){
-        return $this->hasMany(Image::class);
+    public function images()
+    {
+        return $this->hasMany(Images::class);
+    }
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)->withPivot('quantity');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+   
 
+    
 
 
 

@@ -10,9 +10,8 @@
 
 
     <div class="container mt-5">
-
         <h1>Creación del producto:</h1>
-        <form action="{{ route('product.update') }}" method="POST">
+        <form action="{{ route('product.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -34,6 +33,10 @@
                 <label for="stock" class="form-label">Stock</label>
                 <input type="number" class="form-control" id="stock" name="stock" required>
             </div>
+            <div class="mb-3">
+                <label for="images" class="form-label">Imágenes del Producto</label>
+                <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
+            </div>
 
             <button type="submit" class="btn btn-primary">Crear Producto</button>
         </form>
@@ -43,8 +46,17 @@
                 @foreach ($products as $product)
                     <div class="col-md-4 mb-4">
                         <div class="card">
-                            <!-- Imagen del producto -->
-                            <img src="{{ $product->imagen_url }}" class="card-img-top" alt="{{ $product->name }}">
+                            
+                            @if ($product->images()->exists())
+                                <!-- Imagen del producto -->
+                                <img src="{{ asset('storage/' . $product->images->first()->route) }}" class="card-img-top"
+                                    alt="{{ $product->name }}">
+                            @else
+                               
+                                <div class="text-center">
+                                    <p>No hay imagen disponible</p>
+                                </div>
+                            @endif
 
                             <div class="card-body">
                                 <!-- Nombre del producto -->
@@ -52,16 +64,15 @@
 
                                 <!-- Descripción del producto -->
                                 <p class="card-text">{{ $product->description }}</p>
-                                <!-- Estado del producto -->
-                                <p class="text-muted">Este producto esta @if($product->show)visible. @else oculto. @endif</p>
-                                <!-- Descripción del producto -->
-                                <p class="card-text">{{ $product->description }}</p>
-                                {{-- Precio del producto --}}
                                 <p class="card-text">{{ $product->price }}</p>
-                                {{--Stock del producto  --}}
                                 <p class="card-text">{{ $product->stock }}</p>
                                 <!-- Estado del producto -->
-                                <p class="text-muted">Este producto esta @if($product->show)visible. @else oculto. @endif</p>
+                                <p class="text-muted">Este producto esta @if ($product->show)
+                                        visible.
+                                    @else
+                                        oculto.
+                                    @endif
+                                </p>
 
                                 <!-- Botones -->
                                 <a href="{{ route('product.edit', ['id' => $product->id]) }}"> <button
@@ -70,11 +81,11 @@
                                     <a href="{{ route('product.delete', ['id' => $product->id]) }}"> <button
                                             class="btn m-4 p-2 btn-danger float-start">Ocultar Producto</button></a>
                                 @else
-                                <a href="{{ route('product.delete', ['id' => $product->id]) }}"> <button
-                                    class="btn m-4 p-2 btn-danger float-start">Mostrar Producto</button></a>
+                                    <a href="{{ route('product.delete', ['id' => $product->id]) }}"> <button
+                                            class="btn m-4 p-2 btn-danger float-start">Mostrar Producto</button></a>
                                 @endif
 
-                                
+
                             </div>
                         </div>
                     </div>

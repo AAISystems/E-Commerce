@@ -61,7 +61,7 @@
 
                                 </div>
                                 <div class="row justify-content-center align-items-center g-2">
-                                    <button class="btn btn-success mt-3 col-12" type="submit">Añadir al carrito</button>
+                                    <button class="btn btn-success mt-3 col-12" type="submit"><img src="{{asset('img/cart-plus-svgrepo-com.svg')}}" class="img-fluid rounded-top" alt="Comprar" /></button>
                                 </div>
 
 

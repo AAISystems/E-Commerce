@@ -22,6 +22,8 @@ class CategoryController extends Controller
 
         $category = new Category();
         $category->name = $request->name;
+        $category->show=1;
+
        
 
 
@@ -53,13 +55,13 @@ class CategoryController extends Controller
 
         $category = Category::find($id);
         if ($category->show) {
-            $category->show = false;
+            $category->show = 0;
         } else {
-            $category->show = true;
+            $category->show = 1;
         }
 
         $category->save();
-        return redirect()->route('')->with('success', '');
+        return redirect()->route('category.show')->with('success', 'Esta categoría se encuentra Oculta');
 
 
        
@@ -108,7 +110,15 @@ class CategoryController extends Controller
     }
 
    
-
+    public function activate($id)
+    {
+        $category = Category::findOrFail($id);
+        $category->show = 1;
+        $category->save();
+    
+        return redirect()->route('category.show')->with('success', 'La categoría se ha activado correctamente.');
+    }
+    
 
 
 }

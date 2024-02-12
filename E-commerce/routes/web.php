@@ -4,7 +4,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 
-use App\Http\Controllers\CartController;
 
 use Illuminate\Support\Facades\Route;
 

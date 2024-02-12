@@ -60,10 +60,15 @@
                                     </button>
 
                                 </div>
-                                <div class="row justify-content-center align-items-center g-2">
-                                    <button class="btn btn-success mt-3 col-12" type="submit">Añadir al carrito</button>
+                                <div class="row align-items-center g-2">
+                                    <div class="col">
+                                        <button class="btn btn-success mt-3 col-12" type="submit">Añadir al carrito</button>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-success mt-3 col-12" type="submit">Añadir a favoritos</button>
+                                    </div>
                                 </div>
-
+                                
 
                             </form>
                         </div>

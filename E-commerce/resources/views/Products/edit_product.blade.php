@@ -25,32 +25,32 @@
 
             <div class="mb-3">
                 <label for="" class="form-label">Nombre</label>
-                <input type="text" name="name" class="form-control mb-2" value="{{ $product->title }}"
+                <input type="text" name="name" class="form-control mb-2" value="{{ $product->name }}"
                 placeholder='{{ $product->name }}' autofocus>
                 
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Descripción</label>
-                <input type="text" name="description" class="form-control mb-2" value="{{ $product->title }}"
+                <input type="text" name="description" class="form-control mb-2" value="{{ $product->description }}"
                 placeholder='{{ $product->description }}' autofocus>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Precio</label>
-                <input type="text" name="price" class="form-control mb-2" value="{{ $product->title }}"
+                <input type="text" name="price" class="form-control mb-2" value="{{ $product->price }}"
                 placeholder='{{ $product->price }}' autofocus>
                 
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Stock</label>
-                <input type="text" name="stock" class="form-control mb-2" value="{{ $product->title }}"
+                <input type="text" name="stock" class="form-control mb-2" value="{{ $product->stock }}"
                 placeholder='{{ $product->stock }}' autofocus>
                 
             </div>
             <div class="mb-3">
-                <label for="category" class="form-label">Categoría</label>
-                <select name="category" id="category" class="form-select">
+                <label for="categories" class="form-label">Categorías</label>
+                <select name="categories[]" id="categories" class="form-select" multiple>
                     @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" {{ $product->categories->contains($category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
                     @endforeach
                 </select>
             </div>

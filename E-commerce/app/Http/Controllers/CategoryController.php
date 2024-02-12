@@ -52,20 +52,49 @@ class CategoryController extends Controller
 
     public function delete($id)
     {
-
         $category = Category::find($id);
-        if ($category->show) {
-            $category->show = 0;
-        } else {
-            $category->show = 1;
-        }
-
+        $category->show = !$category->show; // Cambiar el estado de visibilidad de la categoría
         $category->save();
-        return redirect()->route('category.show')->with('success', 'Esta categoría se encuentra Oculta');
-
-
-       
+    
+        // Si la categoría se ha ocultado
+        if (!$category->show) {
+            // Obtener los productos asociados a esta categoría
+            $products = $category->products;
+    
+            foreach ($products as $product) {
+                // Verificar si el producto solo está asociado a esta categoría
+                if ($product->categories()->count() == 1) {
+                    // Ocultar el producto si no está asociado a otras categorías visibles
+                    $visibleCategories = Category::where('show', true)->pluck('id');
+                    $product->categories()->detach($category->id);
+                    $remainingCategories = $product->categories()->whereIn('categories.id', $visibleCategories)->count();
+                    if ($remainingCategories == 0) {
+                        $product->show = false;
+                        $product->save();
+                    }
+                }
+            }
+        } else { // Si la categoría se ha activado
+            // Obtener los productos que estaban asociados a esta categoría
+            $products = $category->products;
+    
+            foreach ($products as $product) {
+                // Mostrar el producto si no estaba asociado a ninguna otra categoría visible
+                if (!$product->show) {
+                    $visibleCategories = Category::where('show', true)->pluck('id');
+                    $remainingCategories = $product->categories()->whereIn('categories.id', $visibleCategories)->count();
+                    if ($remainingCategories > 0) {
+                        $product->show = true;
+                        $product->save();
+                    }
+                }
+            }
+        }
+    
+        return redirect()->route('category.show')->with('success', 'La categoría se ha modificado correctamente.');
     }
+    
+    
 
 
 

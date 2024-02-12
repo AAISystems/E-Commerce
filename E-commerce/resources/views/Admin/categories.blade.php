@@ -37,6 +37,12 @@
             </div>
         @endforeach
     </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            {{ $categories->links() }}
+        </div>
+    </div>
 </div>
 @endsection
 

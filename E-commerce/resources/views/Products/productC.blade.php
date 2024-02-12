@@ -19,6 +19,12 @@
                         <p class="card-text">{{ $product->description }}</p>
                         <p class="card-text">Precio: {{ $product->price }}</p>
                         <!-- Otros detalles del producto -->
+                        <!-- Formulario para quitar el producto de la categoría -->
+                        <form action="{{ route('product.removeFromCategory', ['product' => $product->id, 'category' => $category->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger mt-2">Quitar de la categoría</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -64,3 +64,5 @@ Route::get('edit_categories/{id}', [ CategoryController::class, 'edit' ]) -> nam
 
 
 Route::post('saveCategory/{id}', [ CategoryController::class, 'update' ]) -> name('category.save')->middleware('admin'); 
+
+Route::delete('admin/categories/removeFromCategory/{product}/{category}', [ProductController::class,'removeFromCategory'])->name('product.removeFromCategory');

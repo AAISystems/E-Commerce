@@ -153,6 +153,15 @@ class ProductController extends Controller
              return redirect()->back()->with('error', 'La categoría no existe.');
          }
      }
+
+     public function removeFromCategory(Product $product, Category $category)
+{
+    // Lógica para quitar el producto de la categoría
+    $category->products()->detach($product);
+
+    return redirect()->back()->with('message', 'Producto quitado de la categoría exitosamente');
+}
+     
  }
 
 

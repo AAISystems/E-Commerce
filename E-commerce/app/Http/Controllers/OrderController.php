@@ -77,7 +77,6 @@ class OrderController extends Controller
 
                     $cartController = new CartController();
 
-                    dd($cartController);
                     $cartController->buy($user->cart);
 
                     return redirect('/');

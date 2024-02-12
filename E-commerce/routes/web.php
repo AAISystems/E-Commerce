@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
@@ -64,4 +65,7 @@ Route::get('user/address/favourite/{id}',[AddressController::class,'favourite'])
 Route::get('user/address/edit/{id}',[AddressController::class,'edit'])->middleware('auth')->name('user.address.edit');
 Route::post('user/address/edit/update',[AddressController::class,'update'])->middleware('auth')->name('user.address.update');
 
+Route::get('user/invoices',[InvoiceController::class,'show'])->middleware('auth')->name('invoices.show');
+Route::get('user/invoices/create',[InvoiceController::class,'create'])->middleware('auth')->name('invoices.create');
+Route::post('user/invoices/update',[InvoiceController::class,'update'])->middleware('auth')->name('invoices.update');
 

@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->float("total");
+            $table->string("sellerName");
+            $table->string('sellerNIF');
+            $table->string('sellerAddress');
+            $table->date('date');
+            $table->string('userName');
+            $table->string('userNIF');
+            $table->string('userAddress');
+            $table->float('total');
+
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('order_id')->references('id')->on('orders');
             $table->timestamps();
         });
     }

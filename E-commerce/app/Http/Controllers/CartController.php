@@ -39,7 +39,7 @@ class CartController extends Controller
         //Añadimos el precio de los productos al total del carrito
 
         $userCart->amount += $productToAdd->price * $request->inputQuantity;
-        
+
         // $productToAdd->stock -= $request->inputQuantity;
         $productToAdd->save();
 
@@ -72,9 +72,7 @@ class CartController extends Controller
         //Eliminamos el precio de los productos al total del carrito
         $userCart->amount -= $productToRemove->price * $userCart->products()->find($productToRemove->id)->pivot->quantity;
 
-        // Devolvemos la cantidad al stock del producto
-        // $quantity = $userCart->products()->find($productToRemove->id)->pivot->quantity;
-        // $productToRemove->stock += $quantity;
+
         $productToRemove->save();
         // Retiramos el producto de la tabla pivote 
         $userCart->products()->detach($productToRemove->id);
@@ -90,5 +88,23 @@ class CartController extends Controller
         $userCart->products()->detach();
 
         return redirect('/');
+    }
+
+    public function buy($userCart)
+    {
+        $user = Auth::user();
+        $userCart = Cart::where('users_id', $user->id)->first();
+
+        foreach ($userCart->products as $productToRemove) {
+            // Devolvemos la cantidad al stock del producto
+            $quantity = $userCart->products()->find($productToRemove->id)->pivot->quantity;
+            $productToRemove->stock -= $quantity;
+            $productToRemove->save();
+        }
+
+       
+
+        
+        $userCart->products()->detach();
     }
 }

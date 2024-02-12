@@ -46,7 +46,7 @@ class OrderController extends Controller
 
 
             case 'buy':
-               
+
                 if ($request->inputAddress) {
                     $newOrder = new Order();
 
@@ -75,15 +75,20 @@ class OrderController extends Controller
                     // Enviar el correo electrónico
                     Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
 
+                    $cartController = new CartController();
+
+                    dd($cartController);
+                    $cartController->buy($user->cart);
+
                     return redirect('/');
                     break;
-                }else{
+                } else {
                     $newOrder = new Order();
 
                     $newOrder->users_id = $user->id;
                     $newOrder->total = $userCart->amount;
                     $newOrder->dataUser = $user->name;
-                    $newOrder->dataAddress = $request->country.' '.$request->province.' '.$request->city.' '.$request->pc.$request->street.' '.$request->number.' '.$request->floor.' '.$request->door;
+                    $newOrder->dataAddress = $request->country . ' ' . $request->province . ' ' . $request->city . ' ' . $request->pc . $request->street . ' ' . $request->number . ' ' . $request->floor . ' ' . $request->door;
 
                     $newOrder->save();
 
@@ -101,6 +106,9 @@ class OrderController extends Controller
 
                     $newOrder->save();
 
+                    $cartController = new CartController();
+
+                    $cartController->buy($user->cart);
 
                     // Enviar el correo electrónico
                     Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));

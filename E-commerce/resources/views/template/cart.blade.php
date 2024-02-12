@@ -1,7 +1,7 @@
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        <img src="" class="img-fluid rounded-top" alt="logoCart" />
+        <img src="{{asset('img/cart-shopping-svgrepo-com.svg')}}" class="img-fluid rounded-top" alt="logoCart" />
     </a>
     <div class="dropdown-menu overflow-auto" aria-labelledby="navbarDropdown">
         <div class="container">

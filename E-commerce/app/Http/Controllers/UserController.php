@@ -21,10 +21,19 @@ class UserController extends Controller
 
         // Creamos un carrito asociado al usuario por el ID.
         $cartController = new CartController();
+        //Cuando el usuario se registar a parte del carrito tambien se le crea la wishlist
+        $wishlistController=new WishlistController();
+
 
         // Antes de crear el carrito asociado al usuario que se acaba de crear es necesario guardarlo en la bbdd para que se le asigne un id.
+        
         $newUser->save();
+        
+        //Cuando se ha guardado el nuevo usuario en la bbdd se crean carrito y wishlist asociados al id de ese uduario
+        //Si ponemos estas instrucciones antes de gauradr el usuario, se crearian estos elementos asodicados a un id que no existe
+
         $cartController->create($newUser->id);
+        $wishlistController->create($newUser->id);
 
 
         return $newUser;

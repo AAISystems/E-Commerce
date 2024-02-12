@@ -74,11 +74,17 @@
                          <li><a class="dropdown-item" href="{{ route('user.edit') }}"
                                 onclick="event.preventDefault(); document.getElementById('UsersData').submit();">{{ __('Perfil') }}</a>
                         </li>
+                        <li><a class="dropdown-item" href="{{ route('wishlist.wishes') }}"
+                                onclick="event.preventDefault(); document.getElementById('wishlist').submit();">{{ __('Favoritos') }}</a>
+                        </li>
                     </ul>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                      <form id="UsersData" action="{{ route('user.edit') }}" method="GET" class="d-none">
+                        @csrf
+                    </form>
+                    <form id="wishlist" action="{{ route('wishlist.wishes') }}" method="GET" class="d-none">
                         @csrf
                     </form>
                     

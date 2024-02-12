@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,4 +54,8 @@ Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('chec
 Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 
 
 Route::post('profile_update', [ UserController::class, 'update' ]) -> name('user.update'); 
-Route::get('user/profile', [ UserController::class, 'edit' ]) -> name('user.edit'); 
+Route::get('user/profile', [ UserController::class, 'edit' ]) -> name('user.edit');
+
+Route::get('wishlist', [ WishlistController::class, 'wishes' ]) -> name('wishlist.wishes');
+Route::get('addToWishlist',[ WishlistController::class, 'add' ]) -> name('addWish')->middleware('auth'); 
+ 

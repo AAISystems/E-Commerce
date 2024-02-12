@@ -64,13 +64,27 @@
                                     <div class="col">
                                         <button class="btn btn-success mt-3 col-12" type="submit">Añadir al carrito</button>
                                     </div>
-                                    <div class="col">
-                                        <button class="btn btn-success mt-3 col-12" type="submit">Añadir a favoritos</button>
-                                    </div>
+                                   
                                 </div>
                                 
 
                             </form>
+                            <form
+                                action="@if (Auth::user()) {{ route('addWish') }}@else {{ route('login') }} @endif">
+                                @csrf
+                                <input type="text" name="idProduct" value={{ $product->id }} hidden>
+                               
+                                <div class="row align-items-center g-2">
+                                    <div class="col">
+                                        <button class="btn btn-success mt-3 col-12" type="submit">Añadir a favoritos</button>
+                                    </div>
+                                   
+                                </div>
+                                
+
+                            </form>
+
+
                         </div>
 
 

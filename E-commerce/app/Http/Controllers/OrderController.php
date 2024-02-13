@@ -17,7 +17,7 @@ class OrderController extends Controller
     {
         $user = Auth::user();
 
-        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart = $user->cart;
 
 
         $productsInCart = $userCart->products;
@@ -34,7 +34,7 @@ class OrderController extends Controller
     public function buy(Request $request)
     {
         $user = Auth::user();
-        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart = $user->cart;
 
         switch ($request->action) {
 
@@ -54,6 +54,7 @@ class OrderController extends Controller
                     $newOrder->total = $userCart->amount;
                     $newOrder->dataUser = $user->name;
                     $newOrder->dataAddress = $request->inputAddress;
+                    $newOrder->cart_id=$user->cart->id;
 
                     $newOrder->save();
 
@@ -88,6 +89,7 @@ class OrderController extends Controller
                     $newOrder->total = $userCart->amount;
                     $newOrder->dataUser = $user->name;
                     $newOrder->dataAddress = $request->country . ' ' . $request->province . ' ' . $request->city . ' ' . $request->pc . $request->street . ' ' . $request->number . ' ' . $request->floor . ' ' . $request->door;
+                    $newOrder->cart_id=$user->cart->id;
 
                     $newOrder->save();
 

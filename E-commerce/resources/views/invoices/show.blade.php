@@ -13,10 +13,17 @@
 
 @section('content')
     <div class="container mt-5 min-vh-100">
-
-        <h2 class="fw-light">Esta es tu factura</h2>
-        <p>{{ $invoice->id }}</p>
-
+        @if (isset($orders))
+            <h2 class="fw-light">Estos son tus pedidos</h2>
+            @foreach ($orders as $order)
+                <div class="border p-4">
+                    <p>{{ $order->created_at }}</p>
+                    <a href="{{route('invoices.create',$order->id)}}">Enviar factura por correo</a>
+                </div>
+            @endforeach
+        @else
+            <h2 class="fw-light">Todavía no hay pedidos</h2>
+        @endif
 
     </div>
 @endsection

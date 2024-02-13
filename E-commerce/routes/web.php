@@ -66,6 +66,6 @@ Route::get('user/address/edit/{id}',[AddressController::class,'edit'])->middlewa
 Route::post('user/address/edit/update',[AddressController::class,'update'])->middleware('auth')->name('user.address.update');
 
 Route::get('user/invoices',[InvoiceController::class,'show'])->middleware('auth')->name('invoices.show');
-Route::get('user/invoices/create',[InvoiceController::class,'create'])->middleware('auth')->name('invoices.create');
-Route::post('user/invoices/update',[InvoiceController::class,'update'])->middleware('auth')->name('invoices.update');
+Route::get('user/invoices/create/{id}',[InvoiceController::class,'create'])->middleware('auth')->name('invoices.create');
+Route::post('user/invoices/update/{id}',[InvoiceController::class,'update'])->middleware('auth')->name('invoices.update');
 

@@ -16,8 +16,7 @@
 
         <h2 class="fw-light">Generar factura</h2>
 
-
-        <form action="{{ route('invoices.update') }}" method="POST">
+        <form action="{{ route('invoices.update',$userOrder->id ) }}" method="POST">
             @csrf
             <div class="mb-3 row">
                 <label for="inputNIF" class="col-4 col-form-label">Número de identificación fiscal</label>

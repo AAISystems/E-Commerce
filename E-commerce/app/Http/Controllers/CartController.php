@@ -14,12 +14,12 @@ class CartController extends Controller
     // Falta pasar el id del usuario para asociarlo.
     public function create($userId)
     {
+        $user = Auth::user();
 
         $newCart = new Cart();
         $newCart->amount = 0;
         $newCart->total_products = 0;
-        $newCart->users_id = $userId;
-        // $newCart->products_id=0;
+        $newCart->user_id = $userId;
 
         $newCart->save();
     }
@@ -31,7 +31,7 @@ class CartController extends Controller
 
         // Buscamos su carrito asociado y el producto seleccionado
 
-        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart = $user->cart;
 
 
         $productToAdd = Product::find($request->idProduct);
@@ -65,7 +65,7 @@ class CartController extends Controller
         // Recogemos el usuario que este autenticado
         $user = Auth::user();
         // Buscamos su carrito asociado y el producto seleccionado
-        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart =$user->cart;
         $productToRemove = Product::find($request->idProduct);
 
 
@@ -84,7 +84,7 @@ class CartController extends Controller
     {
         $user = Auth::user();
 
-        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart = $user->cart;
         $userCart->products()->detach();
 
         return redirect('/');
@@ -93,7 +93,7 @@ class CartController extends Controller
     public function buy($userCart)
     {
         $user = Auth::user();
-        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart = $user->cart;
 
         foreach ($userCart->products as $productToRemove) {
             // Devolvemos la cantidad al stock del producto
@@ -102,9 +102,11 @@ class CartController extends Controller
             $productToRemove->save();
         }
 
-       
 
-        
+
+
         $userCart->products()->detach();
+        $userCart->amount=0;
+        $userCart->save();
     }
 }

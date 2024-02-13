@@ -79,10 +79,6 @@ class ProductController extends Controller
     }
 
 
-
-
-
-
     //Método  para listar los productos
     public function list()
     {
@@ -107,7 +103,7 @@ class ProductController extends Controller
         $user = Auth::user();
         if ($user) {
             // Buscamos su carrito asociado
-            $userCart = Cart::where('users_id', $user->id)->first();
+            $userCart =$user->cart;
             
             // Cogemos los productos asociados al carrito
             if ($userCart->products) {

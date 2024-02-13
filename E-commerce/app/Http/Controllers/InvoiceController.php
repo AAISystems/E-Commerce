@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Mail;
 class InvoiceController extends Controller
 {
 
-    public function create()
+    public function create($orderId)
     {
         $user = Auth::user();
         $userAddresses = $user->addresses;
+        $userOrder = $user->cart->orders->find($orderId);
 
-        return view('invoices.create', compact('userAddresses'));
+        return view('invoices.create', compact('userAddresses', 'userOrder'));
     }
 
     public function update(Request $request)
@@ -70,9 +71,12 @@ class InvoiceController extends Controller
     {
         $user = Auth::user();
 
+        if ($user->cart->orders) {
+            $orders = $user->cart->orders;
 
-        $invoices = $user->invoices->get();
-
-        return view('invoices.show');
+            return view('invoices.show', compact('orders'));
+        } else {
+            return view('invoices.show');
+        }
     }
 }

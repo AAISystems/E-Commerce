@@ -14,6 +14,7 @@ class Order extends Model
         'total',
         'users_id',
         'invoices_id',
+        'cart_id',
         'dataAddress'
     ];
 
@@ -27,5 +28,10 @@ class Order extends Model
      public function invoice()
     {
         return $this->belongsTo(Invoice::class, 'invoices_id');
+    }
+
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->float("total");
             $table->foreignId('users_id')->references('id')->on('users');
+            $table->foreignId('cart_id')->references('id')->on('carts');
             $table->string('dataAddress');
             $table->string('dataUser');
             $table->timestamps();

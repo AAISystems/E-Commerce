@@ -58,4 +58,5 @@ Route::get('user/profile', [ UserController::class, 'edit' ]) -> name('user.edit
 
 Route::get('wishlist', [ WishlistController::class, 'wishes' ]) -> name('wishlist.wishes');
 Route::get('addToWishlist',[ WishlistController::class, 'add' ]) -> name('addWish')->middleware('auth'); 
+Route::get('wishlist/delete', [ WishlistController::class, 'remove' ]) -> name('removeWish');
  

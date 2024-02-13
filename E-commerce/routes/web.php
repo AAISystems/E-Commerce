@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
@@ -52,4 +54,25 @@ Route::get('dumpCart', [ CartController::class, 'dump' ]) -> name('dumpCart');
 
 Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('checkout'); 
 Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 
+
+Route::get('admin/categories', [CategoryController::class,'list'])->name('category.show');
+
+Route::post('category_update', [CategoryController::class, 'add' ]) -> name('categories.update')->middleware('admin'); 
+
+Route::get('/category/{category}', [CategoryController::class, 'showProducts'])->name('category.products');
+
+Route::get('edit_categories/{id}', [ CategoryController::class, 'edit' ]) -> name('category.edit')->middleware('admin'); 
+
+
+Route::post('saveCategory/{id}', [ CategoryController::class, 'update' ]) -> name('category.save')->middleware('admin'); 
+
+Route::delete('admin/categories/removeFromCategory/{product}/{category}', [ProductController::class,'removeFromCategory'])->name('product.removeFromCategory');
+
+Route::delete('/admin/categories/{category}', [CategoryController::class, 'delete'])->name('category.delete');
+
+Route::post('/category/{id}/activate', [CategoryController::class, 'activate'])->name('category.activate');
+
+Route::post('/lang/{locale}', [LanguageController::class, 'switchLanguage'])->name('lang.switch');
+
+
 

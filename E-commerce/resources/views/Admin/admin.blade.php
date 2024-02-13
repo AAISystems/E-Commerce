@@ -25,7 +25,7 @@
             <div class="card">
                 <img src="path/to/category-image.jpg" class="card-img-top text-center" alt="Categorías">
                 <div class="card-body text-center">
-                    <a href="#" class="btn btn-primary">Ver Categorías</a>
+                    <a href="{{route('category.show')}}" class="btn btn-primary">Ver Categorías</a>
                 </div>
             </div>
         </div>

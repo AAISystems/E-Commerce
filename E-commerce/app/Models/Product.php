@@ -36,7 +36,10 @@ class Product extends Model
 
 
    
-
+    public function wishlist()
+    {
+        return $this->belongsToMany(Wishlist::class);
+    }
     
 
 

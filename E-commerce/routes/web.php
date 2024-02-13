@@ -8,9 +8,8 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
-
-
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,8 +54,8 @@ Route::get('product/{id}', [ProductController::class,'showProduct' ])->name('pro
 
 Route::get('dumpCart', [ CartController::class, 'dump' ])->middleware('auth') -> name('dumpCart'); 
 
-Route::get('checkout', [ OrderController::class, 'prepareOrder' ])->middleware('auth') -> name('checkout'); 
-Route::get('buy', [ OrderController::class, 'buy' ]) ->middleware('auth')-> name('buy'); 
+Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('checkout'); 
+Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 
 
 Route::get('user/addresses', [AddressController::class,'show'])->middleware('auth')->name('user.address');
 Route::view('user/addresses/create', 'userSettings.createAddress')->middleware('auth')->name('user.address.create');
@@ -92,3 +91,11 @@ Route::post('/lang/{locale}', [LanguageController::class, 'switchLanguage'])->na
 
 
 
+Route::post('profile_update', [ UserController::class, 'update' ]) -> name('user.update'); 
+Route::get('user/profile', [ UserController::class, 'edit' ]) -> name('user.edit');
+
+Route::get('wishlist', [ WishlistController::class, 'wishes' ]) -> name('wishlist.wishes');
+Route::get('addToWishlist',[ WishlistController::class, 'add' ]) -> name('addWish')->middleware('auth'); 
+Route::get('wishlist/delete', [ WishlistController::class, 'remove' ]) -> name('removeWish');
+
+ 

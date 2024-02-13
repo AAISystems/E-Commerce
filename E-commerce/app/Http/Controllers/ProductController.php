@@ -138,7 +138,7 @@ class ProductController extends Controller
 
 
 
-            return view('welcome', compact('products', 'productsInCart'));
+            return view('welcome', compact('products', 'productsInCart','user'));
         } else {
             return view('welcome', compact('products'));
         }

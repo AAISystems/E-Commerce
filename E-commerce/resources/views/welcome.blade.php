@@ -42,7 +42,8 @@
             </div>
         @endif
 
-        <h2 class="fw-light mb-4">Súper Ventas</h2>
+        <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
+        <h4 class="fw-light mb-4">@lang('messages.InfoEmpresa')</h2></h4>
         <div class="row justify-content-center align-items-center g-2">
 
             @foreach ($products as $product)
@@ -96,8 +97,7 @@
                                 </div>
                                 <div class="row align-items-center g-2">
                                     <div class="col">
-                                        <button class="btn btn-success mt-3 col-12" type="submit">Añadir al
-                                            carrito</button>
+                                        <button class="btn btn-success mt-3 col-12" type="submit"><img src="{{asset('img/cart-plus-svgrepo-com.svg')}}" alt="Anyadir al carro"></button>
                                     </div>
 
                                 </div>

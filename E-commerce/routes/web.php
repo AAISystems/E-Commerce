@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
@@ -70,3 +71,8 @@ Route::delete('admin/categories/removeFromCategory/{product}/{category}', [Produ
 Route::delete('/admin/categories/{category}', [CategoryController::class, 'delete'])->name('category.delete');
 
 Route::post('/category/{id}/activate', [CategoryController::class, 'activate'])->name('category.activate');
+
+Route::post('/lang/{locale}', [LanguageController::class, 'switchLanguage'])->name('lang.switch');
+
+
+

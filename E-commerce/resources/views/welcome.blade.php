@@ -2,14 +2,37 @@
 
 @section('navbar')
     @include('template.navbar')
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-auto">
+                <form method="POST" action="{{ route('lang.switch', 'en') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-link text-dark">
+                        Cambiar a Inglés
+                    </button>
+                </form>
+            </div>
+            <div class="col-auto">
+                <form method="POST" action="{{ route('lang.switch', 'es') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-link text-dark">
+                        Cambiar a Español
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
+
+
 
 @section('title', 'AAISystems')
 
 
 @section('content')
     <div class="container mt-5 min-vh-100">
-        <h2 class="fw-light mb-4">Súper Ventas</h2>
+        <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
+        <h4 class="fw-light mb-4">@lang('messages.InfoEmpresa')</h2></h4>
         <div class="row justify-content-center align-items-center g-2">
 
             @foreach ($products as $product)

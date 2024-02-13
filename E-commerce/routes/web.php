@@ -76,3 +76,4 @@ Route::post('/lang/{locale}', [LanguageController::class, 'switchLanguage'])->na
 
 
 
+

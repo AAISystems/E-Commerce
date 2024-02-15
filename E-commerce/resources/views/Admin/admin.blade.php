@@ -16,7 +16,7 @@
 
         <!-- Carta de Productos -->
         <div class="col-lg-4 mb-4">
-            <div class="card shadow">
+            <div class="card">
                 <img src="path/to/product-image.jpg" class="card-img-top" alt="Productos">
                 <div class="card-body text-center">
                     <a href="{{route('admin.listp')}}" class="boton">Ver Productos</a>
@@ -26,7 +26,7 @@
 
         <!-- Carta de Categorías -->
         <div class="col-lg-4 mb-4">
-            <div class="card shadow">
+            <div class="card">
                 <img src="path/to/category-image.jpg" class="card-img-top" alt="Categorías">
                 <div class="card-body text-center">
                     <a href="{{route('category.show')}}" class="boton">Ver Categorías</a>
@@ -36,7 +36,7 @@
 
         <!-- Carta de Usuarios -->
         <div class="col-lg-4 mb-4">
-            <div class="card shadow">
+            <div class="card">
                 <img src="path/to/user-image.jpg" class="card-img-top" alt="Usuarios">
                 <div class="card-body text-center">
                     <a href="#" class="boton">Ver Usuarios</a>

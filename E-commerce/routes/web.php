@@ -91,7 +91,6 @@ Route::post('/lang/{locale}', [LanguageController::class, 'switchLanguage'])->na
 
 
 
-
 Route::post('profile_update', [ UserController::class, 'update' ]) -> name('user.update'); 
 Route::get('user/profile', [ UserController::class, 'edit' ]) -> name('user.edit');
 

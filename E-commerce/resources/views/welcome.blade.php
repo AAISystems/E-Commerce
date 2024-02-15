@@ -2,26 +2,6 @@
 
 @section('navbar')
     @include('template.navbar')
-    <div class="container">
-        <div class="row justify-content-end">
-            <div class="col-auto">
-                <form method="POST" action="{{ route('lang.switch', 'en') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-link text-dark">
-                        Cambiar a Inglés
-                    </button>
-                </form>
-            </div>
-            <div class="col-auto">
-                <form method="POST" action="{{ route('lang.switch', 'es') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-link text-dark">
-                        Cambiar a Español
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
 @endsection
 
 
@@ -41,9 +21,12 @@
                 {{ session('error') }}
             </div>
         @endif
-
+        <div class="container">
+            <h1 class="display-5 text-center">AAISystems</h1>
+        </div>
         <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
-        <h4 class="fw-light mb-4">@lang('messages.InfoEmpresa')</h2></h4>
+        <h4 class="fw-light mb-4">@lang('messages.InfoEmpresa')</h2>
+        </h4>
         <div class="row justify-content-center align-items-center g-2">
 
             @foreach ($products as $product)
@@ -97,7 +80,9 @@
                                 </div>
                                 <div class="row align-items-center g-2">
                                     <div class="col">
-                                        <button class="btn btn-success mt-3 col-12" type="submit"><img src="{{asset('img/cart-plus-svgrepo-com.svg')}}" alt="Anyadir al carro"></button>
+                                        <button class="btn btn-success mt-3 col-12" type="submit"><img
+                                                src="{{ asset('img/cart-plus-svgrepo-com.svg') }}"
+                                                alt="Anyadir al carro"></button>
                                     </div>
 
                                 </div>
@@ -111,7 +96,7 @@
 
                                 <div class="row align-items-center g-2">
                                     <div class="col">
-                                        
+
                                         <button class="btn btn-success mt-3 col-12" type="submit">Añadir a
                                             favoritos</button>
                                     </div>

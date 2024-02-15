@@ -56,5 +56,27 @@ class DatabaseSeeder extends Seeder
             'price' => '15',
             'stock' => '2500',
         ]);
+
+        \App\Models\Category::factory()->create([
+            'name' => 'Sistemas operativos'
+        ]);
+        \App\Models\Category::factory()->create([
+            'name' => 'Ofimática'
+        ]);
+        \App\Models\Category::factory()->create([
+            'name' => 'Edición de vídeo'
+        ]);
+        \App\Models\Category::factory()->create([
+            'name' => 'Edición de fotografía'
+        ]);
+        \App\Models\Category::factory()->create([
+            'name' => 'Edición de audio'
+        ]);
+        \App\Models\Category::factory()->create([
+            'name' => 'Sistemas de gestión de personal'
+        ]);
+        \App\Models\Category::factory()->create([
+            'name' => 'Sistemas de gestión empresarial'
+        ]);
     }
 }

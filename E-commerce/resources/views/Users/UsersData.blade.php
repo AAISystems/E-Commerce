@@ -36,7 +36,7 @@
             <div class="mb-3">
                 <label for="" class="form-label">Telefono</label>
                 <input type="number" name="phone" class="form-control mb-2" value="@if($user->phone){{ $user->phone }}@endif"
-                placeholder='{{ $user->telefono }}' autofocus>
+                placeholder='{{ $user->phone }}' autofocus>
                 
             </div>
           

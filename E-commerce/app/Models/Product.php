@@ -29,12 +29,20 @@ class Product extends Model
         return $this->belongsToMany(Order::class)->withPivot('quantity');
     }
 
+    public function invoices()
+    {
+        return $this->belongsToMany(Invoice::class)->withPivot('quantity');
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
    
-
+    public function wishlist()
+    {
+        return $this->belongsToMany(Wishlist::class);
+    }
     
 
 

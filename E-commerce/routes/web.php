@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
-
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 //Hacer route group para no tener 80 líneas
 
-Route::get('/', [ ProductController::class, 'listMain' ]);
+Route::get('/', [ ProductController::class, 'listMain' ])->name('home');
 //Cargamos las rutas con los métodos que vamos a utilizar para guardar la información en cada vista correspondiente. 
 
 Route::get('createProduct', [ ProductController::class, 'create' ]) -> name('product.create')->middleware('admin'); 
@@ -50,10 +52,23 @@ Route::get('removeFromCart',[ CartController::class, 'remove' ]) -> name('remove
 
 Route::get('product/{id}', [ProductController::class,'showProduct' ])->name('product.show');
 
-Route::get('dumpCart', [ CartController::class, 'dump' ]) -> name('dumpCart'); 
+Route::get('dumpCart', [ CartController::class, 'dump' ])->middleware('auth') -> name('dumpCart'); 
 
 Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('checkout'); 
 Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 
+
+Route::get('user/addresses', [AddressController::class,'show'])->middleware('auth')->name('user.address');
+Route::view('user/addresses/create', 'userSettings.createAddress')->middleware('auth')->name('user.address.create');
+
+Route::post('user/address/save',[AddressController::class,'create'])->middleware('auth')->name('user.address.save');
+Route::get('user/address/delete/{id}',[AddressController::class,'delete'])->middleware('auth')->name('user.address.delete');
+Route::get('user/address/favourite/{id}',[AddressController::class,'favourite'])->middleware('auth')->name('user.address.favourite');
+Route::get('user/address/edit/{id}',[AddressController::class,'edit'])->middleware('auth')->name('user.address.edit');
+Route::post('user/address/edit/update',[AddressController::class,'update'])->middleware('auth')->name('user.address.update');
+
+Route::get('user/invoices',[InvoiceController::class,'show'])->middleware('auth')->name('invoices.show');
+Route::get('user/invoices/create/{id}',[InvoiceController::class,'create'])->middleware('auth')->name('invoices.create');
+Route::post('user/invoices/update/{id}',[InvoiceController::class,'update'])->middleware('auth')->name('invoices.update');
 
 Route::get('admin/categories', [CategoryController::class,'list'])->name('category.show');
 
@@ -77,3 +92,11 @@ Route::post('/lang/{locale}', [LanguageController::class, 'switchLanguage'])->na
 
 
 
+Route::post('profile_update', [ UserController::class, 'update' ]) -> name('user.update'); 
+Route::get('user/profile', [ UserController::class, 'edit' ]) -> name('user.edit');
+
+Route::get('wishlist', [ WishlistController::class, 'wishes' ]) -> name('wishlist.wishes');
+Route::get('addToWishlist',[ WishlistController::class, 'add' ]) -> name('addWish')->middleware('auth'); 
+Route::get('wishlist/delete', [ WishlistController::class, 'remove' ]) -> name('removeWish');
+
+ 

@@ -1,7 +1,7 @@
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        <img src="" class="img-fluid rounded-top" alt="logoCart" />
+        <img src="{{asset('img/cart-shopping-svgrepo-com.svg')}}" class="img-fluid rounded-top" alt="logoCart" />
     </a>
     <div class="dropdown-menu overflow-auto" aria-labelledby="navbarDropdown">
         <div class="container">
@@ -31,11 +31,11 @@
                         <button class="btn btn-danger" type="submit">Eliminar del carrito</button>
                     </form>
                 @endforeach
-                <div class="row justify-content-center align-items-center mt-3 g-2">
-                    <a name="" id="" class="btn btn-warning col-6" href="{{ route('dumpCart') }}"
-                    role="button">Vaciar carrito</a>
-                    <a name="" id="" class="btn btn-success col-6" href="{{ route('checkout') }}"
-                    role="button">Comprar</a>
+                <div class="row justify-content-center align-items-center mt-3 gap-1">
+                    <a name="" id="" class="btn btn-danger col-5" href="{{ route('dumpCart') }}"
+                    role="button"><img src="{{asset('img/cart-xmark-svgrepo-com.svg')}}" class="img-fluid rounded-top" alt="vaciarCarrito" /></a>
+                    <a name="" id="" class="btn btn-success col-5" href="{{ route('checkout') }}"
+                    role="button"><img src="{{asset('img/cart-shopping-fast-svgrepo-com.svg')}}" class="img-fluid rounded-top" alt="Comprar" /></a>
                 </div>
 
                 

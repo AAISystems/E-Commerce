@@ -4,7 +4,7 @@
     @include('template.navbar')
 @endsection
 
-@section('title', 'Mi pedido')
+@section('title', 'Generar factura')
 
 @section('script')
     <script defer src="{{ asset('js/orderAddress.js') }}"></script>
@@ -12,43 +12,42 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5 vh-100">
+    <div class="container mt-5 min-vh-100">
 
-        <form action="@if (Auth::user()) {{ route('buy') }}@else {{ route('login') }} @endif">
+        <h2 class="fw-light">Generar factura</h2>
+
+        <form action="{{ route('invoices.update',$userOrder->id ) }}" method="POST">
             @csrf
-
-            <h2 class="fw-light mb-5">Mi pedido</h2>
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
+            <div class="mb-3 row">
+                <label for="inputNIF" class="col-4 col-form-label">Número de identificación fiscal</label>
+                <div class="col-8">
+                    <input type="text" class="form-control" name="inputNIF" id="inputNIF" placeholder="NIF" />
+                    <input type="number" class="form-control" name="order_id" id="order_id" hidden value="1" />
                 </div>
-            @endif
+            </div>
             <div class="row justify-content-center align-items-center gap-5">
 
                 {{-- ENVIO --}}
-                <h3 class="fw-light mb-3">Envío</h3>
                 <div class="row justify-content-center align-items-center g-2">
                     <div class="col-6">
                         <div class="btn-group" role="group" aria-label="Button group name">
-                            <button type="button" class="btn btn-outline-primary" id="registeredBtn" value="false" onclick="registeredAddress()">
+                            <button type="button" class="btn btn-outline-primary" id="registeredBtn" value="false"
+                                onclick="registeredAddress()">
                                 Direcciones registradas
                             </button>
-                            <button type="button" class="btn btn-outline-primary" id='newAddressBtn' value="false" onclick="newAddress()">
-                                Enviar a otra dirección
+                            <button type="button" class="btn btn-outline-primary" id='newAddressBtn' value="false"
+                                onclick="newAddress()">
+                                Facturar a otra dirección
                             </button>
-        
+
                         </div>
                     </div>
                     <div class="col-6"></div>
                 </div>
 
                 {{-- Botones de eleccion de direcciones --}}
-                
-                <div class="col-12 col-md-6" id="delivery">
 
-
-
-
+                <div class="col-12 col-md-12" id="delivery">
 
                     <div id="registeredAddresses">
                         @if ($userAddresses->isNotEmpty())
@@ -154,79 +153,19 @@
 
                 </div>
 
-                <div class="col-12 col-md-5">
-
-                    {{-- PRODUCTOS --}}
-                    <h3 class="fw-light mb-3">Productos</h3>
-
-                    @foreach ($productsInCart as $product)
-                        <div class="row justify-content-center align-items-center g-2 border rounded p-3 mb-3">
-                            <div class="col-4">
-                                {{ $product->name }}
-                            </div>
-                            <div class="col-4">
-                                {{ $quantityOfProduct[$product->id] }}
-                            </div>
-                            <div class="col-4">
-                                <div class="row justify-content-center align-items-center g-2 mb-2">
-                                    <input type="text" name="idProduct_{{ $product->id }}" value={{ $product->id }}
-                                        hidden>
-                                    <div class="row justify-content-center align-items-center g-2">
-                                        <button type="button" onclick="substract({{ $product->id }})"
-                                            class="col-4 btn btn-secondary">
-                                            -
-                                        </button>
-
-                                        <div class="col-4">
-                                            <input type="text" class="form-control"
-                                                name="quantity_{{ $product->id }}" id="quantity_{{ $product->id }}"
-                                                aria-describedby="helpId"
-                                                placeholder=" {{ $quantityOfProduct[$product->id] }}"
-                                                value=" {{ $quantityOfProduct[$product->id] }}" readonly />
-
-                                        </div>
-                                        <button type="button" onclick="add({{ $product->id }})"
-                                            class="col-4 btn btn-secondary">
-                                            +
-                                        </button>
-
-                                    </div>
-                                </div>
-
-                                <div class="row justify-content-center align-items-center g-2">
-                                    <div class="col-12">
-
-                                        <button class="btn btn-danger col-12" name="action" type="submit"
-                                            value="removeFromCart">Eliminar del carrito</button>
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-                        </div>
-                    @endforeach
-
-
-
-
+                <div class="mb-3 row">
+                    <div class="offset-sm-4 col-sm-8">
+                        <button type="submit" class="btn btn-primary">
+                            Generar
+                        </button>
+                    </div>
                 </div>
-
-
-
-            </div>
-
-            <div class="row justify-content-center align-items-center g-2">
-                <button class="btn btn-success mt-3 col-12" name="action" value="buy"
-                    type="submit">Comprar</button>
-            </div>
-
         </form>
 
 
 
-    </div>
 
+    </div>
 @endsection
 
 @section('footer')

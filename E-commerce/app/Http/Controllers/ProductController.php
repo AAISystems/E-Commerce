@@ -58,7 +58,8 @@ class ProductController extends Controller
 
     // Actualizar las categorías asociadas al producto
     if ($request->has('categories')) {
-        $product->categories()->sync($request->categories);
+       
+        $product->categories()->attach($request->categories);
     } else {
         // Si no se seleccionaron categorías, desasociar todas las categorías del producto
         $product->categories()->detach();
@@ -129,7 +130,7 @@ class ProductController extends Controller
         $user = Auth::user();
         if ($user) {
             // Buscamos su carrito asociado
-            $userCart = Cart::where('users_id', $user->id)->first();
+            $userCart = $user->cart;
             
             // Cogemos los productos asociados al carrito
             if ($userCart->products) {
@@ -138,7 +139,7 @@ class ProductController extends Controller
 
 
 
-            return view('welcome', compact('products', 'productsInCart'));
+            return view('welcome', compact('products', 'productsInCart','user'));
         } else {
             return view('welcome', compact('products'));
         }

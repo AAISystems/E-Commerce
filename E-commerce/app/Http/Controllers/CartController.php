@@ -14,12 +14,12 @@ class CartController extends Controller
     // Falta pasar el id del usuario para asociarlo.
     public function create($userId)
     {
+        $user = Auth::user();
 
         $newCart = new Cart();
         $newCart->amount = 0;
         $newCart->total_products = 0;
-        $newCart->users_id = $userId;
-        // $newCart->products_id=0;
+        $newCart->user_id = $userId;
 
         $newCart->save();
     }
@@ -31,7 +31,7 @@ class CartController extends Controller
 
         // Buscamos su carrito asociado y el producto seleccionado
 
-        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart = $user->cart;
 
 
         $productToAdd = Product::find($request->idProduct);
@@ -39,7 +39,7 @@ class CartController extends Controller
         //Añadimos el precio de los productos al total del carrito
 
         $userCart->amount += $productToAdd->price * $request->inputQuantity;
-        
+
         // $productToAdd->stock -= $request->inputQuantity;
         $productToAdd->save();
 
@@ -65,16 +65,14 @@ class CartController extends Controller
         // Recogemos el usuario que este autenticado
         $user = Auth::user();
         // Buscamos su carrito asociado y el producto seleccionado
-        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart =$user->cart;
         $productToRemove = Product::find($request->idProduct);
 
 
         //Eliminamos el precio de los productos al total del carrito
         $userCart->amount -= $productToRemove->price * $userCart->products()->find($productToRemove->id)->pivot->quantity;
 
-        // Devolvemos la cantidad al stock del producto
-        // $quantity = $userCart->products()->find($productToRemove->id)->pivot->quantity;
-        // $productToRemove->stock += $quantity;
+
         $productToRemove->save();
         // Retiramos el producto de la tabla pivote 
         $userCart->products()->detach($productToRemove->id);
@@ -86,9 +84,29 @@ class CartController extends Controller
     {
         $user = Auth::user();
 
-        $userCart = Cart::where('users_id', $user->id)->first();
+        $userCart = $user->cart;
         $userCart->products()->detach();
 
         return redirect('/');
+    }
+
+    public function buy($userCart)
+    {
+        $user = Auth::user();
+        $userCart = $user->cart;
+
+        foreach ($userCart->products as $productToRemove) {
+            // Devolvemos la cantidad al stock del producto
+            $quantity = $userCart->products()->find($productToRemove->id)->pivot->quantity;
+            $productToRemove->stock -= $quantity;
+            $productToRemove->save();
+        }
+
+
+
+
+        $userCart->products()->detach();
+        $userCart->amount=0;
+        $userCart->save();
     }
 }

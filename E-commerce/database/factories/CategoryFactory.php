@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cart>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
  */
-class CartFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,13 +17,8 @@ class CartFactory extends Factory
     public function definition(): array
     {
         return [
-            'amount' => 0,
-            'total_products' => 0,
-            'user_id' => 1,
-
-
-
-
+            'name'=>'',
+            'show'=>1
         ];
     }
 }

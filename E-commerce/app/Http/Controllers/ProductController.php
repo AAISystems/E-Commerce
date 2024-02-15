@@ -129,7 +129,7 @@ class ProductController extends Controller
         $user = Auth::user();
         if ($user) {
             // Buscamos su carrito asociado
-            $userCart = Cart::where('users_id', $user->id)->first();
+            $userCart = $user->cart;
             
             // Cogemos los productos asociados al carrito
             if ($userCart->products) {
@@ -138,7 +138,7 @@ class ProductController extends Controller
 
 
 
-            return view('welcome', compact('products', 'productsInCart'));
+            return view('welcome', compact('products', 'productsInCart','user'));
         } else {
             return view('welcome', compact('products'));
         }

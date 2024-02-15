@@ -19,7 +19,7 @@ class CartFactory extends Factory
         return [
             'amount' => 0,
             'total_products' => 0,
-            'users_id' => 1,
+            'user_id' => 1,
 
 
 

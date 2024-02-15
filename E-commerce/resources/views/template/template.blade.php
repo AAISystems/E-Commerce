@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <script defer src="{{asset('js/cartQuantity.js')}}"></script>
+    @yield('script')
     <!-- Bootstrap CSS v5.2.1 -->
     @vite(['resources/js/app.js', 'resources/css/app.scss', 'resources/css/app.css'])
     

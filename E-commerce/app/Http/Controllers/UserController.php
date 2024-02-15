@@ -22,13 +22,13 @@ class UserController extends Controller
         // Creamos un carrito asociado al usuario por el ID.
         $cartController = new CartController();
         //Cuando el usuario se registar a parte del carrito tambien se le crea la wishlist
-        $wishlistController=new WishlistController();
+        $wishlistController = new WishlistController();
 
 
         // Antes de crear el carrito asociado al usuario que se acaba de crear es necesario guardarlo en la bbdd para que se le asigne un id.
-        
+
         $newUser->save();
-        
+
         //Cuando se ha guardado el nuevo usuario en la bbdd se crean carrito y wishlist asociados al id de ese uduario
         //Si ponemos estas instrucciones antes de gauradr el usuario, se crearian estos elementos asodicados a un id que no existe
 
@@ -40,26 +40,27 @@ class UserController extends Controller
     }
 
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $user = Auth::user();
-        if($user){
+        if ($user) {
 
-        
-        $user = User::find($request->id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->telefono = $request->telefono;
-    
-        $user->save();
-        return redirect('/')->with('success', '');
-    }else{
-        return redirect()->route('login')->with('success', '');
+
+            $user = User::find($request->id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+
+            $user->save();
+            return redirect('/')->with('success', '');
+        } else {
+            return redirect()->route('login')->with('success', '');
+        }
     }
-    }
-    
-    public function edit(){
+
+    public function edit()
+    {
         $user = Auth::user();
         return view("Users.UsersData", compact("user"));
     }
-
 }

@@ -58,7 +58,8 @@ class ProductController extends Controller
 
     // Actualizar las categorías asociadas al producto
     if ($request->has('categories')) {
-        $product->categories()->sync($request->categories);
+       
+        $product->categories()->attach($request->categories);
     } else {
         // Si no se seleccionaron categorías, desasociar todas las categorías del producto
         $product->categories()->detach();

@@ -11,6 +11,9 @@
     @yield('script')
     <!-- Bootstrap CSS v5.2.1 -->
     @vite(['resources/js/app.js', 'resources/css/app.scss', 'resources/css/app.css'])
+    @vite(['public/js/cProduct', 'public/js/eProduct'])
+
+
     
     @yield("styles")
 

@@ -35,3 +35,36 @@
     background-color: rgb(195, 131, 255);   
      color:rgb(255, 255, 255)
 }
+
+.card-text {
+    margin-bottom: 10px; /* Espaciado entre los párrafos */
+}
+
+.visible-status {
+    color: green; /* Color verde para el estado visible */
+}
+
+.hidden-status {
+    color: red; /* Color rojo para el estado oculto */
+}
+
+/* Estilos para los botones */
+.boton-group {
+    display: flex; /* Flexbox para alinear los botones */
+    justify-content: space-between; /* Espacio entre los botones */
+}
+
+.card-columns {
+    column-count: 3; /* Dividir en tres columnas */
+    column-gap: 1rem; /* Espacio entre columnas */
+}
+
+.card {
+    margin-bottom: 1rem; /* Margen inferior entre tarjetas */
+}
+
+@media (max-width: 991.98px) {
+    .card-columns {
+        column-count: 1; /* Cambiar a una columna en dispositivos pequeños */
+    }
+}

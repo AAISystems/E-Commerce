@@ -6,6 +6,11 @@
 
 @section('title', 'Categorías')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/categorystyle.css') }}">
+@endsection
+
+
 @section('content')
     <div class="container mt-3">
         <h1 class="text-center mb-4">Creación de Categorías</h1>
@@ -25,20 +30,21 @@
         </div>
 
         @if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
         <div class="row justify-content-center">
             {{-- Obtenemos la categoría creada y con el foreach vamos generando tarjetas para mostrar las categorías --}}
             @foreach ($categories as $category)
-                <div class="col-md-3 mb-4">
+                <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body text-center">
                             <h5 class="card-title"><a
-                                    href="{{ route('category.products', $category->id) }}">{{ $category->name }}</a></h5>
+                                    href="{{ route('category.products', ['category' => $category->id]) }}">{{ $category->name }}</a>
+                            </h5>
                             <h6>
                                 @if ($category->show)
                                     Categoría activa
@@ -60,22 +66,20 @@
                                     </form>
                                 @endif
                                 <a href="{{ route('category.edit', ['id' => $category->id]) }}"
-                                    class="btn btn-sm btn-primary">Editar Categoría</a>
+                                    class="btn btn-sm btn-warning">Editar Categoría</a>
                             </div>
-
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
-
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
-                {{ $categories->links() }}
-            </div>
-        </div>
     </div>
 @endsection
+
+
+
+
+
 
 @section('footer')
     @include('template.footer')

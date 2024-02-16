@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form.needs-validation');
@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
             descriptionInput.classList.remove('is-invalid');
         }
 
-        if (!priceValue || isNaN(parseFloat(priceValue))) {
+        if (!priceValue || isNaN(parseFloat(priceValue)) || (parseFloat(priceValue))   < 0) {
             isValid = false;
             priceInput.classList.add('is-invalid');
         } else {
             priceInput.classList.remove('is-invalid');
         }
 
-        if (!stockValue || isNaN(parseInt(stockValue))) {
+        if (!stockValue || isNaN(parseInt(stockValue)) || parseInt(stockValue) < 0) {
             isValid = false;
             stockInput.classList.add('is-invalid');
         } else {

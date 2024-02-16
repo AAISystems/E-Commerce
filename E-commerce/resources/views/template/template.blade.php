@@ -6,6 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-P9ggrPqe2og2Z9LBlGNkOMgiWrSkgaHfE90SEzggkGT2l3lG3cEQRQRIUhxK9uBv" crossorigin="anonymous">
 
     <script defer src="{{asset('js/cartQuantity.js')}}"></script>
     @yield('script')

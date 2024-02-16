@@ -104,7 +104,7 @@ class CategoryController extends Controller
     //Método  para listar los productos
     public function list()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(5);
         return view('admin.categories', compact('categories'));
     }
 

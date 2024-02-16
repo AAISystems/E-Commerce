@@ -68,3 +68,13 @@
         column-count: 1; /* Cambiar a una columna en dispositivos pequeños */
     }
 }
+
+.visible-button {
+    background-color: #28a745; /* Color verde */
+    border-color: #28a745; /* Color verde */
+}
+
+.hidden-button {
+    background-color: #dc3545; /* Color rojo */
+    border-color: #dc3545; /* Color rojo */
+}

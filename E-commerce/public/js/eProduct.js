@@ -1,9 +1,13 @@
 "use strict";
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('form.needs-validation');
+    const productCategoriesSelect = document.getElementById('product-categories');
+    const availableCategoriesSelect = document.getElementById('available-categories');
+    const removeCategoryButton = document.getElementById('remove-category');
 
-    form.addEventListener('submit', function(event) {
+    // Manejo del evento submit del formulario
+    form.addEventListener('submit', function (event) {
         const nameInput = document.querySelector('input[name="name"]');
         const descriptionInput = document.querySelector('input[name="description"]');
         const priceInput = document.querySelector('input[name="price"]');
@@ -32,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             descriptionInput.classList.remove('is-invalid');
         }
 
-        if (!priceValue || isNaN(parseFloat(priceValue)) || (parseFloat(priceValue))   < 0) {
+        if (!priceValue || isNaN(parseFloat(priceValue)) || parseFloat(priceValue) < 0) {
             isValid = false;
             priceInput.classList.add('is-invalid');
         } else {
@@ -59,5 +63,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         form.classList.add('was-validated');
+    });
+
+    // Manejo del evento click del botón de eliminar categoría
+    removeCategoryButton.addEventListener('click', function () {
+        const selectedOptions = productCategoriesSelect.selectedOptions;
+        for (let i = 0; i < selectedOptions.length; i++) {
+            const option = selectedOptions[i];
+            option.remove();
+        }
     });
 });

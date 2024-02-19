@@ -44,22 +44,24 @@ class ProductController extends Controller
         }
 
         return redirect()->route('admin.listp')->with('success', '');
-    }
-    public function update(Request $request)
+    }public function update(Request $request)
     {
-        $product = Product::find($request->id);
+        $product = Product::findOrFail($request->id);
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->stock = $request->stock;
-        
-       
-        $product->save();
     
-        // Actualizar las categorías asociadas al producto
+        // Verificar si se enviaron categorías y son válidas
         if ($request->has('categories')) {
-           
-            $product->categories()->attach($request->categories);
+            $categories = Category::whereIn('id', $request->categories)->get();
+            if ($categories->count() > 0) {
+                // Eliminar todas las asociaciones anteriores de categorías
+                $product->categories()->detach();
+    
+                // Asociar las nuevas categorías seleccionadas
+                $product->categories()->attach($request->categories);
+            }
         } else {
             // Si no se seleccionaron categorías, desasociar todas las categorías del producto
             $product->categories()->detach();
@@ -69,14 +71,18 @@ class ProductController extends Controller
         $hiddenCategories = $product->categories()->where('show', false)->count();
         if ($hiddenCategories == $product->categories()->count()) {
             $product->show = false;
-            $product->save();
         } else {
             $product->show = true;
-            $product->save();
         }
+    
+        // Guardar el producto actualizado
+        $product->save();
     
         return redirect()->route('admin.listp')->with('success', 'El producto se ha actualizado correctamente.');
     }
+    
+    
+
     
     public function delete($id)
     {
@@ -165,10 +171,13 @@ class ProductController extends Controller
          }
      }
 
-     public function removeFromCategory(Product $product, Category $category)
+     public function removeCategoryFromProduct(Request $request)
      {
-         // Quita el producto solo de esta categoría
-         $category->products()->detach($product);
+         $product = Product::findOrFail($request->product_id);
+         $category = Category::findOrFail($request->category_id);
+     
+         // Quita el producto de la categoría
+         $product->categories()->detach($category->id);
      
          // Verifica si el producto aún está asociado a otras categorías
          $remainingCategories = $product->categories()->count();
@@ -179,8 +188,9 @@ class ProductController extends Controller
              $product->save();
          }
      
-         return redirect()->back()->with('message', 'Producto quitado de la categoría exitosamente');
+         return redirect()->back()->with('message', 'Categoría quitada del producto exitosamente');
      }
+     
 
      
      

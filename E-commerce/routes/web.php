@@ -98,4 +98,3 @@ Route::get('wishlist', [ WishlistController::class, 'wishes' ]) -> name('wishlis
 Route::get('addToWishlist',[ WishlistController::class, 'add' ]) -> name('addWish')->middleware('auth'); 
 Route::get('wishlist/delete', [ WishlistController::class, 'remove' ]) -> name('removeWish');
 
- 

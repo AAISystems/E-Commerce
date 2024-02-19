@@ -12,7 +12,7 @@
     @yield('script')
     <!-- Bootstrap CSS v5.2.1 -->
     @vite(['resources/js/app.js', 'resources/css/app.scss', 'resources/css/app.css'])
-    @vite(['public/js/cProduct', 'public/js/eProduct','public/css/pStyle.css','public/css/categorystyle.css'])
+    @vite(['public/js/cProduct.js', 'public/js/eProduct.js','public/css/pStyle.css','public/css/categorystyle.css','public/css/productcategory.css', 'public/js/eCategory.js','public/js/cCategory.js'])
 
 
     

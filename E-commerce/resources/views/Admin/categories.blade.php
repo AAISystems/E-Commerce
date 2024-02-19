@@ -4,6 +4,9 @@
     @include('template.adminNavbar')
 @endsection
 
+<script src="{{ asset('js/cCategory.js') }}"></script>
+
+
 @section('title', 'Categorías')
 
 @section('styles')
@@ -15,11 +18,12 @@
         <h1 class="text-center mb-4">Creación de Categorías</h1>
         <div class="row justify-content-center mb-3">
             <div class="col-md-6">
-                <form action="{{ route('categories.update') }}" method="POST">
+                <form action="{{ route('categories.update') }}" method="POST" id="categoryForm">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre de la categoría</label>
                         <input type="text" class="form-control" id="name" name="name" required>
+                        <div id="nombreErrorCategory" class="text-danger" style="display: none;">El nombre es obligatorio</div>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Crear Categoría</button>
@@ -39,9 +43,7 @@
         @foreach ($categories as $category)
             <div class="card mb-4">
                 <div class="card-body text-center">
-                    <h5 class="card-title"><a
-                            href="{{ route('category.products', ['category' => $category->id]) }}">{{ $category->name }}</a>
-                    </h5>
+                    <h5 class="card-title"><a href="{{ route('category.products', ['category' => $category->id]) }}">{{ $category->name }}</a></h5>
                     <h6>
                         @if ($category->show)
                             Categoría activa
@@ -62,8 +64,7 @@
                                 <button type="submit" class="btn btn-sm btn-success me-2">Activar</button>
                             </form>
                         @endif
-                        <a href="{{ route('category.edit', ['id' => $category->id]) }}"
-                            class="btn btn-sm btn-warning">Editar Categoría</a>
+                        <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn btn-sm btn-warning">Editar Categoría</a>
                     </div>
                 </div>
             </div>
@@ -76,8 +77,7 @@
     </div>
 @endsection
 
-
-
 @section('footer')
     @include('template.footer')
 @endsection
+

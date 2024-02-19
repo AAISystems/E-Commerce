@@ -13,19 +13,21 @@
     <div class="container mt-5 min-vh-100">
 
         @if (session('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show">
                 {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @elseif(session('error'))
-            <div class="alert alert-error">
+            <div class="alert alert-danger alert-dismissible fade show">
                 {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         <div class="container">
             <h1 class="display-5 text-center">AAISystems</h1>
         </div>
         <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
-        <h4 class="fw-light mb-4">@lang('messages.InfoEmpresa')</h2>
+        <p class="fw-light mb-4">@lang('messages.InfoEmpresa')</p>
         </h4>
         <div class="row justify-content-center align-items-center g-2">
 
@@ -51,9 +53,28 @@
 
                             <!-- Descripción del producto -->
                             <p class="card-text">{{ $product->description }}</p>
+                            <div class="d-flex">
+                                <!-- Stock del producto -->
+                                <small class="help">Stock: {{ $product->stock }} </small>
 
-                            <!-- Stock del producto -->
-                            <small class="help">Stock: {{ $product->stock }} </small>
+                                <form
+                                    action="@if (Auth::user()) {{ route('addWish') }}@else {{ route('login') }} @endif"
+                                    class="ms-auto">
+                                    @csrf
+                                    <input type="text" name="idProduct" value={{ $product->id }} hidden>
+
+                                    <button type="submit" class="btn">
+                                        <img src="{{ asset('img/heart-svgrepo-com.svg') }}" class="ms-auto"
+                                            alt="icono corazon">
+                                    </button>
+
+
+                                </form>
+
+
+
+                            </div>
+
 
                             {{-- Formulario para añadir al carrito --}}
                             <form
@@ -89,22 +110,7 @@
 
 
                             </form>
-                            <form
-                                action="@if (Auth::user()) {{ route('addWish') }}@else {{ route('login') }} @endif">
-                                @csrf
-                                <input type="text" name="idProduct" value={{ $product->id }} hidden>
 
-                                <div class="row align-items-center g-2">
-                                    <div class="col">
-
-                                        <button class="btn btn-success mt-3 col-12" type="submit">Añadir a
-                                            favoritos</button>
-                                    </div>
-
-                                </div>
-
-
-                            </form>
 
 
                         </div>

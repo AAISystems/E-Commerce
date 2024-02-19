@@ -116,5 +116,5 @@
 @endsection
 
 @section('footer')
-@include('template.footer')
+    @include('template.footer')
 @endsection

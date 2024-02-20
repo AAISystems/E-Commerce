@@ -13,8 +13,8 @@ class WishlistController extends Controller
     {
 
         $wishlist = new Wishlist();
-        $wishlist->users_id = $userId;
-        
+        $wishlist->user_id = $userId;
+
         $wishlist->save();
     }
 
@@ -26,7 +26,7 @@ class WishlistController extends Controller
 
 
 
-        $userWishlist = Wishlist::where('users_id', $user->id)->first();
+        $userWishlist = $user->wishlist;
 
 
         $productToAdd = Product::find($request->idProduct);
@@ -52,14 +52,14 @@ class WishlistController extends Controller
 
         $user = Auth::user();
 
-        $userWishlist = Wishlist::where('users_id', $user->id)->first();
+        $userWishlist = $user->wishlist;
         $productToRemove = Product::find($request->idProduct);
 
 
         //Eliminamos el precio de los productos al total del carrito
-       
 
-     
+
+
         $productToRemove->save();
         // Retiramos el producto de la tabla pivote 
         $userWishlist->products()->detach($productToRemove->id);
@@ -73,7 +73,7 @@ class WishlistController extends Controller
         $user = Auth::user();
 
 
-        $wishlist = Wishlist::where('users_id', $user->id)->first();
+        $wishlist = $user->wishlist;
 
         $products = $wishlist->products;
 

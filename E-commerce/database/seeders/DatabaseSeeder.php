@@ -24,6 +24,20 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@email.com',
             'roles_id' => '1',
         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'user',
+            'email' => 'user@email.com',
+        ]);
+        \App\Models\Wishlist::factory()->create([
+            'user_id' => 2,
+
+        ]);
+        \App\Models\Cart::factory()->create([
+            'amount' => 0,
+            'total_products' => 0,
+            'user_id' => 2,
+
+        ]);
 
         \App\Models\Cart::factory()->create([
             'amount' => 0,

@@ -132,6 +132,7 @@ class ProductController extends Controller
             // Buscamos su carrito asociado
             $userCart = $user->cart;
             
+            
             // Cogemos los productos asociados al carrito
             if ($userCart->products) {
                 $productsInCart = $userCart->products;

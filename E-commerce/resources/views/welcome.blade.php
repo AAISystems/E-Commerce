@@ -9,7 +9,26 @@
 @section('title', 'AAISystems')
 
 
+
 @section('content')
+<div class="container d-flex mt-2">
+    <div class="col-auto">
+        <form method="POST" action="{{ route('lang.switch', 'en') }}">
+            @csrf
+            <button type="submit" class="btn btn-link text-light">
+                <img src="{{ asset('img/united-kingdom-uk-svgrepo-com.svg') }}" alt="">
+            </button>
+        </form>
+    </div>
+    <div class="col-auto">
+        <form method="POST" action="{{ route('lang.switch', 'es') }}">
+            @csrf
+            <button type="submit" class="btn btn-link text-light">
+                <img src="{{ asset('img/flag-for-flag-spain-svgrepo-com.svg') }}" alt="">
+            </button>
+        </form>
+    </div>
+</div>
     <div class="container mt-5 min-vh-100">
 
         @if (session('success'))

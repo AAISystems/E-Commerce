@@ -135,7 +135,9 @@ class CategoryController extends Controller
     public function showProducts(Category $category)
     {
         $products = $category->products()->paginate(10); // Ajusta la paginación según tus necesidades
-        return view('Products.productC', compact('products', 'category'));
+        $categories = Category::where('show', true)->get();
+
+        return view('Products.productC', compact('products', 'category','categories'));
     }
 
    

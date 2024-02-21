@@ -26,13 +26,12 @@
                             alt="logoCategorias" />
                     </a>
                     <div class="dropdown-menu bg-light-purple" aria-labelledby="dropdownId">
-                        <a class="dropdown-item" href="#">Sistemas operativos</a>
-                        <a class="dropdown-item" href="#">Ofimática</a>
-                        <a class="dropdown-item" href="#">Edición de vídeo</a>
-                        <a class="dropdown-item" href="#">Edición de fotografía</a>
-                        <a class="dropdown-item" href="#">Edición de audio</a>
-                        <a class="dropdown-item" href="#">Sistemas de gestión de personal</a>
-                        <a class="dropdown-item" href="#">Sistemas de gestión empresarial</a>
+                       
+                        @foreach($categories as $category)
+                        <a class="dropdown-item" href="{{route('category.products',$category)}}">{{$category->name}}</a>
+
+
+                        @endforeach
 
                     </div>
                 </li>
@@ -99,22 +98,5 @@
 
     </div>
 </nav>
-<div class="container d-flex mt-2">
-    <div class="col-auto">
-        <form method="POST" action="{{ route('lang.switch', 'en') }}">
-            @csrf
-            <button type="submit" class="btn btn-link text-light">
-                <img src="{{ asset('img/united-kingdom-uk-svgrepo-com.svg') }}" alt="">
-            </button>
-        </form>
-    </div>
-    <div class="col-auto">
-        <form method="POST" action="{{ route('lang.switch', 'es') }}">
-            @csrf
-            <button type="submit" class="btn btn-link text-light">
-                <img src="{{ asset('img/flag-for-flag-spain-svgrepo-com.svg') }}" alt="">
-            </button>
-        </form>
-    </div>
-</div>
+
 

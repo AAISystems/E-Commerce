@@ -53,33 +53,18 @@
             </div>
             <div class="mb-3">
                 <label for="categories" class="form-label">Categorías</label>
-                <div class="row">
-                    <div class="col">
-                        <select id="available-categories" class="form-select" multiple>
-                            @foreach ($categories as $category)
-                                @unless ($product->categories->contains($category))
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endunless
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select name="categories[]" id="product-categories" class="form-select" multiple>
-                            @foreach ($product->categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <button type="button" id="remove-category" class="btn btn-danger">Eliminar categoría seleccionada</button>
-                </div>
+                <select id="categories" name="categories[]" class="form-select" multiple>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ $product->categories->contains($category->id) ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
-            
-            
-    <input type="number" name="id" value="{{ $product->id }}" hidden>
-    <button class="btn btn-primary btn-block" type="submit">Guardar cambios</button>
-    </form>
+
+            <input type="number" name="id" value="{{ $product->id }}" hidden>
+            <button class="btn btn-primary btn-block" type="submit">Guardar cambios</button>
+        </form>
     </div>
 
 @endsection

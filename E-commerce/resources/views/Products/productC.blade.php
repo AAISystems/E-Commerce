@@ -12,7 +12,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1>Productos de {{ $category->name }}</h1>
+    <h1>Productos de{{ $category->name }}</h1>
     <div class="row">
         @foreach ($products as $product)
             <div class="col mb-4">

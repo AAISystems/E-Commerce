@@ -44,7 +44,9 @@ class ProductController extends Controller
         }
 
         return redirect()->route('admin.listp')->with('success', '');
-    }public function update(Request $request)
+    }
+    
+    public function update(Request $request)
     {
         $product = Product::findOrFail($request->id);
         $product->name = $request->name;
@@ -52,34 +54,19 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->stock = $request->stock;
     
-        // Verificar si se enviaron categorías y son válidas
-        if ($request->has('categories')) {
-            $categories = Category::whereIn('id', $request->categories)->get();
-            if ($categories->count() > 0) {
-                // Eliminar todas las asociaciones anteriores de categorías
-                $product->categories()->detach();
-    
-                // Asociar las nuevas categorías seleccionadas
-                $product->categories()->attach($request->categories);
-            }
-        } else {
-            // Si no se seleccionaron categorías, desasociar todas las categorías del producto
-            $product->categories()->detach();
-        }
-    
-        // Verificar si todas las categorías asociadas al producto están ocultas
-        $hiddenCategories = $product->categories()->where('show', false)->count();
-        if ($hiddenCategories == $product->categories()->count()) {
-            $product->show = false;
-        } else {
-            $product->show = true;
-        }
-    
         // Guardar el producto actualizado
         $product->save();
     
+        // Asociar las categorías seleccionadas al producto
+        if ($request->has('categories')) {
+            $product->categories()->sync($request->categories);
+        }
+    
+        // No actualizar la visibilidad basada en las categorías
+    
         return redirect()->route('admin.listp')->with('success', 'El producto se ha actualizado correctamente.');
     }
+    
     
     
 
@@ -150,26 +137,19 @@ class ProductController extends Controller
         return view('Products.product', compact('product'));
     }
 
-
     public function showFromCategory($id)
-    {
-         // Encuentra la categoría por su ID
-         $category = Category::find($id);
+{
+    $category = Category::find($id);
+    if ($category) {
+        // Obtener los productos de la categoría con la bandera 'show' establecida como true
+        $products = $category->products()->where('show', true)->paginate(3);
+        
+        return view('Products.category_products', compact('products', 'category'));
+    } else {
+        return redirect()->back()->with('error', 'La categoría no existe.');
+    }
+}
 
-         // Si la categoría existe
-         if ($category) {
-             // Recupera todos los productos asociados a esa categoría
-             $products = $category->products()->where('show', true)->paginate(3);
-             
-             // Aquí puedes agregar lógica adicional si lo necesitas, como mostrar productos en el carrito, etc.
- 
-             // Retorna la vista con los productos de la categoría
-             return view('Products.category_products', compact('products', 'category'));
-         } else {
-             // Si la categoría no existe, redirige o muestra un mensaje de error
-             return redirect()->back()->with('error', 'La categoría no existe.');
-         }
-     }
 
      public function removeCategoryFromProduct(Request $request)
      {

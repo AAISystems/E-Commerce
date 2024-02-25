@@ -45,7 +45,7 @@ class OrderController extends Controller
                 $userCart->products()->detach($request->idProduct);
 
                 return redirect()->back()->with('success', 'Producto eliminado correctamente.');
-                break;
+                
 
 
             case 'buy':
@@ -89,7 +89,7 @@ class OrderController extends Controller
                     $cartController->buy($user->cart);
 
                     return redirect('/');
-                    break;
+                    
                 } else {
                     $newOrder = new Order();
 
@@ -134,13 +134,13 @@ class OrderController extends Controller
                     Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
 
                     return redirect('/');
-                    break;
+                   
                 }
 
             case 'default':
 
                 return redirect()->back();
-                break;
+                
         }
     }
 }

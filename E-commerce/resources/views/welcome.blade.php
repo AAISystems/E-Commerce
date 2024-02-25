@@ -11,24 +11,24 @@
 
 
 @section('content')
-<div class="container d-flex mt-2">
-    <div class="col-auto">
-        <form method="POST" action="{{ route('lang.switch', 'en') }}">
-            @csrf
-            <button type="submit" class="btn btn-link text-light">
-                <img src="{{ asset('img/united-kingdom-uk-svgrepo-com.svg') }}" alt="">
-            </button>
-        </form>
+    <div class="container d-flex mt-2">
+        <div class="col-auto">
+            <form method="POST" action="{{ route('lang.switch', 'en') }}">
+                @csrf
+                <button type="submit" class="btn btn-link text-light">
+                    <img src="{{ asset('img/united-kingdom-uk-svgrepo-com.svg') }}" alt="">
+                </button>
+            </form>
+        </div>
+        <div class="col-auto">
+            <form method="POST" action="{{ route('lang.switch', 'es') }}">
+                @csrf
+                <button type="submit" class="btn btn-link text-light">
+                    <img src="{{ asset('img/flag-for-flag-spain-svgrepo-com.svg') }}" alt="">
+                </button>
+            </form>
+        </div>
     </div>
-    <div class="col-auto">
-        <form method="POST" action="{{ route('lang.switch', 'es') }}">
-            @csrf
-            <button type="submit" class="btn btn-link text-light">
-                <img src="{{ asset('img/flag-for-flag-spain-svgrepo-com.svg') }}" alt="">
-            </button>
-        </form>
-    </div>
-</div>
     <div class="container mt-5 min-vh-100">
 
         @if (session('success'))
@@ -48,17 +48,20 @@
         <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
         <p class="fw-light mb-4">@lang('messages.InfoEmpresa')</p>
         </h4>
-        <div class="row justify-content-center align-items-center g-2">
+        <div class="row justify-content-center align-items-center">
 
             @foreach ($products as $product)
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-
+                <div class="col-md-3 mb-4">
+                    <div class="card border rounded-4">
+                        <a href="{{ route('product.show', $product->id) }}"
+                            class="text-center p-3 text-decoration-none bg-light text-dark border-bottom shadow-sm mb-4 rounded-top-4">
+                            <h5 class="card-title">{{ $product->name }}</h5>
+                        </a>
                         @if ($product->images()->exists())
                             <!-- Imagen del producto -->
-                            
-                            <img src="{{ asset($product->images->first()->route) }}" class="card-img-top p-2 img-fluid"
-                                alt="{{ $product->name }}">
+
+                            <a href="{{ route('product.show', $product->id) }}"> <img src="{{ asset($product->images->first()->route) }}" class="card-img-top p-2 img-fluid"
+                                alt="{{ $product->name }}"></a>
                         @else
                             <div class="text-center">
                                 <p>No hay imagen disponible</p>
@@ -67,9 +70,7 @@
 
                         <div class="card-body">
                             <!-- Nombre del producto -->
-                            <a href="{{ route('product.show', $product->id) }}">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                            </a>
+
 
                             <!-- Descripción del producto -->
                             <p class="card-text">{{ $product->description }}</p>
@@ -78,14 +79,14 @@
                                 <p class="fs-3  fw-light">{{ $product->price }} €</p>
 
                                 <form
-                                    action="@if (Auth::user()) {{ route('addWish') }}@else {{ route('login') }} @endif"
+                                    action="@if (Auth::user() && !$user->wishlist->products->find($product->id)) {{ route('addWish') }} @elseif($user->wishlist->products->find($product->id)) {{ route('removeWish') }} @else {{ route('login') }} @endif"
                                     class="ms-auto">
                                     @csrf
                                     <input type="text" name="idProduct" value={{ $product->id }} hidden>
 
                                     <button type="submit" class="btn">
-                                        <img src="{{ asset('img/heart-svgrepo-com.svg') }}" class="ms-auto"
-                                            alt="icono corazon">
+                                        <img src="@if ($user->wishlist->products->find($product->id)) {{ asset('img/heart-svgrepo-com-filled.svg') }} @else {{ asset('img/heart-svgrepo-com.svg') }} @endif"
+                                            class="ms-auto" alt="icono corazon">
                                     </button>
 
 

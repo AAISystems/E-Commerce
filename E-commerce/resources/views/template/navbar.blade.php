@@ -73,8 +73,11 @@
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                                 </li>
                                 <li><a class="dropdown-item" href="{{ route('user.edit') }}"
-                                        onclick="event.preventDefault(); document.getElementById('UsersData').submit();">{{ __('Perfil') }}</a>
+                                        onclick="event.preventDefault(); document.getElementById('UsersData').submit();">{{ __('Editar perfil') }}</a>
                                 </li>
+                                <li><a class="dropdown-item" href="{{ route('user.address') }}"
+                                    onclick="event.preventDefault(); document.getElementById('UsersAddresses').submit();">{{ __('Envíos') }}</a>
+                            </li>
                                 <li><a class="dropdown-item" href="{{ route('wishlist.wishes') }}"
                                         onclick="event.preventDefault(); document.getElementById('wishlist').submit();">{{ __('Favoritos') }}</a>
                                 </li>
@@ -83,6 +86,9 @@
                                 @csrf
                             </form>
                             <form id="UsersData" action="{{ route('user.edit') }}" method="GET" class="d-none">
+                                @csrf
+                            </form>
+                            <form id="UsersAddresses" action="{{ route('user.address') }}" method="GET" class="d-none">
                                 @csrf
                             </form>
                             <form id="wishlist" action="{{ route('wishlist.wishes') }}" method="GET" class="d-none">

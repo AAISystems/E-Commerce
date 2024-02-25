@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -64,7 +65,7 @@ class WishlistController extends Controller
         // Retiramos el producto de la tabla pivote 
         $userWishlist->products()->detach($productToRemove->id);
 
-        return redirect('wishlist');
+        return redirect()->back()->with('success','Producto eliminado de tu wishlist correctamente');
     }
 
 
@@ -76,7 +77,8 @@ class WishlistController extends Controller
         $wishlist = $user->wishlist;
 
         $products = $wishlist->products;
+        $categories = Category::where('show', true)->get();
 
-        return view("Users.wishlist", compact("products"));
+        return view("Users.wishlist", compact("products",'categories'));
     }
 }

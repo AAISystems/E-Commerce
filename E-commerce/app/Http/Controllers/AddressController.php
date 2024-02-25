@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,14 @@ class AddressController extends Controller
 
         $user = Auth::user();
         $userAddresses = $user->addresses;
+        $categories = Category::where('show', true)->get();
 
-        return view('userSettings.address', compact('userAddresses'));
+        return view('userSettings.address', compact('userAddresses','categories'));
+    }
+
+    public function prepare(){
+        $categories = Category::where('show', true)->get();
+        return view('userSettings.createAddress', compact('categories'));
     }
 
     public function create(Request $request)

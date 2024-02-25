@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -61,6 +62,8 @@ class UserController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view("Users.UsersData", compact("user"));
+        $categories = Category::where('show', true)->get();
+
+        return view("Users.UsersData", compact("user",'categories'));
     }
 }

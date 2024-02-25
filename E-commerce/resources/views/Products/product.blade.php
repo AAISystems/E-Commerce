@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-6">
             <!-- Foto a la izquierda -->
-            <img src="{{ $product->imagen_url }}" class="img-fluid" alt="{{ $product->name }}">
+            <img src="{{asset($product->images()->first()->route) }}" class="img-fluid" alt="{{ $product->name }}">
         </div>
         <div class="col-md-6">
             <!-- Nombre, categoría, marca, descripción -->

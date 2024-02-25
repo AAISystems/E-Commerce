@@ -22,14 +22,14 @@ class CategoryController extends Controller
 
         $category = new Category();
         $category->name = $request->name;
-        $category->show=1;
+        $category->show = 1;
 
-       
+
 
 
         $category->save();
 
-       
+
 
         return redirect()->back()->with('success', '');
     }
@@ -39,7 +39,7 @@ class CategoryController extends Controller
         $category = Category::find($request->id);
         // dd($product);
         $category->name = $request->name;
-       
+
 
         $category->save();
         return redirect()->route('category.show')->with('success', '');
@@ -55,12 +55,12 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->show = !$category->show; // Cambiar el estado de visibilidad de la categoría
         $category->save();
-    
+
         // Si la categoría se ha ocultado
         if (!$category->show) {
             // Obtener los productos asociados a esta categoría
             $products = $category->products;
-    
+
             foreach ($products as $product) {
                 // Verificar si el producto solo está asociado a esta categoría
                 if ($product->categories()->count() == 1) {
@@ -77,7 +77,7 @@ class CategoryController extends Controller
         } else { // Si la categoría se ha activado
             // Obtener los productos que estaban asociados a esta categoría
             $products = $category->products;
-    
+
             foreach ($products as $product) {
                 // Mostrar el producto si no estaba asociado a ninguna otra categoría visible
                 if (!$product->show) {
@@ -90,11 +90,11 @@ class CategoryController extends Controller
                 }
             }
         }
-    
+
         return redirect()->route('category.show')->with('success', 'La categoría se ha modificado correctamente.');
     }
-    
-    
+
+
 
 
 
@@ -114,7 +114,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $product = Product::all();
 
-        return view('Products.edit_categories', compact('category','product'));
+        return view('Products.edit_categories', compact('category', 'product'));
 
     }
     //Metodo para mostrar los productos en la pagina principal
@@ -125,7 +125,7 @@ class CategoryController extends Controller
 
 
     }
-    public function  ShowFromCategory($id)
+    public function ShowFromCategory($id)
     {
         $category = Category::find($id);
 
@@ -134,22 +134,31 @@ class CategoryController extends Controller
 
     public function showProducts(Category $category)
     {
+
+        $user = Auth::user();
         $products = $category->products()->paginate(10); // Ajusta la paginación según tus necesidades
         $categories = Category::where('show', true)->get();
+        // dd($user);
 
-        return view('Products.productC', compact('products', 'category','categories'));
+        if ($user && $user->role) {
+            return view('Products.productC', compact('products', 'category', 'categories'));
+        } else {
+            return view('Products.category_product_user', compact('products', 'category', 'categories'));
+        }
+
+
     }
 
-   
+
     public function activate($id)
     {
         $category = Category::findOrFail($id);
         $category->show = 1;
         $category->save();
-    
+
         return redirect()->route('category.show')->with('success', 'La categoría se ha activado correctamente.');
     }
-    
+
 
 
 }

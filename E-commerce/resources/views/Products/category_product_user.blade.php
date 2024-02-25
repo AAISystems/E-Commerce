@@ -4,60 +4,18 @@
     @include('template.navbar')
 @endsection
 
-
-
-@section('title', 'AAISystems')
-
-
-
 @section('content')
-<div class="container d-flex mt-2">
-    <div class="col-auto">
-        <form method="POST" action="{{ route('lang.switch', 'en') }}">
-            @csrf
-            <button type="submit" class="btn btn-link text-light">
-                <img src="{{ asset('img/united-kingdom-uk-svgrepo-com.svg') }}" alt="">
-            </button>
-        </form>
-    </div>
-    <div class="col-auto">
-        <form method="POST" action="{{ route('lang.switch', 'es') }}">
-            @csrf
-            <button type="submit" class="btn btn-link text-light">
-                <img src="{{ asset('img/flag-for-flag-spain-svgrepo-com.svg') }}" alt="">
-            </button>
-        </form>
-    </div>
-</div>
-    <div class="container mt-5 min-vh-100">
+    <div class="container mt-3">
+        <h1 class="text-center fw-light mb-4">Productos de la categoría {{ $category->name }}</h1>
 
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @elseif(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        <div class="container">
-            <h1 class="display-5 text-center">AAISystems</h1>
-        </div>
-        <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
-        <p class="fw-light mb-4">@lang('messages.InfoEmpresa')</p>
-        </h4>
-        <div class="row justify-content-center align-items-center g-2">
-
+        <div class="row justify-content-center">
             @foreach ($products as $product)
                 <div class="col-md-4 mb-4">
                     <div class="card">
 
                         @if ($product->images()->exists())
                             <!-- Imagen del producto -->
-                            
-                            <img src="{{ asset($product->images->first()->route) }}" class="card-img-top p-2 img-fluid"
+                            <img src="{{ asset('storage/' . $product->images->first()->route) }}" class="card-img-top"
                                 alt="{{ $product->name }}">
                         @else
                             <div class="text-center">
@@ -75,7 +33,7 @@
                             <p class="card-text">{{ $product->description }}</p>
                             <div class="d-flex">
                                 <!-- Stock del producto -->
-                                <p class="fs-3  fw-light">{{ $product->price }} €</p>
+                                <small class="help">Stock: {{ $product->stock }} </small>
 
                                 <form
                                     action="@if (Auth::user()) {{ route('addWish') }}@else {{ route('login') }} @endif"
@@ -142,16 +100,13 @@
 
                 </div>
             @endforeach
-
         </div>
-        {{ $products->links() }}
-    </div>
 
-
-
+        <div class="row justify-content-center">
+            {{ $products->links() }}
+        </div>
     </div>
 @endsection
-
 @section('footer')
     @include('template.footer')
 @endsection

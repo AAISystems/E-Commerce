@@ -1,0 +1,4 @@
+.card-img-top:hover {
+    transform: scale(1.1); /* Ajusta el valor según tu preferencia para el nivel de zoom */
+    transition: transform 0.3s ease-in-out;
+}

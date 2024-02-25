@@ -145,7 +145,7 @@ class DatabaseSeeder extends Seeder
             'stock' => '2500',
         ]);
         $office365Family->images()->create([
-            'route' => 'img/products/office365Family.jpg',
+            'route' => 'img/products/office365Family.png',
             'product_id' => $office365Family->id
         ]);
         $office365Family->categories()->attach($office);

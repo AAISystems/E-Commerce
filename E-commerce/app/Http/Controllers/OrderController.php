@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\OrderPlaced;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Invoice;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -18,6 +19,8 @@ class OrderController extends Controller
         $user = Auth::user();
 
         $userCart = $user->cart;
+        $categories = Category::where('show', true)->get();
+
 
 
         $productsInCart = $userCart->products;
@@ -28,7 +31,7 @@ class OrderController extends Controller
 
         $userAddresses = $user->addresses;
 
-        return view('prepareOrder', compact('productsInCart', 'quantityOfProduct', 'userAddresses'));
+        return view('prepareOrder', compact('productsInCart', 'quantityOfProduct', 'userAddresses', 'categories'));
     }
 
     public function buy(Request $request)
@@ -42,19 +45,24 @@ class OrderController extends Controller
                 $userCart->products()->detach($request->idProduct);
 
                 return redirect()->back()->with('success', 'Producto eliminado correctamente.');
-                break;
+                
 
 
             case 'buy':
 
+
                 if ($request->inputAddress) {
                     $newOrder = new Order();
+
+                    $request->validate([
+                        'inputAddress' => 'required'
+                    ]);
 
                     $newOrder->users_id = $user->id;
                     $newOrder->total = $userCart->amount;
                     $newOrder->dataUser = $user->name;
                     $newOrder->dataAddress = $request->inputAddress;
-                    $newOrder->cart_id=$user->cart->id;
+                    $newOrder->cart_id = $user->cart->id;
 
                     $newOrder->save();
 
@@ -81,15 +89,26 @@ class OrderController extends Controller
                     $cartController->buy($user->cart);
 
                     return redirect('/');
-                    break;
+                    
                 } else {
                     $newOrder = new Order();
+
+                    $request->validate([
+                        'country' => 'required',
+                        'province' => 'required',
+                        'city' => 'required',
+                        'pc' => 'required|integer|min:10000|max:99999',
+                        'street' => 'required',
+                        'number'=>'required|integer',
+                        'floor'=>'integer|min:0',
+                        'door'=>'',
+                    ]);
 
                     $newOrder->users_id = $user->id;
                     $newOrder->total = $userCart->amount;
                     $newOrder->dataUser = $user->name;
                     $newOrder->dataAddress = $request->country . ' ' . $request->province . ' ' . $request->city . ' ' . $request->pc . $request->street . ' ' . $request->number . ' ' . $request->floor . ' ' . $request->door;
-                    $newOrder->cart_id=$user->cart->id;
+                    $newOrder->cart_id = $user->cart->id;
 
                     $newOrder->save();
 
@@ -115,13 +134,13 @@ class OrderController extends Controller
                     Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
 
                     return redirect('/');
-                    break;
+                   
                 }
 
             case 'default':
 
                 return redirect()->back();
-                break;
+                
         }
     }
 }

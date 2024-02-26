@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InvoiceMailable;
+use App\Models\Category;
 use App\Models\Invoice;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -18,8 +19,10 @@ class InvoiceController extends Controller
         $user = Auth::user();
         $userAddresses = $user->addresses;
         $userOrder = $user->cart->orders->find($orderId);
+        $categories = Category::where('show', true)->get();
 
-        return view('invoices.create', compact('userAddresses', 'userOrder'));
+
+        return view('invoices.create', compact('userAddresses', 'userOrder','categories'));
     }
 
     public function update(Request $request)
@@ -70,13 +73,14 @@ class InvoiceController extends Controller
     public function show()
     {
         $user = Auth::user();
+        $categories = Category::where('show', true)->get();
 
         if ($user->cart->orders) {
             $orders = $user->cart->orders;
 
-            return view('invoices.show', compact('orders'));
+            return view('invoices.show', compact('orders','categories'));
         } else {
-            return view('invoices.show');
+            return view('invoices.show',compact('categories'));
         }
     }
 }

@@ -58,7 +58,7 @@ Route::get('checkout', [ OrderController::class, 'prepareOrder' ]) -> name('chec
 Route::get('buy', [ OrderController::class, 'buy' ]) -> name('buy'); 
 
 Route::get('user/addresses', [AddressController::class,'show'])->middleware('auth')->name('user.address');
-Route::view('user/addresses/create', 'userSettings.createAddress')->middleware('auth')->name('user.address.create');
+Route::get('user/addresses/create', [AddressController::class,'prepare'])->middleware('auth')->name('user.address.create');
 
 Route::post('user/address/save',[AddressController::class,'create'])->middleware('auth')->name('user.address.save');
 Route::get('user/address/delete/{id}',[AddressController::class,'delete'])->middleware('auth')->name('user.address.delete');

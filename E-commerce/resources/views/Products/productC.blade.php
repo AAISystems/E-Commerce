@@ -1,7 +1,7 @@
 @extends('template.template')
 
 @section('navbar')
-    @include('template.AdminNavbar')
+    @include('template.navbar')
 @endsection
 
 @section('styles')

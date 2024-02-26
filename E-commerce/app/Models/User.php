@@ -50,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function wishlist()
     {
-        return $this->belongsTo(Wishlist::class);
+        return $this->hasOne(Wishlist::class);
     }
 
     public function cart(){

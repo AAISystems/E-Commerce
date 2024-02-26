@@ -1,7 +1,7 @@
 @extends('template.template')
 
 @section('navbar')
-    @include('template.adminNavbar')
+    @include('template.navbar')
 @endsection
 
 @section('title', 'Producto')
@@ -15,15 +15,8 @@
     <div class="row">
         <div class="col-md-6">
             <!-- Foto a la izquierda -->
-            @if ($product->images()->exists())
-            <!-- Imagen del producto -->
-            <img src="{{ asset('storage/' . $product->images->first()->route) }}" class="card-img-top"
-                alt="{{ $product->name }}">
-        @else
-            <div class="text-center">
-                <p>No hay imagen disponible</p>
-            </div>
-        @endif        </div>
+            <img src="{{asset($product->images()->first()->route) }}" class="img-fluid" alt="{{ $product->name }}">
+        </div>
         <div class="col-md-6">
             <!-- Nombre, categoría, marca, descripción -->
             <div class="product-info">

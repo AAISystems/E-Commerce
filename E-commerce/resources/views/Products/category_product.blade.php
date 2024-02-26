@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('template.template')
+
+@section('navbar')
+    @include('template.navbar')
+@endsection
 
 @section('content')
     <div class="container mt-3">
@@ -26,4 +30,7 @@
             {{ $products->links() }}
         </div>
     </div>
+@endsection
+@section('footer')
+    @include('template.footer')
 @endsection

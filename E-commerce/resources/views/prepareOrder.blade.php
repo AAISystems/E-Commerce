@@ -164,7 +164,7 @@
                     <div class="overflow-auto products p-3 shadow">
                         @foreach ($productsInCart as $product)
                             <div class="row justify-content-center align-items-center g-2 border rounded p-3 mb-3">
-                                <div class="col-3">
+                                <div class="col-12 col-md-6 col-lg-6 col-xl-3">
                                     @if ($product->images()->exists())
                                         <!-- Imagen del producto -->
 
@@ -179,13 +179,14 @@
                                     @endif
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-12 col-md-6 col-lg-6 col-xl-3">
                                     {{ $product->name }}
                                 </div>
-                                <div class="col-1" id="showQuantity_{{ $product->id }}">
+                                
+                                <div class="col-12 col-md-6 col-lg-1" id="showQuantity_{{ $product->id }}">
                                     {{ $quantityOfProduct[$product->id] }}
                                 </div>
-                                <div class="col-3">
+                                <div class="col-12 col-md-6 col-lg-6 col-xl-3">
                                     <div class="row justify-content-center align-items-center g-2 mb-2">
                                         <div class="input-group">
                                             <input type="text" name="idProduct_{{ $product->id }}"
@@ -215,13 +216,14 @@
 
 
                                 </div>
-                                <div class="col-1">
+                                <div class="col-12 col-md-1 col-lg-1 text-end">
 
                                     <a href="{{ route('removeFromCart', $product->id) }}" class="btn fw-light col-12">
                                         X</a>
                                 </div>
-
+                                <p class="text-end">{{$product->price}}€</p> 
                             </div>
+                            
                         @endforeach
 
                     </div>
@@ -233,7 +235,9 @@
 
 
             </div>
-
+            <div class="row justify-content-center align-items-center g-2 mt-5 mb-3">
+                <p class="text-end fw-light fs-5 p-3 border">Total: {{Auth::user()->cart->amount}}€</p>
+            </div>
             <div class="row justify-content-center align-items-center g-2">
                 <button class="btn btn-success mt-3 col-12" name="action" value="buy"
                     type="submit">Comprar</button>

@@ -51,21 +51,42 @@
                 <div class="invalid-feedback">Por favor, selecciona al menos una imagen.</div>
             </div>
 
-           
+            <div class="mb-3">
+                <label for="categories" class="form-label">Categorías</label>
+                <select id="categories" name="categories[]" class="form-select" multiple>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" >
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+
+        
 
             <button type="submit" class="boton">Crear Producto</button>
         </form>
     </div>
     <div class="container mt-4">
         <div class="row row-cols-1 card-columns">
-            @foreach ($products as $product)
-                <div class="col mb-4"> <!-- Eliminamos la clase mx-auto -->
-                    <div class="card">
 
+
+
+            @foreach ($products as $product)
+                <div class="col-md-3 mb-4">
+                    <div class="card border rounded-4">
+                        <a href="{{ route('product.show', $product->id) }}"
+                            class="text-center p-3 text-decoration-none text-dark border-bottom shadow-sm mb-4 rounded-top-4">
+                            <h5 class="card-title fw-light">{{ $product->name }}</h5>
+                        </a>
                         @if ($product->images()->exists())
                             <!-- Imagen del producto -->
-                            <img src="{{ asset('storage/' . $product->images->first()->route) }}" class="card-img-top"
-                                alt="{{ $product->name }}">
+
+                            <a href="{{ route('product.show', $product->id) }}">
+                                <img src="{{ asset($product->images->first()->route) }}" class="card-img-top p-4 img-fluid"
+                                    alt="{{ $product->name }}">
+                            </a>
                         @else
                             <div class="text-center">
                                 <p>No hay imagen disponible</p>
@@ -74,37 +95,72 @@
 
                         <div class="card-body">
                             <!-- Nombre del producto -->
-                            <h5 class="card-title">{{ $product->name }}</h5>
+
 
                             <!-- Descripción del producto -->
-                            <p class="card-text">{{ $product->description }}</p>
-                            <p class="card-text">{{ $product->price }}</p>
-                            <p class="card-text">{{ $product->stock }}</p>
-                            <!-- Estado del producto -->
-                            <p class="@if ($product->show) visible-status @else hidden-status @endif">
-                                Este producto está @if ($product->show)
-                                    visible.
-                                @else
-                                    oculto.
-                                @endif
-                            </p>
+                            <p class="card-text">
 
-                            <div class="boton-group">
-                                <a href="{{ route('product.edit', ['id' => $product->id]) }}">
-                                    <button class="boton">Editar Producto</button>
+                                @switch($product->categories->first()->id)
+                                    @case(1)
+                                        <span class="badge text-bg-info fw-normal">{{ $product->categories->first()->name }}</span>
+                                    @break
+
+                                    @case(2)
+                                        <span
+                                            class="badge text-bg-success fw-normal">{{ $product->categories->first()->name }}</span>
+                                    @break
+
+                                    @case(3)
+                                        <span class="badge text-bg-dark fw-normal">{{ $product->categories->first()->name }}</span>
+                                    @break
+
+                                    @case(4)
+                                        <span
+                                            class="badge text-bg-warning fw-normal">{{ $product->categories->first()->name }}</span>
+                                    @break
+
+                                    @case(5)
+                                        <span
+                                            class="badge text-bg-danger fw-normal">{{ $product->categories->first()->name }}</span>
+                                    @break
+
+                                    @case(6)
+                                        <span
+                                            class="badge text-bg-secondary fw-normal">{{ $product->categories->first()->name }}</span>
+                                    @break
+                                @endswitch
+
+                            </p>
+                            <div class="d-flex">
+                                <!-- Stock del producto -->
+                                <p class="fs-3  fw-light">{{ $product->price }} €</p>
+                            </div>
+                           <!-- Estado del producto -->
+                        <p class="@if ($product->show) visible-status @else hidden-status @endif">
+                            Este producto está @if ($product->show)
+                                visible.
+                            @else
+                                oculto.
+                            @endif
+                        </p>
+
+                        <div class="boton-group">
+                            <a href="{{ route('product.edit', ['id' => $product->id]) }}">
+                                <button class="boton">Editar Producto</button>
+                            </a>
+                            @if ($product->show)
+                                <a href="{{ route('product.delete', ['id' => $product->id]) }}">
+                                    <button class="boton">Ocultar Producto</button>
                                 </a>
-                                @if ($product->show)
-                                    <a href="{{ route('product.delete', ['id' => $product->id]) }}">
-                                        <button class="boton">Ocultar Producto</button>
-                                    </a>
-                                @else
-                                    <a href="{{ route('product.delete', ['id' => $product->id]) }}">
-                                        <button class="boton">Mostrar Producto</button>
-                                    </a>
-                                @endif
+                            @else
+                                <a href="{{ route('product.delete', ['id' => $product->id]) }}">
+                                    <button class="boton">Mostrar Producto</button>
+                                </a>
+                            @endif
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             @endforeach
         </div>

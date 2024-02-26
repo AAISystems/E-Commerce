@@ -27,7 +27,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->price = $request->price;
         $product->stock = $request->stock;
-
+        
 
         $product->save();
 
@@ -41,6 +41,15 @@ class ProductController extends Controller
                     'product_id' => $product->id
                 ]);
             }
+        }
+
+        // Actualizar las categorías asociadas al producto
+        if ($request->has('categories')) {
+
+            $product->categories()->attach($request->categories);
+        } else {
+            // Si no se seleccionaron categorías, desasociar todas las categorías del producto
+            $product->categories()->detach();
         }
 
         return redirect()->route('admin.listp')->with('success', '');
@@ -119,14 +128,18 @@ class ProductController extends Controller
     //Metodo para mostrar los productos en la pagina principal
     public function listMain()
     {
+        // Cogemos al usuario autenticado
+        $user = Auth::user();
 
+        if ($user && $user->role) {
+            return redirect()->route('admin');
+
+        } 
         $products = Product::where('show', true)->paginate(4);
         $categories = Category::where('show', true)->get();
 
 
 
-        // Cogemos al usuario autenticado
-        $user = Auth::user();
         if ($user) {
             // Buscamos su carrito asociado
             $userCart = $user->cart;
@@ -147,11 +160,20 @@ class ProductController extends Controller
 
     public function  showProduct($id)
     {
+        $user = Auth::user();
+
+        
+        if ($user && $user->role) {
+            return redirect()->route('product.edit',$id);
+
+        } 
         $product = Product::find($id);
         $categories = Category::where('show', true)->get();
 
         return view('Products.product', compact('product','categories'));
     }
+
+    
 
     public function showFromCategory($id)
     {

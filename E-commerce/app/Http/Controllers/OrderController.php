@@ -40,14 +40,7 @@ class OrderController extends Controller
         $userCart = $user->cart;
 
         switch ($request->action) {
-
-            case 'removeFromCart':
-                $userCart->products()->detach($request->idProduct);
-
-                return redirect()->back()->with('success', 'Producto eliminado correctamente.');
-                
-
-
+     
             case 'buy':
 
 

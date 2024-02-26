@@ -20,11 +20,7 @@
 
                         </div>
                         <div class="col-3">
-                            <form action="{{ route('removeFromCart') }}">
-                                @csrf
-                                <input type="text" name="idProduct" value={{ $product->id }} hidden>
-                                <button class="btn  fw-light" type="submit">X</button>
-                            </form>
+                            <a href="{{route('removeFromCart',$product->id)}}"><button class="btn  fw-light" type="submit">X</button></a>
                         </div>
 
                     </div>

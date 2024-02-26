@@ -60,24 +60,26 @@ class CartController extends Controller
         return redirect('/');
     }
 
-    public function remove(Request $request)
+    public function remove($id)
     {
         // Recogemos el usuario que este autenticado
         $user = Auth::user();
         // Buscamos su carrito asociado y el producto seleccionado
-        $userCart =$user->cart;
-        $productToRemove = Product::find($request->idProduct);
+        $userCart = $user->cart;
+        $productToRemove = Product::find($id);
 
-
+     
         //Eliminamos el precio de los productos al total del carrito
         $userCart->amount -= $productToRemove->price * $userCart->products()->find($productToRemove->id)->pivot->quantity;
+       $userCart->save();
 
 
         $productToRemove->save();
         // Retiramos el producto de la tabla pivote 
         $userCart->products()->detach($productToRemove->id);
 
-        return redirect('/');
+
+        return redirect()->back()->with('success','Producto eliminado del carrito correctamente');
     }
 
     public function dump()
@@ -86,6 +88,8 @@ class CartController extends Controller
 
         $userCart = $user->cart;
         $userCart->products()->detach();
+        $userCart->amount = 0;
+        $userCart->save();
 
         return redirect('/');
     }
@@ -106,7 +110,7 @@ class CartController extends Controller
 
 
         $userCart->products()->detach();
-        $userCart->amount=0;
+        $userCart->amount = 0;
         $userCart->save();
     }
 }

@@ -55,7 +55,7 @@
         <div class="row justify-content-center align-items-center">
 
             @foreach ($products as $product)
-                <div class="col-md-3 mb-4">
+                <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card border rounded-4">
                         <a href="{{ route('product.show', $product->id) }}"
                             class="text-center p-3 text-decoration-none text-dark border-bottom shadow-sm mb-4 rounded-top-4">

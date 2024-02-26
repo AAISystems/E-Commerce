@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const priceInput = document.getElementById('price');
         const stockInput = document.getElementById('stock');
         const imagesInput = document.getElementById('images');
+        const categoriesInput = document.getElementById('categories'); // Nuevo
+
 
         let isValid = true;
 
@@ -52,6 +54,19 @@ document.addEventListener('DOMContentLoaded', function() {
             event.stopPropagation();
         }
 
-        form.classList.add('was-validated');
-    });
+       // Validación de categorías
+       if (categoriesInput.selectedOptions.length === 0) { // Verifica si no se ha seleccionado ninguna opción
+        isValid = false;
+        categoriesInput.classList.add('is-invalid');
+    } else {
+        categoriesInput.classList.remove('is-invalid');
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    form.classList.add('was-validated');
+});
 });

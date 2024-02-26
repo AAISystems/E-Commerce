@@ -6,7 +6,6 @@
 
 <script src="{{ asset('js/cCategory.js') }}"></script>
 
-
 @section('title', 'Categorías')
 
 @section('styles')
@@ -39,45 +38,45 @@
             </div>
         @endif
 
-        {{-- Obtenemos la categoría creada y con el foreach vamos generando tarjetas para mostrar las categorías --}}
-        @foreach ($categories as $category)
-            <div class="card mb-4">
-                <div class="card-body text-center">
-                    <h5 class="card-title"><a href="{{ route('category.products', ['category' => $category->id]) }}">{{ $category->name }}</a></h5>
-                    <h6>
-                        @if ($category->show)
-                            Categoría activa
-                        @else
-                            Categoría oculta
-                        @endif
-                    </h6>
-                    <div class="d-flex justify-content-between">
-                        @if ($category->show)
-                            <form action="{{ route('category.delete', $category->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger me-2">Eliminar</button>
-                            </form>
-                        @else
-                            <form action="{{ route('category.activate', $category->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-success me-2">Activar</button>
-                            </form>
-                        @endif
-                        <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn btn-sm btn-warning">Editar Categoría</a>
+        {{-- Mostrar todas las categorías en dos columnas --}}
+        <div class="row">
+            @foreach ($categories as $category)
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title"><a href="{{ route('category.products', ['category' => $category->id]) }}">{{ $category->name }}</a></h5>
+                            <h6>
+                                @if ($category->show)
+                                    Categoría activa
+                                @else
+                                    Categoría oculta
+                                @endif
+                            </h6>
+                            <div class="d-flex justify-content-between">
+                                @if ($category->show)
+                                    <form action="{{ route('category.delete', $category->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger me-2">Eliminar</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('category.activate', $category->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success me-2">Activar</button>
+                                    </form>
+                                @endif
+                                <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn btn-sm btn-warning me-2">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
-
-        <div class="container mt-4">
-            {{ $categories->links() }} <!-- Paginación -->
+            @endforeach
         </div>
-
     </div>
 @endsection
 
 @section('footer')
     @include('template.footer')
 @endsection
-

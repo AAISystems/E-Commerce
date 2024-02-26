@@ -56,36 +56,39 @@ class ProductController extends Controller
     }
 
     public function update(Request $request)
-    {
-        $product = Product::find($request->id);
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->stock = $request->stock;
+{
+    $product = Product::find($request->id);
+    $product->name = $request->name;
+    $product->description = $request->description;
+    $product->price = $request->price;
+    $product->stock = $request->stock;
 
-        $product->save();
+    // Guardar los cambios básicos del producto
+    $product->save();
 
+    // Actualizar las categorías asociadas al producto
+    if ($request->has('categories')) {
         // Actualizar las categorías asociadas al producto
-        if ($request->has('categories')) {
-
-            $product->categories()->attach($request->categories);
-        } else {
-            // Si no se seleccionaron categorías, desasociar todas las categorías del producto
-            $product->categories()->detach();
-        }
-
-        // Verificar si todas las categorías asociadas al producto están ocultas
-        $hiddenCategories = $product->categories()->where('show', false)->count();
-        if ($hiddenCategories == $product->categories()->count()) {
-            $product->show = false;
-            $product->save();
-        } else {
-            $product->show = true;
-            $product->save();
-        }
-
-        return redirect()->route('admin.listp')->with('success', 'El producto se ha actualizado correctamente.');
+        $product->categories()->sync($request->categories);
+    } else {
+        // Si no se seleccionaron categorías, desasociar todas las categorías del producto
+        $product->categories()->detach();
     }
+
+    // Verificar si todas las categorías asociadas al producto están ocultas
+    $hiddenCategories = $product->categories()->where('show', false)->count();
+    if ($hiddenCategories == $product->categories()->count()) {
+        $product->show = false;
+    } else {
+        $product->show = true;
+    }
+
+    // Guardar el estado de visibilidad del producto
+    $product->save();
+
+    return redirect()->route('admin.listp')->with('success', 'El producto se ha actualizado correctamente.');
+}
+
 
 
 
@@ -114,7 +117,7 @@ class ProductController extends Controller
     public function list()
     {
         $products = Product::paginate(3);
-        return view('Products.list_product', compact('products'));
+        return view('Products.list_product', compact('products','categories'));
     }
 
     public function edit($id)

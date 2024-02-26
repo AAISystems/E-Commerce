@@ -51,6 +51,8 @@
                 <div class="invalid-feedback">Por favor, selecciona al menos una imagen.</div>
             </div>
 
+           
+
             <button type="submit" class="boton">Crear Producto</button>
         </form>
     </div>

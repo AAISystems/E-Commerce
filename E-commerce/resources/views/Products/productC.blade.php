@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="{{ asset('css/productcategory.css') }}">
 @endsection
 
+@section('scripts')
+    <script src="{{ asset('js/eProduct.js') }}"></script>
+@endsection
+
 @section('title', 'Productos de ' . $category->name)
 
 @section('content')

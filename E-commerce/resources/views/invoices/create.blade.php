@@ -22,7 +22,7 @@
                 <label for="inputNIF" class="col-4 col-form-label">Número de identificación fiscal</label>
                 <div class="col-8">
                     <input type="text" class="form-control" name="inputNIF" id="inputNIF" placeholder="NIF" />
-                    <input type="number" class="form-control" name="order_id" id="order_id" hidden value="1" />
+                    <input type="number" class="form-control" name="order_id" id="order_id" hidden value="{{$userOrder->id}}" />
                 </div>
             </div>
             <div class="row justify-content-center align-items-center gap-5">

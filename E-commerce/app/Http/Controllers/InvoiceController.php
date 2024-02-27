@@ -6,6 +6,7 @@ use App\Mail\InvoiceMailable;
 use App\Models\Category;
 use App\Models\Invoice;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\pdf as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -21,13 +22,32 @@ class InvoiceController extends Controller
         $userOrder = $user->cart->orders->find($orderId);
         $categories = Category::where('show', true)->get();
 
+       
+        $user = Auth::user();
+        $existingInvoice = Invoice::where('order_id', $userOrder->id)->first();
 
-        return view('invoices.create', compact('userAddresses', 'userOrder','categories'));
+        if ($existingInvoice) {
+            // Ya existe una factura para esta orden, puedes manejar esto según tus necesidades
+            return redirect()->route('invoices.generate', $existingInvoice->id);
+        }
+
+
+        return view('invoices.create', compact('userAddresses', 'userOrder', 'categories'));
     }
 
     public function update(Request $request)
     {
+        $order = Order::find($request->order_id);
         $user = Auth::user();
+        $existingInvoice = Invoice::where('order_id', $order->id)->first();
+
+        if ($existingInvoice) {
+            // Ya existe una factura para esta orden, puedes manejar esto según tus necesidades
+            return redirect()->route('invoices.generate', $existingInvoice->id);
+        }
+
+
+        
 
         $invoice = new Invoice();
 
@@ -35,7 +55,7 @@ class InvoiceController extends Controller
         $invoice->sellerNIF = '000000000';
         $invoice->sellerAddress = 'Calle falsa 123, apt 4';
         $invoice->date = Date::now();
-        $invoice->userName = $user->name;
+
         $invoice->userNIF = $request->inputNIF;
 
         if ($request->inputAddress) {
@@ -44,8 +64,8 @@ class InvoiceController extends Controller
             $invoice->userAddress = $request->country . ' ' . $request->province . ' ' . $request->city . ' ' . $request->pc . $request->street . ' ' . $request->number . ' ' . $request->floor . ' ' . $request->door;
         }
 
-        $order = Order::find($request->order_id);
-
+        
+        $invoice->userName = $order->dataUser;
 
         $products = $order->products;
 
@@ -65,8 +85,22 @@ class InvoiceController extends Controller
 
         $invoice->save();
 
-        Mail::to($user->email)->send(new InvoiceMailable($user, $invoice));
-        return redirect('/');
+        // Mail::to($user->email)->send(new InvoiceMailable($user, $invoice));
+        return redirect()->route('invoices.generate', $invoice->id);
+    }
+
+    public function generatePDF($id)
+    {
+        $invoice = Invoice::find($id);
+
+
+        // Pasar los datos de la factura dentro de un array
+        $data = ['invoice' => $invoice];
+
+        // Cargar la vista con los datos de la factura
+        $pdf = PDF::loadView('pdf.Invoice', $data);
+
+        return $pdf->download('invoice.pdf');
     }
 
 
@@ -76,11 +110,11 @@ class InvoiceController extends Controller
         $categories = Category::where('show', true)->get();
 
         if ($user->cart->orders) {
-            $orders = $user->cart->orders()->orderBy('created_at','desc')->get();
+            $orders = $user->cart->orders()->orderBy('created_at', 'desc')->get();
 
-            return view('invoices.show', compact('orders','categories'));
+            return view('invoices.show', compact('orders', 'categories'));
         } else {
-            return view('invoices.show',compact('categories'));
+            return view('invoices.show', compact('categories'));
         }
     }
 }

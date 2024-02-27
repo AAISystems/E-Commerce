@@ -45,7 +45,7 @@
                     <p>Dirección de entrega: {{ $order->dataAddress }}</p>
                     <p class="fw-light fs-5 text-end border-top p-1">Total: {{ $order->total }}€</p>
                 </div>
-                <div class="text-end"> <a href="{{ route('invoices.create', $order->id) }}">Enviar factura por correo</a></div>
+                <div class="text-end"> <a href="{{ route('invoices.create', $order->id) }}">Generar factura</a></div>
             </div>
         @endforeach
         

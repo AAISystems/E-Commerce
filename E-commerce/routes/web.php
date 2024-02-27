@@ -69,6 +69,7 @@ Route::post('user/address/edit/update',[AddressController::class,'update'])->mid
 Route::get('user/invoices',[InvoiceController::class,'show'])->middleware('auth')->name('invoices.show');
 Route::get('user/invoices/create/{id}',[InvoiceController::class,'create'])->middleware('auth')->name('invoices.create');
 Route::post('user/invoices/update/{id}',[InvoiceController::class,'update'])->middleware('auth')->name('invoices.update');
+Route::get('user/invoices/generatePdf/{id}',[InvoiceController::class,'generatePDF'])->middleware('auth')->name('invoices.generate');
 
 Route::get('admin/categories', [CategoryController::class,'list'])->name('category.show');
 

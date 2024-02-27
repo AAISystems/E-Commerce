@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    
+}
+
+.container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #9500ff;
+    text-align: center;
+}
+
+h5 {
+    color: #6c757d;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #da74ff;
+    color: #fff;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.text-end {
+    text-align: right;
+}

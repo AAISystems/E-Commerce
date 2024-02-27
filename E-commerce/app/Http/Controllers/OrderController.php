@@ -56,7 +56,7 @@ class OrderController extends Controller
                     ]);
 
                     $newOrder->users_id = $user->id;
-                    $newOrder->total = $userCart->amount;
+                    $newOrder->total = 0;
                     $newOrder->dataUser = $request->inputName;
                     $newOrder->dataAddress = $request->inputAddress;
                     $newOrder->cart_id = $user->cart->id;
@@ -71,6 +71,7 @@ class OrderController extends Controller
                             // Como sabemos que esta recogiendo el id de algun producto, lo concatenamos con el prefijo quantity_ del formulario
                             // para obtener la cantidad asociada al producto
                             $newOrder->products()->attach($value, ['quantity' => $request['quantity_' . $request[$key]]]);
+                            $newOrder->total += $newOrder->products->last()->price*$newOrder->products->last()->pivot->quantity;
                         }
                     }
 

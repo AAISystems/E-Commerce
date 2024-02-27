@@ -76,7 +76,7 @@ class InvoiceController extends Controller
         $categories = Category::where('show', true)->get();
 
         if ($user->cart->orders) {
-            $orders = $user->cart->orders;
+            $orders = $user->cart->orders()->orderBy('created_at','desc')->get();
 
             return view('invoices.show', compact('orders','categories'));
         } else {

@@ -57,7 +57,7 @@ class OrderController extends Controller
 
                     $newOrder->users_id = $user->id;
                     $newOrder->total = $userCart->amount;
-                    $newOrder->dataUser = $user->name;
+                    $newOrder->dataUser = $request->inputName;
                     $newOrder->dataAddress = $request->inputAddress;
                     $newOrder->cart_id = $user->cart->id;
 

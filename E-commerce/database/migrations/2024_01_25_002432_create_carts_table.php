@@ -14,7 +14,7 @@ return new class extends Migration
         //Esta incompleta 
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->integer("amount")->nullable();
+            $table->float("amount")->nullable();
             $table->integer("total_products")->nullable();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();

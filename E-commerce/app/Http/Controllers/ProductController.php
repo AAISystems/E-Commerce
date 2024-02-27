@@ -122,7 +122,7 @@ class ProductController extends Controller
     public function listMain()
     {
 
-        $products = Product::where('show', true)->paginate(4);
+        $products = Product::where('show', true)->orderBy('stock','asc')->take(4)->get();
         $categories = Category::where('show', true)->get();
 
 

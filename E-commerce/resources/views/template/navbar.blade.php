@@ -28,7 +28,7 @@
                     <div class="dropdown-menu bg-light-purple" aria-labelledby="dropdownId">
                        
                         @foreach($categories as $category)
-                        <a class="dropdown-item" href="{{route('category.products',$category)}}">{{$category->name}}</a>
+                        <a class="dropdown-item" href="{{route('category.products',$category)}}">@lang('messages.' . $category->name)</a>
 
 
                         @endforeach

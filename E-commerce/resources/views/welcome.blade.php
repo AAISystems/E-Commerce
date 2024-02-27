@@ -49,9 +49,16 @@
         <div class="container">
             <h1 class="display-5 text-center">AAISystems</h1>
         </div>
-        <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
+        
         <p class="fw-light mb-4">@lang('messages.InfoEmpresa')</p>
-        </h4>
+
+        <h3 class="fw-light">@lang('messages.CategoriesTitle')</h3>
+        <div class="row justify-content-center align-items-center gap-3 mb-5 mt-3">
+            @foreach ($categories as $category)
+               <a class="col-12 col-md-5 col-lg-3 shadow-sm rounded p-3 border text-decoration-none text-dark category" href="{{route('category.products',$category)}}">@lang('messages.' . $category->name)</a> 
+            @endforeach
+        </div>
+        <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
         <div class="row justify-content-center align-items-center">
 
             @foreach ($products as $product)
@@ -87,7 +94,8 @@
                                     @break
 
                                     @case(2)
-                                        <span class="badge text-bg-success fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span
+                                            class="badge text-bg-success fw-normal">{{ $product->categories->first()->name }}</span>
                                     @break
 
                                     @case(3)
@@ -95,15 +103,18 @@
                                     @break
 
                                     @case(4)
-                                        <span class="badge text-bg-warning fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span
+                                            class="badge text-bg-warning fw-normal">{{ $product->categories->first()->name }}</span>
                                     @break
 
                                     @case(5)
-                                        <span class="badge text-bg-danger fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span
+                                            class="badge text-bg-danger fw-normal">{{ $product->categories->first()->name }}</span>
                                     @break
 
                                     @case(6)
-                                        <span class="badge text-bg-secondary fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span
+                                            class="badge text-bg-secondary fw-normal">{{ $product->categories->first()->name }}</span>
                                     @break
                                 @endswitch
 
@@ -111,7 +122,7 @@
                             <div class="d-flex">
                                 <!-- Stock del producto -->
                                 <p class="fs-3  fw-light">{{ $product->price }} €</p>
-                                
+
                                 <form
                                     action="@if (Auth::check() && Auth::user() && !$user->wishlist->products->find($product->id)) {{ route('addWish') }} @elseif(Auth::check() && $user->wishlist->products->find($product->id)) {{ route('removeWish') }} @else {{ route('login') }} @endif"
                                     class="ms-auto">
@@ -119,8 +130,8 @@
                                     <input type="text" name="idProduct" value={{ $product->id }} hidden>
 
                                     <button type="submit" class="btn">
-                                        
-                                        <img src="@if (Auth::check()&& $user->wishlist->products->find($product->id)) {{ asset('img/heart-svgrepo-com-filled.svg') }} @else {{ asset('img/heart-svgrepo-com.svg') }} @endif"
+
+                                        <img src="@if (Auth::check() && $user->wishlist->products->find($product->id)) {{ asset('img/heart-svgrepo-com-filled.svg') }} @else {{ asset('img/heart-svgrepo-com.svg') }} @endif"
                                             class="ms-auto" alt="icono corazon">
                                     </button>
 
@@ -177,8 +188,8 @@
             @endforeach
 
         </div>
+        
 
-        {{ $products->links() }}
 
 
     </div>

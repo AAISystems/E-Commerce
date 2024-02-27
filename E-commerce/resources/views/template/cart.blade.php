@@ -31,7 +31,7 @@
                 <div class="row justify-content-center align-items-center mt-3 gap-1">
                     <a name="" id="" class="btn btn-light col-3" href="{{ route('dumpCart') }}"
                     role="button"><img src="{{asset('img/cart-xmark-svgrepo-com.svg')}}" class="img-fluid rounded-top" alt="vaciarCarrito" /></a>
-                    <a name="" id="" class="btn btn-light col-8" href="@if(!$productsInCart->isEmpty()) {{ route('checkout')}} @endif"
+                    <a name="" id="" class="btn btn-light col-8" href=" {{ route('checkout')}} "
                     role="button"><img src="{{asset('img/cart-shopping-fast-svgrepo-com.svg')}}" class="img-fluid rounded-top" alt="Comprar" /></a>
                 </div>
 

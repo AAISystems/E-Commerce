@@ -18,6 +18,10 @@ class OrderController extends Controller
     {
         $user = Auth::user();
 
+        if ($user->cart->products->isEmpty()) {
+            return back()->with("error", "El carrito está vacío");
+        }
+
         $userCart = $user->cart;
         $categories = Category::where('show', true)->get();
 
@@ -40,7 +44,7 @@ class OrderController extends Controller
         $userCart = $user->cart;
 
         switch ($request->action) {
-     
+
             case 'buy':
 
 
@@ -82,7 +86,7 @@ class OrderController extends Controller
                     $cartController->buy($user->cart);
 
                     return redirect('/');
-                    
+
                 } else {
                     $newOrder = new Order();
 
@@ -92,9 +96,9 @@ class OrderController extends Controller
                         'city' => 'required',
                         'pc' => 'required|integer|min:10000|max:99999',
                         'street' => 'required',
-                        'number'=>'required|integer',
-                        'floor'=>'integer|min:0',
-                        'door'=>'',
+                        'number' => 'required|integer',
+                        'floor' => 'integer|min:0',
+                        'door' => '',
                     ]);
 
                     $newOrder->users_id = $user->id;
@@ -127,13 +131,13 @@ class OrderController extends Controller
                     Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
 
                     return redirect('/');
-                   
+
                 }
 
             case 'default':
 
                 return redirect()->back();
-                
+
         }
     }
 }

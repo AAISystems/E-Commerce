@@ -22,7 +22,7 @@ class InvoiceController extends Controller
         $userOrder = $user->cart->orders->find($orderId);
         $categories = Category::where('show', true)->get();
 
-       
+
         $user = Auth::user();
         $existingInvoice = Invoice::where('order_id', $userOrder->id)->first();
 
@@ -30,9 +30,9 @@ class InvoiceController extends Controller
             // Ya existe una factura para esta orden, puedes manejar esto según tus necesidades
             return redirect()->route('invoices.generate', $existingInvoice->id);
         }
+        $productsInCart = $user->cart->products;
 
-
-        return view('invoices.create', compact('userAddresses', 'userOrder', 'categories'));
+        return view('invoices.create', compact('userAddresses', 'userOrder', 'categories', 'productsInCart'));
     }
 
     public function update(Request $request)
@@ -47,7 +47,7 @@ class InvoiceController extends Controller
         }
 
 
-        
+
 
         $invoice = new Invoice();
 
@@ -64,7 +64,7 @@ class InvoiceController extends Controller
             $invoice->userAddress = $request->country . ' ' . $request->province . ' ' . $request->city . ' ' . $request->pc . $request->street . ' ' . $request->number . ' ' . $request->floor . ' ' . $request->door;
         }
 
-        
+
         $invoice->userName = $order->dataUser;
 
         $products = $order->products;
@@ -108,13 +108,13 @@ class InvoiceController extends Controller
     {
         $user = Auth::user();
         $categories = Category::where('show', true)->get();
-
+        $productsInCart = $user->cart->products;
         if ($user->cart->orders) {
             $orders = $user->cart->orders()->orderBy('created_at', 'desc')->get();
 
-            return view('invoices.show', compact('orders', 'categories'));
+            return view('invoices.show', compact('orders', 'categories', 'productsInCart'));
         } else {
-            return view('invoices.show', compact('categories'));
+            return view('invoices.show', compact('categories','productsInCart'));
         }
     }
 }

@@ -57,7 +57,7 @@ class CartController extends Controller
         }
 
         $userCart->save();
-        return redirect('/');
+        return redirect()->back();
     }
 
     public function remove($id)

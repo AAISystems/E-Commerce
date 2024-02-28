@@ -2,6 +2,7 @@
 
 @section('navbar')
     @include('template.navbar')
+    
 @endsection
 @section('css')
 <link rel="stylesheet" href=" {{ asset('css/welcome.css') }}">

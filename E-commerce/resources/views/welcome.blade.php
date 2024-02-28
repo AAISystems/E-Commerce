@@ -90,31 +90,31 @@
 
                                 @switch($product->categories->first()->id)
                                     @case(1)
-                                        <span class="badge text-bg-info fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span class="badge text-bg-info fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
 
                                     @case(2)
                                         <span
-                                            class="badge text-bg-success fw-normal">{{ $product->categories->first()->name }}</span>
+                                            class="badge text-bg-success fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
 
                                     @case(3)
-                                        <span class="badge text-bg-dark fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span class="badge text-bg-dark fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
 
                                     @case(4)
                                         <span
-                                            class="badge text-bg-warning fw-normal">{{ $product->categories->first()->name }}</span>
+                                            class="badge text-bg-warning fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
 
                                     @case(5)
                                         <span
-                                            class="badge text-bg-danger fw-normal">{{ $product->categories->first()->name }}</span>
+                                            class="badge text-bg-danger fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
 
                                     @case(6)
                                         <span
-                                            class="badge text-bg-secondary fw-normal">{{ $product->categories->first()->name }}</span>
+                                            class="badge text-bg-secondary fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
                                 @endswitch
 

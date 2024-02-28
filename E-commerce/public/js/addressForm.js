@@ -18,17 +18,17 @@ document.addEventListener('DOMContentLoaded', function () {
         var door = document.getElementById('inputDoor').value;
 
         // Verifica que haya al menos un carácter diferente de un espacio en nombres de países
-        if (!validateTextWithSpaces(country)) {
+        if (!validateTextWithSpacesAndAccents(country)) {
             alert('Por favor, ingresa un país válido.');
             return false;
         }
 
-        if (!validateTextWithSpaces(province)) {
+        if (!validateTextWithSpacesAndAccents(province)) {
             alert('Por favor, ingresa una provincia válida.');
             return false;
         }
 
-        if (!validateTextWithSpaces(city)) {
+        if (!validateTextWithSpacesAndAccents(city)) {
             alert('Por favor, ingresa una ciudad válida.');
             return false;
         }
@@ -66,14 +66,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     }
 
-    function validateTextWithSpaces(input) {
-        // Verifica que haya al menos un carácter diferente de un espacio
-        return /\S/.test(input);
+    function validateTextWithSpacesAndAccents(input) {
+        // Allow letters, spaces, and accentuated characters
+        return /^[A-Za-z\sñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ]+$/.test(input);
     }
 
     function validateTextWithSpacesAndSpecialChars(input) {
-        // Verifica que haya al menos un carácter diferente de un espacio y ciertos caracteres especiales
-        return /^[A-Za-z0-9\sñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ!"·$%&/()=?¿¡^`*{}[\]\-_<>\s]+$/.test(input);
+        // Allow only letters, numbers, and spaces
+        return /^[A-Za-z0-9\s]+$/.test(input);
     }
 
     function validateAlphaNumericInput(input) {

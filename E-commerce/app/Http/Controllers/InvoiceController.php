@@ -37,6 +37,45 @@ class InvoiceController extends Controller
 
     public function update(Request $request)
     {
+        // Reglas de validación
+        $rules = [
+            'inputNIF' => 'required|max:9', // Asegúrate de ajustar las reglas según tus necesidades
+            'country' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'pc' => 'required|digits:5', // Asume que el código postal es de 5 dígitos
+            'street' => 'required|string|max:255',
+            'number' => 'required|integer',
+            'floor' => 'required|integer',
+            'door' => 'required|string|max:255',
+            // Añade aquí más reglas según sea necesario
+        ];
+
+        $messages = [
+            'inputNIF.required' => 'El NIF es obligatorio.',
+            'inputNIF.max' => 'El NIF no debe tener más de 9 caracteres.',
+            'country.required' => 'El país es obligatorio.',
+            'country.max' => 'El país no debe tener más de 255 caracteres.',
+            'province.required' => 'La provincia es obligatoria.',
+            'province.max' => 'La provincia no debe tener más de 255 caracteres.',
+            'city.required' => 'La ciudad es obligatoria.',
+            'city.max' => 'La ciudad no debe tener más de 255 caracteres.',
+            'pc.required' => 'El código postal es obligatorio.',
+            'pc.digits' => 'El código postal debe tener exactamente 5 dígitos.',
+            'street.required' => 'La calle es obligatoria.',
+            'street.max' => 'La calle no debe tener más de 255 caracteres.',
+            'number.required' => 'El número es obligatorio.',
+            'number.integer' => 'El número debe ser un número entero.',
+            'floor.required' => 'El número de piso es obligatorio.',
+            'floor.integer' => 'El número de piso debe ser un número entero.',
+            'door.required' => 'La puerta es obligatoria.',
+            'door.max' => 'La puerta no debe tener más de 255 caracteres.',
+
+        ];
+
+        // Aplica las reglas de validación al request
+        $validatedData = $request->validate($rules, $messages);
+
         $order = Order::find($request->order_id);
         $user = Auth::user();
         $existingInvoice = Invoice::where('order_id', $order->id)->first();
@@ -114,7 +153,7 @@ class InvoiceController extends Controller
 
             return view('invoices.show', compact('orders', 'categories', 'productsInCart'));
         } else {
-            return view('invoices.show', compact('categories','productsInCart'));
+            return view('invoices.show', compact('categories', 'productsInCart'));
         }
     }
 }

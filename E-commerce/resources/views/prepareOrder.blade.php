@@ -8,6 +8,7 @@
 
 @section('script')
     <script defer src="{{ asset('js/orderAddress.js') }}"></script>
+    <script defer src="{{ asset('js/addressForm.js') }}"></script>
 
 @endsection
 @section('css')
@@ -16,7 +17,7 @@
 
 @section('content')
     <div class="container mt-5 min-vh-100">
-        <form action="@if (Auth::user()) {{ route('buy') }}@else {{ route('login') }} @endif">
+        <form action="@if (Auth::user()) {{ route('buy') }}@else {{ route('login') }} @endif" id="addressForm">
             @csrf
             @if (session('success'))
                 <div class="alert alert-success">
@@ -24,10 +25,12 @@
                 </div>
             @endif
             <div class="row justify-content-center align-items-start gap-2">
-
-                <div class="col-12 col-md-5 border p-3">
-                    {{-- Envio y datos --}}
+               
+                <div class="col-12 col-md-5">
                     <h2 class="fw-light">Envío</h2>
+                    {{-- Envio y datos --}}
+                    <div class="border p-3">
+                    
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Nombre completo</label>
                         <input type="text" class="form-control" name="inputName" id="inputName" aria-describedby="helpId"
@@ -163,6 +166,7 @@
 
                         </div>
                     </div>
+                </div>
                 </div>
                 <div class="col-12 col-md-6">
                     {{-- Productos --}}

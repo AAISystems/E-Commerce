@@ -139,21 +139,32 @@ class CategoryController extends Controller
         $products = $category->products()->paginate(10);
         $categories = Category::where('show', true)->get();
 
-        $userCart = $user->cart;
-        // Cogemos los productos asociados al carrito
-        if ($userCart->products) {
-            $productsInCart = $userCart->products;
-        }
+        
 
-       
+
         if ($user && $user->role) {
             return view('Products.productC', compact('products', 'category', 'categories'));
         } else {
-            return view('Products.category_product_user', compact('products', 'category', 'categories', 'productsInCart'));
+
+            if ($user) {
+                // Buscamos su carrito asociado
+                $userCart = $user->cart;
+
+
+                // Cogemos los productos asociados al carrito
+                if ($userCart->products) {
+                    $productsInCart = $userCart->products;
+                }
+                return view('Products.category_product_user', compact('products', 'category', 'categories', 'productsInCart'));
+            } else {
+                return view('Products.category_product_user', compact('products', 'category','categories'));
+            }
         }
 
-
+        
     }
+
+
 
 
     public function activate($id)

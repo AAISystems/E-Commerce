@@ -152,7 +152,23 @@ class ProductController extends Controller
         $product = Product::find($id);
         $categories = Category::where('show', true)->get();
 
-        return view('Products.product', compact('product','categories'));
+        $user = Auth::user();
+        $user = Auth::user();
+        if ($user) {
+            // Buscamos su carrito asociado
+            $userCart = $user->cart;
+
+
+            // Cogemos los productos asociados al carrito
+            if ($userCart->products) {
+                $productsInCart = $userCart->products;
+            }
+            return view('Products.product', compact('product', 'productsInCart','categories'));
+        } else {
+            return view('Products.product', compact('product','categories'));
+        }
+
+        
     }
 
 

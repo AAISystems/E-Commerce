@@ -10,7 +10,36 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Creación de roles y usuarios (código anterior)...
+        \App\Models\Role::factory()->create([
+            'rol' => 'admin',
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@email.com',
+            'roles_id' => '1',
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'user',
+            'email' => 'user@email.com',
+        ]);
+        \App\Models\Wishlist::factory()->create([
+            'user_id' => 2,
+
+        ]);
+        \App\Models\Cart::factory()->create([
+            'amount' => 0,
+            'total_products' => 0,
+            'user_id' => 2,
+
+        ]);
+
+        \App\Models\Cart::factory()->create([
+            'amount' => 0,
+            'total_products' => 0,
+            'user_id' => 1,
+
+        ]);
 
         // Creación de categorías...
         $os = Category::factory()->create(['name' => 'Sistemas operativos']);

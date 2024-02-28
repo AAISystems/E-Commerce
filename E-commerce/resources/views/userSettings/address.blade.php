@@ -14,8 +14,12 @@
             <h1 class="fw-light mb-3">Estas son tus direcciones</h1>
 
             @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             @endif
+
             @foreach ($userAddresses as $address)
                 <div class="row justify-content-center align-items-center g-2 p-4 border mt-2">
                     <div class="col-12 col-md-6">
@@ -24,14 +28,17 @@
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="btn-group" role="group" aria-label="Button group name">
-                            <a href="{{route('user.address.edit',$address->id)}}"><button type="button" class="btn btn-primary rounded-0 rounded-start-2">
+                            <a href="{{ route('user.address.edit', $address->id) }}"><button type="button"
+                                    class="btn btn-primary rounded-0 rounded-start-2">
                                     Editar
                                 </button></a>
-                            <a href="{{route('user.address.delete',$address->id)}}"><button type="button" class="btn btn-danger rounded-0">
+                            <a href="{{ route('user.address.delete', $address->id) }}"><button type="button"
+                                    class="btn btn-danger rounded-0">
                                     Borrar
                                 </button></a>
-                                
-                            <a href="{{route('user.address.favourite',$address->id)}}"><button type="button" class="btn @if($address->favourite) btn-warning @else btn-outline-warning @endif  rounded-0 rounded-end-2">
+
+                            <a href="{{ route('user.address.favourite', $address->id) }}"><button type="button"
+                                    class="btn @if ($address->favourite) btn-warning @else btn-outline-warning @endif  rounded-0 rounded-end-2">
                                     Favorito
                                 </button></a>
                         </div>
@@ -50,7 +57,7 @@
         @endif
 
 
-        <div class="d-flex gap-2 mt-3">
+        <div class="d-flex gap-2 mt-5 p-3 border">
             <h3 class="fw-light">Nueva dirección</h3>
             <a href="{{ route('user.address.create') }}"> <button type="button" class="btn btn-success">
                     +

@@ -121,7 +121,12 @@
                             </p>
                             <div class="d-flex">
                                 <!-- Stock del producto -->
+                                @if($product->discount && $product->discount->valid)
+                                <p class="fs-6  fw-light text-danger"><del>{{ $product->price }} €</del></p>
+                                <p class="fs-3  fw-light ">{{ $product->price*(1-($product->discount->amount/100)) }} €</p>
+                                @else
                                 <p class="fs-3  fw-light">{{ $product->price }} €</p>
+                                @endif
 
                                 <form
                                     action="@if (Auth::check() && Auth::user() && !$user->wishlist->products->find($product->id)) {{ route('addWish') }} @elseif(Auth::check() && $user->wishlist->products->find($product->id)) {{ route('removeWish') }} @else {{ route('login') }} @endif"

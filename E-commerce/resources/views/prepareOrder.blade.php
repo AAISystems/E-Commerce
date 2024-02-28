@@ -23,16 +23,16 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <div class="row justify-content-center align-items-center g-2">
+            <div class="row justify-content-center align-items-start gap-2">
 
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-5 border p-3">
                     {{-- Envio y datos --}}
                     <h2 class="fw-light">Envío</h2>
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Nombre completo</label>
                         <input type="text" class="form-control" name="inputName" id="inputName" aria-describedby="helpId"
-                            placeholder="" value="{{Auth::user()->name}}" required />
-                       
+                            placeholder="" value="{{ Auth::user()->name }}" required />
+
                     </div>
 
                     <div class="row justify-content-center align-items-top g-2">
@@ -40,13 +40,13 @@
 
                             <div class="btn-group" role="group" aria-label="Button group name">
                                 @if ($userAddresses->isNotEmpty())
-                                    <button type="button" class="btn btn-outline-primary" id="registeredBtn" value="false"
-                                        onclick="registeredAddress()">
+                                    <button type="button" class="btn btn-outline-warning fw-light shadow-sm"
+                                        id="registeredBtn" value="false" onclick="registeredAddress()">
                                         Direcciones registradas
                                     </button>
                                 @endif
-                                <button type="button" class="btn btn-outline-primary" id='newAddressBtn' value="false"
-                                    onclick="newAddress()">
+                                <button type="button" class="btn btn-outline-warning fw-light shadow-sm" id='newAddressBtn'
+                                    value="false" onclick="newAddress()">
                                     Insertar dirección
                                 </button>
 
@@ -71,7 +71,7 @@
                                 <h4 class="fw-light mb-3 mt-3">Enviar a otra dirección</h4>
                                 <div class="container">
                                     <div class="row justify-content-center align-items-center g-2">
-                                        <div class="col-12 col-md-4">
+                                        <div class="col-12 col-md-6">
                                             <div class="mb-3 row">
                                                 <label for="inputCountry" class="col-4 col-form-label">País</label>
                                                 <div class="col-8">
@@ -80,7 +80,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-4">
+                                        <div class="col-12 col-md-6">
                                             <div class="mb-3 row">
                                                 <label for="inputProvince" class="col-4 col-form-label">Provincia</label>
                                                 <div class="col-8">
@@ -89,7 +89,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-4">
+                                        
+                                    </div>
+                                    <div class="row justify-content-center align-items-center g-2">
+                                        <div class="col-12 col-md-6">
                                             <div class="mb-3 row">
                                                 <label for="inputCity" class="col-4 col-form-label">Ciudad</label>
                                                 <div class="col-8">
@@ -98,9 +101,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row justify-content-center align-items-center g-2">
-                                        <div class="col-12 col-md-4">
+                                        <div class="col-12 col-md-6">
                                             <div class="mb-3 row">
                                                 <label for="inputCP" class="col-4 col-form-label">Código postal</label>
                                                 <div class="col-8">
@@ -109,7 +110,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-4">
+                                    </div>
+
+                                    <div class="row justify-content-center align-items-center g-2">
+                                        
+                                        <div class="col-12 col-md-6">
                                             <div class="mb-3 row">
                                                 <label for="inputStreet" class="col-4 col-form-label">Calle</label>
                                                 <div class="col-8">
@@ -118,7 +123,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-4">
+                                        <div class="col-12 col-md-6">
                                             <div class="mb-3 row">
                                                 <label for="inputNumber" class="col-4 col-form-label">Número</label>
                                                 <div class="col-8">
@@ -162,7 +167,7 @@
                 <div class="col-12 col-md-6">
                     {{-- Productos --}}
                     <h2 class="fw-light">Productos</h2>
-                    <div class="overflow-auto products p-3 shadow">
+                    <div class="overflow-auto products p-3 border">
                         @foreach ($productsInCart as $product)
                             <div class="row justify-content-center align-items-center g-2 border rounded p-3 mb-3">
                                 <div class="col-12 col-md-6 col-lg-6 col-xl-3">
@@ -190,22 +195,14 @@
                                 <div class="col-12 col-md-6 col-lg-6 col-xl-3">
                                     <div class="row justify-content-center align-items-center g-2 mb-2">
                                         <div class="input-group">
-                                            <input type="text" name="idProduct_{{ $product->id }}"
-                                                value={{ $product->id }} hidden>
-                                            <button type="button" onclick="substract({{ $product->id }})"
-                                                class="btn btn-light btn-outline-secondary rounded-start-pill">
-                                                -
-                                            </button>
-                                            <input type="text" class="form-control"
-                                                name="quantity_{{ $product->id }}" id="quantity_{{ $product->id }}"
-                                                aria-describedby="helpId"
-                                                placeholder=" {{ $quantityOfProduct[$product->id] }}"
-                                                value=" {{ $quantityOfProduct[$product->id] }}" readonly />
-
-                                            <button type="button" onclick="add({{ $product->id }})"
-                                                class="btn btn-secondary rounded-end-pill">
-                                                +
-                                            </button>
+                                            <input type="text" name="idProduct_{{ $product->id }}" value="{{ $product->id }}" hidden>
+                                            <button type="button" onclick="subtract('{{ $product->id }}', {{ $product->price }})"
+                                                    class="btn btn-light btn-outline-secondary rounded-start-pill">-</button>
+                                            <input type="text" class="form-control" name="quantity_{{ $product->id }}" id="quantity_{{ $product->id }}"
+                                                   aria-describedby="helpId" placeholder="{{ $quantityOfProduct[$product->id] }}"
+                                                   value="{{ $quantityOfProduct[$product->id] }}" readonly />
+                                            <button type="button" onclick="add('{{ $product->id }}', {{ $product->price }})"
+                                                    class="btn btn-secondary rounded-end-pill">+</button>
                                         </div>
 
 
@@ -228,7 +225,7 @@
 
                     </div>
                     <div class="row justify-content-center align-items-center g-2 mt-5 mb-3">
-                        <p class="text-end fw-light fs-5 p-3 border">Total: {{ Auth::user()->cart->amount }}€</p>
+                        <p class="text-end fw-light fs-5 p-3 border">Total: <span id="total">{{ Auth::user()->cart->amount }}</span>€</p>
                     </div>
                     <div class="row justify-content-center align-items-center g-2">
                         <button class="btn btn-success mt-3 col-12" name="action" value="buy"

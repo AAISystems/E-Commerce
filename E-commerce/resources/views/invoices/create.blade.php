@@ -31,11 +31,11 @@
                 <div class="row justify-content-center align-items-center g-2">
                     <div class="col-6">
                         <div class="btn-group" role="group" aria-label="Button group name">
-                            <button type="button" class="btn btn-outline-primary" id="registeredBtn" value="false"
+                            <button type="button" class="btn btn-outline-warning" id="registeredBtn" value="false"
                                 onclick="registeredAddress()">
                                 Direcciones registradas
                             </button>
-                            <button type="button" class="btn btn-outline-primary" id='newAddressBtn' value="false"
+                            <button type="button" class="btn btn-outline-warning" id='newAddressBtn' value="false"
                                 onclick="newAddress()">
                                 Facturar a otra dirección
                             </button>

@@ -152,18 +152,14 @@
                                 <div class="row justify-content-center align-items-center gap-2">
                                     <div class="container col-6">
                                         <div class="input-group">
-                                            <button type="button" onclick="substract({{ $product->id }})"
-                                                class="btn btn-light btn-outline-secondary rounded-start-pill">
-                                                -
-                                            </button>
-                                            <input type="text" class="form-control input-group-sm " name="inputQuantity"
-                                                id="quantity_{{ $product->id }}" aria-describedby="helpId" placeholder="1"
-                                                value="1" readonly />
-
-                                            <button type="button" onclick="add({{ $product->id }})"
-                                                class="btn btn-secondary rounded-end-pill">
-                                                +
-                                            </button>
+                                            <input type="text" name="idProduct_{{ $product->id }}" value="{{ $product->id }}" hidden>
+                                            <button type="button" onclick="subtract('{{ $product->id }}', {{ $product->price }})"
+                                                    class="btn btn-light btn-outline-secondary rounded-start-pill">-</button>
+                                            <input type="text" class="form-control" name="inputQuantity" id="quantity_{{ $product->id }}"
+                                                   aria-describedby="helpId" placeholder="1"
+                                                   value="1" readonly />
+                                            <button type="button" onclick="add('{{ $product->id }}', {{ $product->price }})"
+                                                    class="btn btn-secondary rounded-end-pill">+</button>
                                         </div>
 
                                     </div>

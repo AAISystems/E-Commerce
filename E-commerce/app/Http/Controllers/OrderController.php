@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Invoice;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -38,59 +39,23 @@ class OrderController extends Controller
         return view('prepareOrder', compact('productsInCart', 'quantityOfProduct', 'userAddresses', 'categories'));
     }
 
+
     public function buy(Request $request)
     {
         $user = Auth::user();
         $userCart = $user->cart;
 
         switch ($request->action) {
-
             case 'buy':
-
+                $newOrder = new Order();
 
                 if ($request->inputAddress) {
-                    $newOrder = new Order();
-
                     $request->validate([
-                        'inputAddress' => 'required'
+                        'inputAddress' => 'required',
                     ]);
 
-                    $newOrder->users_id = $user->id;
-                    $newOrder->total = 0;
-                    $newOrder->dataUser = $request->inputName;
                     $newOrder->dataAddress = $request->inputAddress;
-                    $newOrder->cart_id = $user->cart->id;
-
-                    $newOrder->save();
-
-                    foreach ($request->except('_token') as $key => $value) {
-
-                        if (Str::startsWith($key, 'idProduct_')) {
-
-                            // Se inserta en la tabla pivote de los pedidos el producto y la cantidad asociada.
-                            // Como sabemos que esta recogiendo el id de algun producto, lo concatenamos con el prefijo quantity_ del formulario
-                            // para obtener la cantidad asociada al producto
-                            $newOrder->products()->attach($value, ['quantity' => $request['quantity_' . $request[$key]]]);
-                            $newOrder->total += $newOrder->products->last()->price*$newOrder->products->last()->pivot->quantity;
-                        }
-                    }
-
-
-                    $newOrder->save();
-
-
-                    // Enviar el correo electrónico
-                    Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
-
-                    $cartController = new CartController();
-
-                    $cartController->buy($user->cart);
-
-                    return redirect('/');
-
                 } else {
-                    $newOrder = new Order();
-
                     $request->validate([
                         'country' => 'required',
                         'province' => 'required',
@@ -102,43 +67,44 @@ class OrderController extends Controller
                         'door' => '',
                     ]);
 
-                    $newOrder->users_id = $user->id;
-                    $newOrder->total = $userCart->amount;
-                    $newOrder->dataUser = $request->inputName;
                     $newOrder->dataAddress = $request->country . ' ' . $request->province . ' ' . $request->city . ' ' . $request->pc . $request->street . ' ' . $request->number . ' ' . $request->floor . ' ' . $request->door;
-                    $newOrder->cart_id = $user->cart->id;
-
-                    $newOrder->save();
-
-                    foreach ($request->except('_token') as $key => $value) {
-
-                        if (Str::startsWith($key, 'idProduct_')) {
-
-                            // Se inserta en la tabla pivote de los pedidos el producto y la cantidad asociada.
-                            // Como sabemos que esta recogiendo el id de algun producto, lo concatenamos con el prefijo quantity_ del formulario
-                            // para obtener la cantidad asociada al producto
-                            $newOrder->products()->attach($value, ['quantity' => $request['quantity_' . $request[$key]]]);
-                        }
-                    }
-
-
-                    $newOrder->save();
-
-                    $cartController = new CartController();
-
-                    $cartController->buy($user->cart);
-
-                    // Enviar el correo electrónico
-                    Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
-
-                    return redirect('/');
-
                 }
 
+                $newOrder->users_id = $user->id;
+                $newOrder->total = 0;
+                $newOrder->dataUser = $request->inputName;
+                $newOrder->cart_id = $user->cart->id;
+
+                $newOrder->save();
+
+                foreach ($request->except('_token') as $key => $value) {
+                    if (Str::startsWith($key, 'idProduct_')) {
+                        $quantityKey = 'quantity_' . $request[$key];
+                        $quantity = $request[$quantityKey] ?? 0;
+                
+                        $product = Product::find($value);
+                        $totalProduct = $product->price * $quantity;
+                
+                        $newOrder->products()->attach($value, ['quantity' => $quantity]);
+                        $newOrder->total += $totalProduct;
+                    }
+                }
+                
+
+                $newOrder->save();
+
+                // Enviar el correo electrónico
+                Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
+
+                $cartController = new CartController();
+                $cartController->buy($user->cart);
+
+                return redirect('/');
+
             case 'default':
-
                 return redirect()->back();
-
         }
     }
+
+
 }

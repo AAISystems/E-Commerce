@@ -15,11 +15,11 @@ function newAddress() {
     delivery.innerHTML = newAddressContent;
 
     // Actualiza las clases de los botones
-    newAddressBtn.classList.remove('btn-outline-primary');
-    newAddressBtn.classList.add('btn-primary');
+    newAddressBtn.classList.remove('btn-outline-warning');
+    newAddressBtn.classList.add('btn-warning');
 
-    registeredBtn.classList.add('btn-outline-primary');
-    registeredBtn.classList.remove('btn-primary');
+    registeredBtn.classList.add('btn-outline-warning');
+    registeredBtn.classList.remove('btn-warning');
 }
 
 function registeredAddress() {
@@ -29,9 +29,9 @@ function registeredAddress() {
     delivery.innerHTML = registeredAddressesContent;
 
     // Actualiza las clases de los botones
-    registeredBtn.classList.remove('btn-outline-primary');
-    registeredBtn.classList.add('btn-primary');
+    registeredBtn.classList.remove('btn-outline-warning');
+    registeredBtn.classList.add('btn-warning');
 
-    newAddressBtn.classList.add('btn-outline-primary');
-    newAddressBtn.classList.remove('btn-primary');
+    newAddressBtn.classList.add('btn-outline-warning');
+    newAddressBtn.classList.remove('btn-warning');
 }

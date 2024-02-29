@@ -35,7 +35,7 @@ color: blueviolet; }
 
 background: rgba(248, 245, 248, 0.813);
 border-radius: 16px;
-box-shadow: 12px 10px 20px 1px rgb(137, 101, 238);
+
 backdrop-filter: blur(8.2px);
 -webkit-backdrop-filter: blur(8.2px);
 
@@ -45,7 +45,7 @@ backdrop-filter: blur(8.2px);
 .login-button {
     width: 50%;
     height: 40px;
-    background-color: rgba(238, 234, 134, 0.897);
+
     border-width: 2.5px;
     outline: none;
     border-radius: 40px;

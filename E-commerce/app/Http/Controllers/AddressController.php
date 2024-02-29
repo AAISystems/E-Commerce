@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AddressController extends Controller
 {
@@ -29,7 +30,26 @@ class AddressController extends Controller
 
     public function create(Request $request)
     {
+
         $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'country' => 'required|string',
+            'province' => 'required|string',
+            'city' => 'required|string',
+            'pc' => 'required|numeric|digits:5',
+            'street' => 'required|string',
+            'number' => 'required|numeric',
+            'floor' => 'nullable|numeric',
+            'door' => 'nullable|string',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back() 
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $newAddress = new Address();
 
         //Recojo los datos de la direccion
@@ -52,7 +72,7 @@ class AddressController extends Controller
 
 
 
-        return redirect()->back()->with('success', 'Dirección añadida correctamente.');
+        return redirect()->route('user.address')->with('success', 'Dirección añadida correctamente.');
     }
 
     public function delete($id)
@@ -93,6 +113,7 @@ class AddressController extends Controller
 
     public function edit($id){
         $user = Auth::user();
+        $categories = Category::where('show', true)->get();
 
         $address = Address::find($id);
         if (!$address) {
@@ -100,12 +121,28 @@ class AddressController extends Controller
         }
 
 
-        return view('userSettings.edit',compact('address'));
+        return view('userSettings.edit',compact('address','categories'));
     }
 
     public function update(Request $request)
     {
         $user = Auth::user();
+        $validator = Validator::make($request->all(), [
+            'country' => 'required|string',
+            'province' => 'required|string',
+            'city' => 'required|string',
+            'pc' => 'required|numeric|digits:5',
+            'street' => 'required|string',
+            'number' => 'required|numeric',
+            'floor' => 'nullable|numeric',
+            'door' => 'nullable|string',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back() 
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $address = Address::find($request->id);
         if (!$address) {

@@ -44,7 +44,7 @@ class WishlistController extends Controller
         }
 
         $userWishlist->save();
-        return redirect('/')->with('success', 'Producto añadido a tu wishlist correctamente.');
+        return redirect()->back()->with('success', 'Producto añadido a tu wishlist correctamente.');
     }
 
 

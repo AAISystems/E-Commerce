@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('pc');
             $table->string('street');
             $table->integer('number');
-            $table->string('floor');
-            $table->string('door');
+            $table->string('floor')->nullable();
+            $table->string('door')->nullable();
             $table->boolean('favourite')->nullable();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();

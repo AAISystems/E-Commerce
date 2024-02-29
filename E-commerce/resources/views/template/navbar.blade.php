@@ -28,7 +28,7 @@
                     <div class="dropdown-menu bg-light-purple" aria-labelledby="dropdownId">
                        
                         @foreach($categories as $category)
-                        <a class="dropdown-item" href="{{route('category.products',$category)}}">{{$category->name}}</a>
+                        <a class="dropdown-item" href="{{route('category.products',$category)}}">@lang('messages.' . $category->name)</a>
 
 
                         @endforeach
@@ -76,11 +76,14 @@
                                         onclick="event.preventDefault(); document.getElementById('UsersData').submit();">{{ __('Perfil') }}</a>
                                 </li>
                                 <li><a class="dropdown-item" href="{{ route('user.address') }}"
-                                    onclick="event.preventDefault(); document.getElementById('UsersAddresses').submit();">{{ __('Envíos') }}</a>
+                                    onclick="event.preventDefault(); document.getElementById('UsersAddresses').submit();">{{ __('Direcciones') }}</a>
                             </li>
                                 <li><a class="dropdown-item" href="{{ route('wishlist.wishes') }}"
                                         onclick="event.preventDefault(); document.getElementById('wishlist').submit();">{{ __('Favoritos') }}</a>
                                 </li>
+                                <li><a class="dropdown-item" href="{{ route('invoices.show') }}"
+                                    onclick="event.preventDefault(); document.getElementById('invoices').submit();">{{ __('Pedidos') }}</a>
+                            </li>
                             </ul>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -92,6 +95,9 @@
                                 @csrf
                             </form>
                             <form id="wishlist" action="{{ route('wishlist.wishes') }}" method="GET" class="d-none">
+                                @csrf
+                            </form>
+                            <form id="invoices" action="{{ route('invoices.show') }}" method="GET" class="d-none">
                                 @csrf
                             </form>
 

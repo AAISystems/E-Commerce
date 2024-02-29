@@ -49,13 +49,20 @@
         <div class="container">
             <h1 class="display-5 text-center">AAISystems</h1>
         </div>
-        <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
+        
         <p class="fw-light mb-4">@lang('messages.InfoEmpresa')</p>
-        </h4>
+
+        <h3 class="fw-light">@lang('messages.CategoriesTitle')</h3>
+        <div class="row justify-content-center align-items-center gap-3 mb-5 mt-3">
+            @foreach ($categories as $category)
+               <a class="col-12 col-md-5 col-lg-3 shadow-sm rounded p-3 border text-decoration-none text-dark category" href="{{route('category.products',$category)}}">@lang('messages.' . $category->name)</a> 
+            @endforeach
+        </div>
+        <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
         <div class="row justify-content-center align-items-center">
 
             @foreach ($products as $product)
-                <div class="col-md-3 mb-4">
+                <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card border rounded-4">
                         <a href="{{ route('product.show', $product->id) }}"
                             class="text-center p-3 text-decoration-none text-dark border-bottom shadow-sm mb-4 rounded-top-4">
@@ -83,35 +90,44 @@
 
                                 @switch($product->categories->first()->id)
                                     @case(1)
-                                        <span class="badge text-bg-info fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span class="badge text-bg-info fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
 
                                     @case(2)
-                                        <span class="badge text-bg-success fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span
+                                            class="badge text-bg-success fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
 
                                     @case(3)
-                                        <span class="badge text-bg-dark fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span class="badge text-bg-dark fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
 
                                     @case(4)
-                                        <span class="badge text-bg-warning fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span
+                                            class="badge text-bg-warning fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
 
                                     @case(5)
-                                        <span class="badge text-bg-danger fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span
+                                            class="badge text-bg-danger fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
 
                                     @case(6)
-                                        <span class="badge text-bg-secondary fw-normal">{{ $product->categories->first()->name }}</span>
+                                        <span
+                                            class="badge text-bg-secondary fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
                                     @break
                                 @endswitch
 
                             </p>
                             <div class="d-flex">
                                 <!-- Stock del producto -->
+                                @if($product->discount && $product->discount->valid)
+                                <p class="fs-6  fw-light text-danger"><del>{{ $product->price }} €</del></p>
+                                <p class="fs-3  fw-light ">{{ $product->price*(1-($product->discount->amount/100)) }} €</p>
+                                @else
                                 <p class="fs-3  fw-light">{{ $product->price }} €</p>
-                                
+                                @endif
+
                                 <form
                                     action="@if (Auth::check() && Auth::user() && !$user->wishlist->products->find($product->id)) {{ route('addWish') }} @elseif(Auth::check() && $user->wishlist->products->find($product->id)) {{ route('removeWish') }} @else {{ route('login') }} @endif"
                                     class="ms-auto">
@@ -119,8 +135,8 @@
                                     <input type="text" name="idProduct" value={{ $product->id }} hidden>
 
                                     <button type="submit" class="btn">
-                                        
-                                        <img src="@if (Auth::check()&& $user->wishlist->products->find($product->id)) {{ asset('img/heart-svgrepo-com-filled.svg') }} @else {{ asset('img/heart-svgrepo-com.svg') }} @endif"
+
+                                        <img src="@if (Auth::check() && $user->wishlist->products->find($product->id)) {{ asset('img/heart-svgrepo-com-filled.svg') }} @else {{ asset('img/heart-svgrepo-com.svg') }} @endif"
                                             class="ms-auto" alt="icono corazon">
                                     </button>
 
@@ -141,18 +157,14 @@
                                 <div class="row justify-content-center align-items-center gap-2">
                                     <div class="container col-6">
                                         <div class="input-group">
-                                            <button type="button" onclick="substract({{ $product->id }})"
-                                                class="btn btn-light btn-outline-secondary rounded-start-pill">
-                                                -
-                                            </button>
-                                            <input type="text" class="form-control input-group-sm " name="inputQuantity"
-                                                id="quantity_{{ $product->id }}" aria-describedby="helpId" placeholder="1"
-                                                value="1" readonly />
-
-                                            <button type="button" onclick="add({{ $product->id }})"
-                                                class="btn btn-secondary rounded-end-pill">
-                                                +
-                                            </button>
+                                            <input type="text" name="idProduct_{{ $product->id }}" value="{{ $product->id }}" hidden>
+                                            <button type="button" onclick="subtract('{{ $product->id }}', {{ $product->price }})"
+                                                    class="btn btn-light btn-outline-secondary rounded-start-pill">-</button>
+                                            <input type="text" class="form-control" name="inputQuantity" id="quantity_{{ $product->id }}"
+                                                   aria-describedby="helpId" placeholder="1"
+                                                   value="1" readonly />
+                                            <button type="button" onclick="add('{{ $product->id }}', {{ $product->price }})"
+                                                    class="btn btn-secondary rounded-end-pill">+</button>
                                         </div>
 
                                     </div>
@@ -177,8 +189,8 @@
             @endforeach
 
         </div>
+        
 
-        {{ $products->links() }}
 
 
     </div>

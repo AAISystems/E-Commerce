@@ -22,9 +22,9 @@
     <div class="container mt-5">
         <h1>Productos de {{ $category->name }}</h1>
         <div class="row">
-            @foreach ($products->chunk(3) as $chunk)
+            @foreach ($products->chunk(4) as $chunk) <!-- Cambiar el 4 por el número de tarjetas que deseas por fila -->
                 @foreach ($chunk as $product)
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-3 mb-4"> <!-- Cambiar col-md-3 por col-md-4 -->
                         <div class="card border rounded-4">
                             <a href="{{ route('product.show', $product->id) }}"
                                 class="text-center p-3 text-decoration-none text-dark border-bottom shadow-sm mb-4 rounded-top-4">
@@ -70,8 +70,12 @@
                                 </p>
                                 <div class="d-flex">
                                     <!-- Precio del producto -->
-                                    <p class="fs-3 fw-light">{{ $product->price }} €</p>
-                                </div>
+                                    @if($product->discount && $product->discount->valid)
+                                    <p class="fs-6  fw-light text-danger"><del>{{ $product->price }} €</del></p>
+                                    <p class="fs-3  fw-light ">{{ $product->price*(1-($product->discount->amount/100)) }} €</p>
+                                    @else
+                                    <p class="fs-3  fw-light">{{ $product->price }} €</p>
+                                    @endif                                     </div>
                                 <!-- Botones de acción -->
                                 <div class="boton-group">
                                     <!-- Puedes agregar aquí los botones de acción si es necesario -->

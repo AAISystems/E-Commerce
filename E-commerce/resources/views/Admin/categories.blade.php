@@ -57,13 +57,13 @@
                                     <form action="{{ route('category.delete', $category->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger me-2">                                        <img src="{{ asset('img/ojoMostrar.svg') }}" alt="">
+                                        <button type="submit" class="btn btn-sm btn-danger me-2"><img src="{{ asset('img/ojoOculto.svg') }}" alt="">
                                         </button>
                                     </form>
                                 @else
                                     <form action="{{ route('category.activate', $category->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-success me-2">                                            <img src="{{ asset('img/ojoOculto.svg') }}" alt="">
+                                        <button type="submit" class="btn btn-sm btn-success me-2"><img src="{{ asset('img/ojoMostrar.svg') }}" alt="">
                                         </button>
                                     </form>
                                 @endif

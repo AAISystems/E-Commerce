@@ -104,3 +104,9 @@ Route::get('admin/discounts', [DiscountController::class, 'show'])->middleware('
 Route::get( 'admin/discounts/newProductDiscount', [DiscountController::class,'productDiscount'])->middleware('auth','admin')->name('discount.product');
 Route::post('admin/discounts/save', [DiscountController::class,'save'])->middleware('auth','admin')->name('discount.save');
 Route::get('admin/discounts/delete/{id}', [DiscountController::class,'invalid'])->middleware('auth','admin')->name('discount.delete');
+
+Route::get( 'admin/discounts/newCategoryDiscount', [DiscountController::class,'categoryDiscount'])->middleware('auth','admin')->name('discount.category');
+Route::post('admin/discounts/saveCategory', [DiscountController::class,'saveCategory'])->middleware('auth','admin')->name('discount.saveCategory');
+Route::get('admin/discounts/applyCategoryDiscount/{category}/{discount}', [DiscountController::class,'applyCategoryDiscount'])->middleware('auth','admin')->name('discount.aplyCategory');
+
+

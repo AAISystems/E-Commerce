@@ -12,7 +12,7 @@
         <div class="container d-flex justify-content-center">
             <a name="" id="" class="btn btn-warning shadow-sm fw-light me-2" href="#" role="button">Crear
                 descuento simple</a>
-            <a name="" id="" class="btn btn-warning shadow-sm fw-light me-2" href="#"
+            <a name="" id="" class="btn btn-warning shadow-sm fw-light me-2" href="{{route('discount.category')}}"
                 role="button">Crear descuento de categoría</a>
             <a name="" id="" class="btn btn-warning shadow-sm fw-light"
                 href="{{ route('discount.product') }}" role="button">Crear descuento de producto</a>

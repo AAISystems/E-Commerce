@@ -136,7 +136,7 @@ class ProductController extends Controller
 
         if ($user && $user->role) {
             return redirect()->route('admin');
-
+        }
         $products = Product::where('show', true)->orderBy('stock','asc')->take(4)->get();
         $categories = Category::where('show', true)->get();
 
@@ -159,7 +159,7 @@ class ProductController extends Controller
             return view('welcome', compact('products','categories'));
         }
     }
-
+    
     public function  showProduct($id)
     {
         $user = Auth::user();
@@ -189,7 +189,7 @@ class ProductController extends Controller
         }
 
             }
-
+        
 
     public function showFromCategory($id)
     {

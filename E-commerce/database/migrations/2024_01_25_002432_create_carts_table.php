@@ -17,6 +17,7 @@ return new class extends Migration
             $table->float("amount")->nullable();
             $table->integer("total_products")->nullable();
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId("offer")->nullable()->references("id")->on("discounts");
             $table->timestamps();
         });
     }

@@ -24,16 +24,25 @@ class OrderController extends Controller
         }
 
         $userCart = $user->cart;
+        
         $categories = Category::where('show', true)->get();
 
 
 
         $productsInCart = $userCart->products;
         $quantityOfProduct = array();
+        $userCart->amount=0;
         foreach ($productsInCart as $product) {
+
             $quantityOfProduct[$product->id] = $userCart->products->find($product->id)->pivot->quantity;
+            $userCart->amount+=($product->price*$quantityOfProduct[$product->id]);
+
         }
 
+        if($user->cart->discount && $user->cart->discount->valid){
+            $user->cart->amount*=(1-($user->cart->discount->amount/100));
+            $user->cart->save();
+        }
         $userAddresses = $user->addresses;
 
         return view('prepareOrder', compact('productsInCart', 'quantityOfProduct', 'userAddresses', 'categories'));
@@ -86,12 +95,16 @@ class OrderController extends Controller
                         $totalProduct = $product->price * $quantity;
                 
                         $newOrder->products()->attach($value, ['quantity' => $quantity]);
-                        $newOrder->total += $totalProduct;
+                     
                     }
                 }
-                
+                $newOrder->total=$user->cart->amount;
 
                 $newOrder->save();
+
+                $user->cart->offer=null;
+                $user->cart->save;
+
 
                 // Enviar el correo electrónico
                 Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));

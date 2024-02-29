@@ -94,6 +94,20 @@ class CartController extends Controller
         return redirect('/');
     }
 
+    public function addQuantity($id){
+        $user = Auth::user();
+        $cartProduct = $user->cart->products->find($id);
+        $cartProduct->pivot->update(['quantity'=>   $cartProduct->pivot->quantity+1]);
+        return redirect()->back();
+    }
+ public function substractQuantity($id){
+    $user = Auth::user();
+    $cartProduct = $user->cart->products->find($id);
+    $cartProduct->pivot->update(['quantity'=>   $cartProduct->pivot->quantity-1]);
+    return redirect()->back();
+    }
+
+
     public function buy($userCart)
     {
         $user = Auth::user();

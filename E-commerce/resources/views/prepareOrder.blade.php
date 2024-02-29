@@ -200,13 +200,11 @@
                                     <div class="row justify-content-center align-items-center g-2 mb-2">
                                         <div class="input-group">
                                             <input type="text" name="idProduct_{{ $product->id }}" value="{{ $product->id }}" hidden>
-                                            <button type="button" onclick="subtract('{{ $product->id }}', {{ $product->price }})"
-                                                    class="btn btn-light btn-outline-secondary rounded-start-pill">-</button>
+                                            <a href="{{route('cart.substract', $product->id )}}"><button type="button" class="btn btn-light btn-outline-secondary rounded-start-pill">-</button></a>
                                             <input type="text" class="form-control" name="quantity_{{ $product->id }}" id="quantity_{{ $product->id }}"
                                                    aria-describedby="helpId" placeholder="{{ $quantityOfProduct[$product->id] }}"
                                                    value="{{ $quantityOfProduct[$product->id] }}" readonly />
-                                            <button type="button" onclick="add('{{ $product->id }}', {{ $product->price }})"
-                                                    class="btn btn-secondary rounded-end-pill">+</button>
+                                            <a href="{{route('cart.add',$product->id )}}"><button type="button" class="btn btn-secondary rounded-end-pill">+</button></a>
                                         </div>
 
 
@@ -242,8 +240,28 @@
 
             </div>
         </form>
+        
+    <div>
+        <form method="POST" action="{{ route('discount.checkDiscount') }}">
+            @csrf
+      <div class="mb-3">
 
-
+        <label for="" class="form-label">Codigo descuento</label>
+        <input
+            type="text"
+            name="discount"
+            id=""
+            class="form-control"
+            placeholder="Código descuento"
+            
+        />
+        <div class="row justify-content-center align-items-center g-2">
+            <button class="btn btn-success mt-3 col-12" name="action" value="buy"
+                type="submit">Aplicar descuento</button>
+        </div>
+      </div>
+      </form>
+    </div>
 
 
 

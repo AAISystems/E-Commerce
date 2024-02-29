@@ -44,6 +44,10 @@ class Product extends Model
         return $this->belongsToMany(Wishlist::class);
     }
     
+    public function discount()
+    {
+        return $this->belongsTo(Discount::class, 'offer');
+    }
 
 
 

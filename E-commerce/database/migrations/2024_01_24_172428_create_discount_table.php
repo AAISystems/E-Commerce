@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //Esta incompleta 
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->float("amount")->nullable();
-            $table->integer("total_products")->nullable();
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->string('code')->nullable();
+            $table->integer('amount');
+            $table->date('validUntil');
+            $table->boolean('valid');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('discounts');
     }
 };

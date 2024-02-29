@@ -2,3 +2,17 @@
     transform: scale(1.1); /* Ajusta el valor según tu preferencia para el nivel de zoom */
     transition: transform 0.3s ease-in-out;
 }
+.card-img-top{
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.category:hover{
+    transform: scale(1.05); /* Ajusta el valor según tu preferencia para el nivel de zoom */
+    transition: transform 0.3s ease-in-out;
+}
+
+.category{
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+}

@@ -10,6 +10,15 @@
 @section('content')
 <div class="container mt-5">
         <h2 class="fw-light mb-5">Editando perfil de: {{ $user->name }}</h2>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         
         <form action="{{ route('user.update', $user->id) }}" method="POST">
 
@@ -46,7 +55,10 @@
     </div>
 @endsection
 
-
+@section('script')
+ 
+    <script src="{{ asset('js/validation.js') }}"></script>
+@endsection
 
 
 @section('footer')

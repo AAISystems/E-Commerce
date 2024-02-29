@@ -44,7 +44,7 @@ class WishlistController extends Controller
         }
 
         $userWishlist->save();
-        return redirect('/')->with('success', 'Producto añadido a tu wishlist correctamente.');
+        return redirect()->back()->with('success', 'Producto añadido a tu wishlist correctamente.');
     }
 
 
@@ -79,6 +79,6 @@ class WishlistController extends Controller
         $products = $wishlist->products;
         $categories = Category::where('show', true)->get();
 
-        return view("Users.wishlist", compact("products",'categories'));
+        return view("Users.wishlist", compact("products",'categories','user'));
     }
 }

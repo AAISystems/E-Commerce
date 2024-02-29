@@ -10,4 +10,12 @@ return [
     
     
     ",
+    'CategoriesTitle'=>'Explora nuestras categorías',
+    'Sistemas operativos'=> 'Sistemas operativos',
+    'Ofimática'=> 'Ofimática',
+    'Edición de fotografía'=>'Edición de fotografía',
+    'Edición de vídeo'=> 'Edición de vídeo',
+    'Sistemas de gestión empresarial'=> 'Sistemas de gestión empresarial',
+    'Sistemas de gestión de personal'=> 'Sistemas de gestión de personal',
+
     ];

@@ -55,8 +55,13 @@
         <h3 class="fw-light">@lang('messages.CategoriesTitle')</h3>
         <div class="row justify-content-center align-items-center gap-3 mb-5 mt-3">
             @foreach ($categories as $category)
-                <a class="col-12 col-md-5 col-lg-3 shadow-sm rounded p-3 border text-decoration-none text-dark category"
-                    href="{{ route('category.products', $category) }}">@lang('messages.' . $category->name)</a>
+            @if (Lang::has('messages.' . $category->name))
+            <a class="col-12 col-md-5 col-lg-3 shadow-sm rounded p-3 border text-decoration-none text-dark category"
+                href="{{ route('category.products', $category) }}">@lang('messages.' . $category->name)</a>
+        @else 
+        <a class="col-12 col-md-5 col-lg-3 shadow-sm rounded p-3 border text-decoration-none text-dark category"
+        href="{{ route('category.products', $category) }}">{{$category->name}}</a>
+        @endif
             @endforeach
         </div>
         <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>

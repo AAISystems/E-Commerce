@@ -40,12 +40,7 @@
                     <div class="col-12">
 
                         <div class="btn-group" role="group" aria-label="Button group name">
-                            @if ($userAddresses->isNotEmpty())
-                                <button type="button" class="btn btn-outline-warning fw-light shadow-sm" id="registeredBtn"
-                                    value="false" onclick="registeredAddress()">
-                                    Direcciones registradas
-                                </button>
-                            @endif
+                           
                             <button type="button" class="btn btn-outline-warning fw-light shadow-sm" id='newAddressBtn'
                                 value="false" onclick="newAddress()">
                                 Insertar dirección
@@ -55,17 +50,7 @@
                     </div>
                     <div class="col-12 shadow-sm p-3" id="delivery">
                         <div id="registeredAddresses">
-                            @if ($userAddresses->isNotEmpty())
-                                <h4 class="fw-light mb-3">Direcciones registradas</h4>
-                                @foreach ($userAddresses as $address)
-                                    <div class="form-check">
-                                        <input class="form-check-input p-2" type="radio" name="inputAddress"
-                                            id="inputAddress" value="{{ $address->dataAddress }}" />
-                                        <label class="form-check-label" for=""> {{ $address->dataAddress }}
-                                        </label>
-                                    </div>
-                                @endforeach
-                            @endif
+                          
                         </div>
 
                         <div id="newAddress">

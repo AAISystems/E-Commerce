@@ -34,10 +34,10 @@ class ProductController extends Controller
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $imageName = $image->getClientOriginalName();
-                $image->storeAs('public/images', $imageName);
-
+                $image->move(public_path('img/products'), $imageName);
+        
                 $product->images()->create([
-                    'route' => 'images/' . $imageName,
+                    'route' => 'img/products/' . $imageName,
                     'product_id' => $product->id
                 ]);
             }

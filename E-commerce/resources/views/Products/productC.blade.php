@@ -70,8 +70,12 @@
                                 </p>
                                 <div class="d-flex">
                                     <!-- Precio del producto -->
-                                    <p class="fs-3 fw-light">{{ $product->price }} €</p>
-                                </div>
+                                    @if($product->discount && $product->discount->valid)
+                                    <p class="fs-6  fw-light text-danger"><del>{{ $product->price }} €</del></p>
+                                    <p class="fs-3  fw-light ">{{ $product->price*(1-($product->discount->amount/100)) }} €</p>
+                                    @else
+                                    <p class="fs-3  fw-light">{{ $product->price }} €</p>
+                                    @endif                                     </div>
                                 <!-- Botones de acción -->
                                 <div class="boton-group">
                                     <!-- Puedes agregar aquí los botones de acción si es necesario -->

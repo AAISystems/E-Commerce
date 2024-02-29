@@ -1,0 +1,39 @@
+/* Estilos adicionales */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.5rem;
+}
+
+.card-text {
+    font-size: 1rem;
+}
+
+.btn {
+    font-size: 0.9rem;
+    padding: 0.3rem 1rem;
+}
+
+.btn-warning {
+    background-color: #fcde84;
+    border-color: #ffc107;
+    color: #000000;
+}
+
+.btn-warning:hover {
+    background-color: #ffca28;
+    border-color: #ffca28;
+    color: #fff;
+}
+
+.card-title a {
+    text-decoration: none; /* Quita el subrayado del enlace */
+    color: blue; /* Mantén el color azul para el enlace */
+}
+
+.card-title a:hover {
+    text-decoration: underline; /* Agrega subrayado al pasar el mouse sobre el enlace */
+}

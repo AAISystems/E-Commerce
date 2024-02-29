@@ -16,7 +16,9 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->boolean('show');
+            $table->foreignId("offer")->nullable()->references("id")->on("discounts");
             $table->timestamps();
+
 
         });
     }

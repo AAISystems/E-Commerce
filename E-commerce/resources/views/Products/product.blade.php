@@ -6,6 +6,10 @@
 
 @section('title', $product->name . ' - AAISystems')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/categorystyle.css') }}">
+@endsection
+
 @section('content')
     <div class="container mt-5">
         <div class="row gap-2 ">

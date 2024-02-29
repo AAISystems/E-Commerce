@@ -39,6 +39,7 @@
 
                         <!-- Descripción del producto -->
                         <p class="card-text">
+                            @if ($product->categories->isNotEmpty())
 
                             @switch($product->categories->first()->id)
                                 @case(1)
@@ -65,7 +66,9 @@
                                     <span class="badge text-bg-secondary fw-normal">{{ $product->categories->first()->name }}</span>
                                 @break
                             @endswitch
-
+                            @else
+                            <span class="badge bg-danger fw-normal">(sin categoría)</span>
+                        @endif
                         </p>
                         <div class="d-flex">
                             <!-- Stock del producto -->
@@ -73,7 +76,9 @@
 
                             @if($product->discount && $product->discount->valid)
                             <p class="fs-6  fw-light text-danger"><del>{{ $product->price }} €</del></p>
-                            <p class="fs-3  fw-light ">{{ $product->price*(1-($product->discount->amount/100)) }} €</p>
+                            <p class="fs-3 fw-light">
+                                {{ number_format($product->price * (1 - $product->discount->amount / 100), 2,  '.') }} €
+                            </p>
                             @else
                             <p class="fs-3  fw-light">{{ $product->price }} €</p>
                             @endif

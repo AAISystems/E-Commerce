@@ -43,6 +43,19 @@
             <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
         </div>
 
+        <!-- Espacio para añadir las categorías a la hora de crear los productos-->
+
+           <div class="mb-3">
+                <label for="categories" class="form-label">Categorías</label>
+                <select id="categories" name="categories[]" class="form-select" multiple>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ $product->categories->contains($category->id) ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div> 
+
 
         <button type="submit" class="btn btn-primary">Crear Producto</button>
     </form>

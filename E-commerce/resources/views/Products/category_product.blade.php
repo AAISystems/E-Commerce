@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container mt-3">
-        <h1 class="text-center mb-4">Productos de la categoría {{ $category->name }}</h1>
+        <h1 class="text-center mb-4">Productos de la categoría{{ $category->name }}</h1>
 
         <div class="row justify-content-center">
             @foreach ($products as $product)

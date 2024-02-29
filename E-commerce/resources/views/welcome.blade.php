@@ -49,13 +49,14 @@
         <div class="container">
             <h1 class="display-5 text-center">AAISystems</h1>
         </div>
-        
+
         <p class="fw-light mb-4">@lang('messages.InfoEmpresa')</p>
 
         <h3 class="fw-light">@lang('messages.CategoriesTitle')</h3>
         <div class="row justify-content-center align-items-center gap-3 mb-5 mt-3">
             @foreach ($categories as $category)
-               <a class="col-12 col-md-5 col-lg-3 shadow-sm rounded p-3 border text-decoration-none text-dark category" href="{{route('category.products',$category)}}">@lang('messages.' . $category->name)</a> 
+                <a class="col-12 col-md-5 col-lg-3 shadow-sm rounded p-3 border text-decoration-none text-dark category"
+                    href="{{ route('category.products', $category) }}">@lang('messages.' . $category->name)</a>
             @endforeach
         </div>
         <h2 class="fw-light mb-4">@lang('messages.SuperVentas')</h2>
@@ -87,45 +88,45 @@
 
                             <!-- Descripción del producto -->
                             <p class="card-text">
+                                @if ($product->categories->isNotEmpty())
+                                    @switch($product->categories->first()->id)
+                                        @case(1)
+                                            <span class="badge text-bg-info fw-normal">@lang('messages.' . $product->categories->first()->name)</span>
+                                        @break
 
-                                @switch($product->categories->first()->id)
-                                    @case(1)
-                                        <span class="badge text-bg-info fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
-                                    @break
+                                        @case(2)
+                                            <span class="badge text-bg-success fw-normal">@lang('messages.' . $product->categories->first()->name)</span>
+                                        @break
 
-                                    @case(2)
-                                        <span
-                                            class="badge text-bg-success fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
-                                    @break
+                                        @case(3)
+                                            <span class="badge text-bg-dark fw-normal">@lang('messages.' . $product->categories->first()->name)</span>
+                                        @break
 
-                                    @case(3)
-                                        <span class="badge text-bg-dark fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
-                                    @break
+                                        @case(4)
+                                            <span class="badge text-bg-warning fw-normal">@lang('messages.' . $product->categories->first()->name)</span>
+                                        @break
 
-                                    @case(4)
-                                        <span
-                                            class="badge text-bg-warning fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
-                                    @break
+                                        @case(5)
+                                            <span class="badge text-bg-danger fw-normal">@lang('messages.' . $product->categories->first()->name)</span>
+                                        @break
 
-                                    @case(5)
-                                        <span
-                                            class="badge text-bg-danger fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
-                                    @break
-
-                                    @case(6)
-                                        <span
-                                            class="badge text-bg-secondary fw-normal">@lang('messages.' . $product->categories->first()->name )</span>
-                                    @break
-                                @endswitch
-
+                                        @case(6)
+                                            <span class="badge text-bg-secondary fw-normal">@lang('messages.' . $product->categories->first()->name)</span>
+                                        @break
+                                    @endswitch
+                                @else
+                                    <span class="badge bg-danger fw-normal">(sin categoría)</span>
+                                @endif
                             </p>
                             <div class="d-flex">
                                 <!-- Stock del producto -->
-                                @if($product->discount && $product->discount->valid)
-                                <p class="fs-6  fw-light text-danger"><del>{{ $product->price }} €</del></p>
-                                <p class="fs-3  fw-light ">{{ $product->price*(1-($product->discount->amount/100)) }} €</p>
+                                @if ($product->discount && $product->discount->valid)
+                                    <p class="fs-6  fw-light text-danger"><del>{{ $product->price }} €</del></p>
+                                    <p class="fs-3 fw-light">
+                                        {{ number_format($product->price * (1 - $product->discount->amount / 100), 2,  '.') }} €
+                                    </p>
                                 @else
-                                <p class="fs-3  fw-light">{{ $product->price }} €</p>
+                                    <p class="fs-3  fw-light">{{ $product->price }} €</p>
                                 @endif
 
                                 <form
@@ -157,14 +158,17 @@
                                 <div class="row justify-content-center align-items-center gap-2">
                                     <div class="container col-6">
                                         <div class="input-group">
-                                            <input type="text" name="idProduct_{{ $product->id }}" value="{{ $product->id }}" hidden>
-                                            <button type="button" onclick="subtract('{{ $product->id }}', {{ $product->price }})"
-                                                    class="btn btn-light btn-outline-secondary rounded-start-pill">-</button>
-                                            <input type="text" class="form-control" name="inputQuantity" id="quantity_{{ $product->id }}"
-                                                   aria-describedby="helpId" placeholder="1"
-                                                   value="1" readonly />
-                                            <button type="button" onclick="add('{{ $product->id }}', {{ $product->price }})"
-                                                    class="btn btn-secondary rounded-end-pill">+</button>
+                                            <input type="text" name="idProduct_{{ $product->id }}"
+                                                value="{{ $product->id }}" hidden>
+                                            <button type="button"
+                                                onclick="subtract('{{ $product->id }}', {{ $product->price }})"
+                                                class="btn btn-light btn-outline-secondary rounded-start-pill">-</button>
+                                            <input type="text" class="form-control" name="inputQuantity"
+                                                id="quantity_{{ $product->id }}" aria-describedby="helpId" placeholder="1"
+                                                value="1" readonly />
+                                            <button type="button"
+                                                onclick="add('{{ $product->id }}', {{ $product->price }})"
+                                                class="btn btn-secondary rounded-end-pill">+</button>
                                         </div>
 
                                     </div>
@@ -189,7 +193,7 @@
             @endforeach
 
         </div>
-        
+
 
 
 

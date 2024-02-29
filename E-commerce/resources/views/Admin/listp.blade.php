@@ -15,7 +15,7 @@
 @section('title', 'Lista de Productos')
 
 @section('content')
-<div class="container mt-5 shadow-sm"> <!-- Añade un margen superior al contenedor del formulario y una sombra suave -->
+<div class="container mt-5 shadow"> <!-- Añade un margen superior al contenedor del formulario y una sombra suave -->
     <h1>Creación del producto:</h1>
 
     <div class="row justify-content-center align-items-center g-2">
@@ -71,13 +71,15 @@
                             <div class="invalid-feedback">Por favor, selecciona al menos una categoría.</div>
                         </div>
 
-                        <button type="submit" class="btn btn-warning fw-light p-2 button">Crear Producto</button>
+                        <button type="submit" class="btn btn-warning fw-light p-2 button mb-3">Crear Producto</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
 
   
 
@@ -143,8 +145,12 @@
                             </p>
                             <div class="d-flex">
                                 <!-- Precio del producto -->
-                                <p class="fs-3 fw-light">{{ $product->price }} €</p>
-                            </div>
+                                @if($product->discount && $product->discount->valid)
+                                <p class="fs-6  fw-light text-danger"><del>{{ $product->price }} €</del></p>
+                                <p class="fs-3  fw-light ">{{ $product->price*(1-($product->discount->amount/100)) }} €</p>
+                                @else
+                                <p class="fs-3  fw-light">{{ $product->price }} €</p>
+                                @endif                            </div>
                             <!-- Estado del producto -->
                             <p class="@if ($product->show) text-success @else text-danger @endif">
                                 Este producto está @if ($product->show)

@@ -5,7 +5,7 @@
 
 <div class="container log">
     <div class="row justify-content-center">
-        <div class="col-md-8 presentation ">
+        <div class="col-md-8 presentation shadow border">
 
          
                         
@@ -56,13 +56,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="  login-button">
+                        <div class="d-flex justify-content-center">
+                    
+                            <button type="submit" class="  btn btn-warning  shadow-sm p-2">
                                     {{ __('Acceder') }}
                                 </button>
 
-                            </div>
+                            
                         </div>
                         <div class="text-center mt-3">
                         @if (Route::has('password.request'))

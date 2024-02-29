@@ -2,7 +2,7 @@
 @section('content')
 <div class="container log">
     <div class="row justify-content-center">
-        <div class="col-md-8 presentation">
+        <div class="col-md-8 presentation shadow border">
            
                 <div class="borde border-0 text-center display-4"><h2>{{ __('Regístrate en AAI') }}</h2></div>
                 <div class="img-fluid  space "><img   src="{{ asset('img/lavandaResize.png') }}" alt="Foto del logo AAI Systems" height="100" ></div>
@@ -60,13 +60,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="  login-button">
+                       
+                            <div class="d-flex justify-content-center">
+                              <button type="submit" class="  btn btn-warning  shadow-sm p-2">
                                     {{ __('Registrarme') }}
                                 </button>
                             </div>
-                        </div>
+                    
                     </form>
               
             

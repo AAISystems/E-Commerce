@@ -102,6 +102,10 @@ class OrderController extends Controller
 
                 $newOrder->save();
 
+                $user->cart->offer=null;
+                $user->cart->save;
+
+
                 // Enviar el correo electrónico
                 Mail::to($user->email)->send(new OrderPlaced($user, $newOrder));
 

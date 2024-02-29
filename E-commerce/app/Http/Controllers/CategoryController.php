@@ -136,7 +136,7 @@ class CategoryController extends Controller
     {
 
         $user = Auth::user();
-        $products = $category->products()->paginate(10);
+        $products = $category->products()->where('show',true)->paginate(10);
         $categories = Category::where('show', true)->get();
 
         

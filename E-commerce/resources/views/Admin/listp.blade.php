@@ -15,73 +15,75 @@
 @section('title', 'Lista de Productos')
 
 @section('content')
-<div class="container mt-5 shadow"> <!-- Añade un margen superior al contenedor del formulario y una sombra suave -->
-    <h1>Creación del producto:</h1>
+    <div class="container mt-5 shadow"> <!-- Añade un margen superior al contenedor del formulario y una sombra suave -->
+        <h1>Creación del producto:</h1>
 
-    <div class="row justify-content-center align-items-center g-2">
-        <div class="col-12 col-md-6 col-lg-6">
+        <div class="row justify-content-center align-items-center g-2">
+            <div class="col-12 col-md-6 col-lg-6">
 
-            <form id="productForm" action="{{ route('product.update') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="row">
-                    <!-- Columna izquierda -->
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nombre del Producto</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                            <div class="invalid-feedback">Por favor, introduce un nombre válido.</div>
+                <form id="productForm" action="{{ route('product.update') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <!-- Columna izquierda -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nombre del Producto</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback">Por favor, introduce un nombre válido.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Descripción del Producto</label>
+                                <textarea class="form-control" id="description" name="description" required></textarea>
+                                <div class="invalid-feedback">Por favor, introduce una descripción válida.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="images" class="form-label">Imágenes del Producto</label>
+                                <input type="file" class="form-control" id="images" name="images[]" multiple
+                                    accept="image/*" required>
+                                <div class="invalid-feedback">Por favor, selecciona al menos una imagen.</div>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Descripción del Producto</label>
-                            <textarea class="form-control" id="description" name="description" required></textarea>
-                            <div class="invalid-feedback">Por favor, introduce una descripción válida.</div>
-                        </div>
+                        <!-- Columna derecha -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Precio</label>
+                                <input type="number" class="form-control" id="price" name="price" step="0.01"
+                                    required>
+                                <div class="invalid-feedback">Por favor, introduce un precio válido.</div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="images" class="form-label">Imágenes del Producto</label>
-                            <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*" required>
-                            <div class="invalid-feedback">Por favor, selecciona al menos una imagen.</div>
+                            <div class="mb-3">
+                                <label for="stock" class="form-label">Stock</label>
+                                <input type="number" class="form-control" id="stock" name="stock" required>
+                                <div class="invalid-feedback">Por favor, introduce una cantidad válida de stock.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="categories" class="form-label">Categorías</label>
+                                <select id="categories" name="categories[]" class="form-select" multiple required>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">Por favor, selecciona al menos una categoría.</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-warning fw-light p-2 button mb-3">Crear Producto</button>
                         </div>
                     </div>
-
-                    <!-- Columna derecha -->
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="price" class="form-label">Precio</label>
-                            <input type="number" class="form-control" id="price" name="price" step="0.01" required>
-                            <div class="invalid-feedback">Por favor, introduce un precio válido.</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="stock" class="form-label">Stock</label>
-                            <input type="number" class="form-control" id="stock" name="stock" required>
-                            <div class="invalid-feedback">Por favor, introduce una cantidad válida de stock.</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="categories" class="form-label">Categorías</label>
-                            <select id="categories" name="categories[]" class="form-select" multiple required>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback">Por favor, selecciona al menos una categoría.</div>
-                        </div>
-
-                        <button type="submit" class="btn btn-warning fw-light p-2 button mb-3">Crear Producto</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 
 
-  
+
 
 
     <div class="container mt-5"> <!-- Añade un margen superior al contenedor de la lista de productos -->
@@ -145,12 +147,17 @@
                             </p>
                             <div class="d-flex">
                                 <!-- Precio del producto -->
-                                @if($product->discount && $product->discount->valid)
-                                <p class="fs-6  fw-light text-danger"><del>{{ $product->price }} €</del></p>
-                                <p class="fs-3  fw-light ">{{ $product->price*(1-($product->discount->amount/100)) }} €</p>
+
+                                @if ($product->discount && $product->discount->valid)
+                                    <p class="fs-6  fw-light text-danger"><del>{{ $product->price }} €</del></p>
+                                    <p class="fs-3 fw-light">
+                                        {{ number_format($product->price * (1 - $product->discount->amount / 100), 2, '.') }}
+                                        €
+                                    </p>
                                 @else
-                                <p class="fs-3  fw-light">{{ $product->price }} €</p>
-                                @endif                            </div>
+                                    <p class="fs-3  fw-light">{{ $product->price }} €</p>
+                                @endif
+                            </div>
                             <!-- Estado del producto -->
                             <p class="@if ($product->show) text-success @else text-danger @endif">
                                 Este producto está @if ($product->show)
@@ -163,12 +170,12 @@
                                 <a href="{{ route('product.edit', ['id' => $product->id]) }}">
                                     <button class="boton">
                                         <img src="{{ asset('img/editar.svg') }}" alt="">
-                                    </button>                                </a>
+                                    </button> </a>
                                 @if ($product->show)
                                     <a href="{{ route('product.delete', ['id' => $product->id]) }}">
                                         <button class="boton">
                                             <img src="{{ asset('img/ojoOculto.svg') }}" alt="">
-                                        </button>                                     </a>
+                                        </button> </a>
                                 @else
                                     <a href="{{ route('product.delete', ['id' => $product->id]) }}">
                                         <img src="{{ asset('img/ojoMostrar.svg') }}" alt="">

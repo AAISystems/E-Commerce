@@ -57,16 +57,19 @@
                                     <form action="{{ route('category.delete', $category->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger me-2">Eliminar</button>
+                                        <button type="submit" class="btn btn-sm btn-danger me-2">                                        <img src="{{ asset('img/ojoMostrar.svg') }}" alt="">
+                                        </button>
                                     </form>
                                 @else
                                     <form action="{{ route('category.activate', $category->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-success me-2">Activar</button>
+                                        <button type="submit" class="btn btn-sm btn-success me-2">                                            <img src="{{ asset('img/ojoOculto.svg') }}" alt="">
+                                        </button>
                                     </form>
                                 @endif
                                 <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn btn-sm btn-warning me-2">
-                                    <i class="bi bi-pencil"></i> Editar
+                                    <i class="bi bi-pencil"></i>         <img src="{{ asset('img/editar.svg') }}" alt="Editar Producto">
+
                                 </a>
                             </div>
                         </div>

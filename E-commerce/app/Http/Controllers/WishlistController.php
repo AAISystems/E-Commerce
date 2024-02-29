@@ -78,7 +78,8 @@ class WishlistController extends Controller
 
         $products = $wishlist->products;
         $categories = Category::where('show', true)->get();
+        $productsInCart=$user->cart->products;
 
-        return view("Users.wishlist", compact("products",'categories','user'));
+        return view("Users.wishlist", compact("products",'categories','user','productsInCart'));
     }
 }

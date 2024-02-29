@@ -89,7 +89,7 @@ Route::post('/category/{id}/activate', [CategoryController::class, 'activate'])-
 
 Route::post('/lang/{locale}', [LanguageController::class, 'switchLanguage'])->name('lang.switch');
 
-
+Route::get('user_data', [UserController::class, 'seeData'])->name('user.data');
 
 Route::post('profile_update', [ UserController::class, 'update' ]) -> name('user.update'); 
 Route::get('user/profile', [ UserController::class, 'edit' ]) -> name('user.edit');

@@ -253,26 +253,17 @@
             </div>
         </form>
         
-    <div>
-        <form method="POST" action="{{ route('discount.checkDiscount') }}">
-            @csrf
-      <div class="mb-3">
-
-        <label for="" class="form-label">Codigo descuento</label>
-        <input
-            type="text"
-            name="discount"
-            id=""
-            class="form-control"
-            placeholder="Código descuento"
-            
-        />
-        <div class="row justify-content-center align-items-center g-2">
-            <button class="btn btn-success mt-3 col-12" name="action" value="buy"
-                type="submit">Aplicar descuento</button>
+        <div class="col-md-6 ">
+            <h2 class="fw-light">Descuentos</h2>
+            <p>Introduce tu código descuento</p>
+            <form method="POST" action="{{ route('discount.checkDiscount') }}">
+                @csrf
+                <div class="col-6 d-flex align-items-center">
+                    <input type="text" name="discount" id="" class="form-control" placeholder="Código descuento" />
+                    <button class="btn btn-success ms-2" name="action" value="buy" type="submit">Aplicar</button>
+                </div>
+            </form>
         </div>
-      </div>
-      </form>
     </div>
 
 
